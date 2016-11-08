@@ -156,6 +156,7 @@ function initializeCard(card, p, newKey) {
     card.nullified = 0;
     card.poisoned = 0;
     card.scorched = 0;
+    card.corroded = 0;
     card.enfeebled = 0;
     card.protected = 0;
     card.barrier_ice = 0;
@@ -310,11 +311,13 @@ var makeUnit = (function () {
         attack_rally: 0,
         attack_weaken: 0,
         attack_corroded: 0,
+        corrosion_timer: 0,
         // Other Statuses
         // Statuses
         nullified: 0,
         poisoned: 0,
         scorched: 0,
+        corroded: 0,
         enfeebled: 0,
         protected: 0,
         enhanced: 0,
@@ -330,11 +333,13 @@ var makeUnit = (function () {
                 this.attack_rally = 0;
                 this.attack_weaken = 0;
                 this.attack_corroded = 0;
+                this.corrosion_timer = 0;
                 this.attack_berserk = 0;
                 this.attack_valor = 0;
                 this.nullified = 0;
                 this.poisoned = 0;
                 this.scorched = 0;
+                this.corroded = 0;
                 this.enfeebled = 0;
                 this.protected = 0;
                 this.barrier_ice = 0;
@@ -409,6 +414,22 @@ var makeUnit = (function () {
                     if (!this.isAlive()) echo += ' and it dies';
                     else if (!this.scorched) echo += ' and scorch wears off';
                     echo += '<br>';
+                }
+            }
+
+            var corroded = this.corroded;
+            if (corroded) {
+                if (corroded.timer > 1) {
+                    scorch.timer--;
+                    var amount = Math.min(corroded.amount, this.permanentAttack());
+                    this.attack_corroded = amount
+                    echo += debug_name(this) + ' is corroded by ' + amount + '<br/>';
+                } else {
+                    this.corroded = 0;
+                    this.attack_corroded = 0;
+                    if (debug) {
+                        echo += 'corrosion on ' + debug_name(this) + ' wears off<br/>';
+                    }
                 }
             }
         },
@@ -619,7 +640,7 @@ var makeUnit = (function () {
         },
 
         permanentAttack: function () {
-            return (this.attack + this.attack_berserk);
+            return (this.attack + this.attack_berserk + this.attack_valor);
         },
 
         // Filters by faction
@@ -689,34 +710,6 @@ var makeUnit = (function () {
 
         return card;
     });
-
-    function addRunesToSkills(skills, runes) {
-        if (!runes) return;
-        for (var i = 0, len = runes.length; i < len; i++) {
-            var runeID = runes[i].id;
-            var statBoost = RUNES[runeID].stat_boost;
-            for (var key in statBoost) {
-                var boost = statBoost[key];
-                if (key == "skill") {
-                    var skillID = boost.id;
-                    var amount = boost.x;
-                    var mult = boost.mult;
-                    for (var s = 0; s < skills.length; s++) {
-                        var skill = skills[s];
-                        if (skill.id == skillID && (skill.all || 0) == (boost.all || 0)) {
-                            skill = copy_skill(skill);
-                            if (!amount && mult) amount = Math.ceil(skill.x * mult);
-                            if (amount) skill.x += parseInt(amount);
-                            if (boost.c) skill.c -= parseInt(boost.c);
-                            skill.boosted = true;
-                            skills[s] = skill;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-    }
 }());
 
 
@@ -749,6 +742,34 @@ var addRunes = function (card, runes) {
         }
     }
 };
+
+function addRunesToSkills(skills, runes) {
+    if (!runes) return;
+    for (var i = 0, len = runes.length; i < len; i++) {
+        var runeID = runes[i].id;
+        var statBoost = RUNES[runeID].stat_boost;
+        for (var key in statBoost) {
+            var boost = statBoost[key];
+            if (key == "skill") {
+                var skillID = boost.id;
+                var amount = boost.x;
+                var mult = boost.mult;
+                for (var s = 0; s < skills.length; s++) {
+                    var skill = skills[s];
+                    if (skill.id == skillID && (skill.all || 0) == (boost.all || 0)) {
+                        skill = copy_skill(skill);
+                        if (!amount && mult) amount = Math.ceil(skill.x * mult);
+                        if (amount) skill.x += parseInt(amount);
+                        if (boost.c) skill.c -= parseInt(boost.c);
+                        skill.boosted = true;
+                        skills[s] = skill;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
 
 var getRune = function (rune_id) {
     return RUNES[rune_id];
@@ -1991,10 +2012,7 @@ function get_skills(id, level) {
 
 function get_card_by_id(unit, skillModifiers) {
 
-    var unitKey = unit.id + "-" + unit.level;
-    if (unit.runes.length) {
-        unitKey += "-" + unit.runes[0].id;
-    }
+    var unitKey = makeUnitKey(unit);
     var cached = card_cache[unitKey];
     if (cached) {
         cached = cloneCard(cached);
@@ -2077,8 +2095,16 @@ function get_slim_card_by_id(unit, getDetails) {
                     if (key == new_card.level) break;
                 }
             }
+
+            var runes = unit.runes;
+            if (runes) {
+                new_card.skill = new_card.skill.slice();
+                addRunes(new_card, runes);
+                addRunesToSkills(new_card.skill, runes);
+            }
         }
     }
+
     return new_card;
 }
 
@@ -2135,6 +2161,14 @@ function get_card_name_by_id(id) {
 function is_commander(id) {
     var card = loadCard(id);
     return (card && card.card_type == '1');
+}
+
+var makeUnitKey = function (unit) {
+    var unitKey = unit.id + "_" + unit.level;
+    if (unit.runes && unit.runes.length) {
+        unitKey += "_" + unit.runes[0].id;
+    }
+    return unitKey;
 }
 
 function makeUnitInfo(id, level, runes) {

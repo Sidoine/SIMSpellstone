@@ -176,6 +176,16 @@ var CARD_GUI = {};
         }
     }
 
+    function addWeight(htmlCard, weight) {
+        if (weight > 0) {
+            var weightDiv = createDiv("weight", (weight * 100).toFixed(2) + "%");
+            weightDiv.setAttribute("data-count", weight);
+            var weightIcon = createImg(getAssetPath("cardAssets") + "multiplier.png", "weight");
+            htmlCard.appendChild(weightIcon);
+            htmlCard.appendChild(weightDiv);
+        }
+    }
+
     function createItemHTML(name, quantity, image) {
         var htmlCard = createDiv("card item");
 
@@ -602,6 +612,7 @@ var CARD_GUI = {};
     CARD_GUI.draw_hand = draw_hand;
     CARD_GUI.createItemHTML = createItemHTML;
     CARD_GUI.addMult = addMult;
+    CARD_GUI.addWeight = addWeight;
 
     Object.defineProperties(CARD_GUI, {
         assetsRoot: {
