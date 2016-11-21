@@ -13,9 +13,25 @@ var SIMULATOR = {};
         var newKey = field_p_assaults.length;
         initializeCard(card, p, newKey);
 
-        field_p_assaults[newKey] = card;
+        if (card.isAssault()) {
+            field_p_assaults[newKey] = card;
+        }
 
         if ((debug || play_debug) && !quiet) echo += debug_name(field[p].commander) + ' plays ' + debug_name(card) + '<br>';
+
+        if (card.isTrap()) {
+            doEarlyActivationSkills(card);
+            activation_skills(card);
+        } else {
+            // Activate trap battlegrounds
+            for (var i = 0; i < battlegrounds.onCardPlayed.length; i++) {
+                var battleground = battlegrounds.onCardPlayed[i];
+                if (battleground.enemy_only && p != 'cpu') continue;
+                battleground.owner = p;
+                var o = (p === 'player' ? 'cpu' : 'player');
+                battleground.onCardPlayed(card, deck[p].deck, deck[o].deck);
+            }
+        }
     };
 
     // Dead cards are removed from both fields. Cards on both fields all shift over to the left if there are any gaps.
@@ -107,6 +123,16 @@ var SIMULATOR = {};
         var field_p_assaults = field_p.assaults;
         for (var unit_key = 0, unit_len = field_p_assaults.length; unit_key < unit_len; unit_key++) {
             var current_unit = field_p_assaults[unit_key];
+
+            // Check for Dualstrike
+            var dualstrike = current_unit.flurry;
+            if (dualstrike && dualstrike.countdown === 0) {
+                if (current_unit.isActive() && current_unit.hasAttack() && !current_unit.jammed) {
+                    dualstrike.countdown = dualstrike.c;
+                    current_unit.dualstrike_triggered = true;
+                }
+            }
+
             if (current_unit.earlyActivationSkills.length && current_unit.isActive() && current_unit.isUnjammed()) {
                 doEarlyActivationSkills(current_unit);
             }
@@ -118,29 +144,22 @@ var SIMULATOR = {};
         var len = skills.length;
         if (len == 0) return;
 
-        var dualStrike = (source_card.flurry && !source_card.flurry.countdown);
-        if (dualStrike && !source_card.hasAttack()) {
-            source_card.flurry.countdown++
-            dualStrike = false;
-        }
-        if (debug && dualStrike) {
+        var dualstrike = source_card.dualstrike_triggered;
+        if (debug && dualstrike) {
             // var main attack loop deal with resetting timer
             echo += debug_name(source_card) + ' activates dualstrike<br>';
         }
 
-        for (var i = 0; i < len; i++) {
-            var skill = skills[i];
-            if (skill.c) {
-                if (skill.countdown) {
-                    skill.countdown--;
-                    continue;
-                } else {
-                    skill.countdown = skill.c - 1;
+        var activations = (dualstrike ? 2 : 1);
+        for (var a = 0; a < activations; a++) {
+            for (var i = 0; i < len; i++) {
+                var skill = skills[i];
+                if (!skill.countdown) {
+                    var affected = earlyActivationSkills[skill.id](source_card, skill);
+                    if (skill.c && affected > 0) {
+                        skill.countdown = skill.c;
+                    }
                 }
-            }
-            earlyActivationSkills[skill.id](source_card, skill);
-            if (dualStrike) {
-                earlyActivationSkills[skill.id](source_card, skill);
             }
         }
     };
@@ -152,7 +171,7 @@ var SIMULATOR = {};
         // - Targets allied assaults
         // - Can be enhanced
         protect_ice: function (src_card, skill) {
-            activationSkills.protect(src_card, skill, true);
+            return activationSkills.protect(src_card, skill, true);
         },
         protect: function (src_card, skill, ice) {
 
@@ -176,7 +195,7 @@ var SIMULATOR = {};
             }
 
             // No Targets
-            if (!targets.length) return;
+            if (!targets.length) return 0;
 
             // Check All
             if (all) {
@@ -192,8 +211,12 @@ var SIMULATOR = {};
                 }
             }
 
+            var affected = 0;
+
             for (var key = 0, len = targets.length; key < len; key++) {
                 var target = field_p_assaults[targets[key]];
+
+                affected++;
 
                 // Check Nullify
                 if (target.nullified) {
@@ -211,6 +234,8 @@ var SIMULATOR = {};
                     echo += debug_name(src_card) + ' barriers ' + debug_name(target) + ' by ' + protect + '<br>';
                 }
             }
+
+            return affected;
         },
 
         // Heal
@@ -240,7 +265,7 @@ var SIMULATOR = {};
             }
 
             // No Targets
-            if (!targets.length) return;
+            if (!targets.length) return 0;
 
             // Check All
             if (all) {
@@ -256,8 +281,12 @@ var SIMULATOR = {};
                 }
             }
 
+            var affected = 0;
+
             for (var key = 0, len = targets.length; key < len; key++) {
                 var target = field_p_assaults[targets[key]];
+
+                affected++;
 
                 // Check Nullify
                 if (target.nullified) {
@@ -279,6 +308,8 @@ var SIMULATOR = {};
                     echo += debug_name(src_card) + ' heals ' + debug_name(target) + ' by ' + heal_amt + '<br>';
                 }
             }
+
+            return affected;
         },
 
         // Strike (Bolt)
@@ -288,7 +319,7 @@ var SIMULATOR = {};
         // - Must calculate enfeeble/protect
         // - Can be enhanced
         poisonstrike: function (src_card, skill, poison) {
-            activationSkills.strike(src_card, skill, true);
+            return activationSkills.strike(src_card, skill, true);
         },
         strike: function (src_card, skill, poison) {
 
@@ -310,7 +341,7 @@ var SIMULATOR = {};
             }
 
             // No Targets
-            if (!targets.length) return;
+            if (!targets.length) return 0;
 
             // Check All
             if (!all) {
@@ -325,6 +356,8 @@ var SIMULATOR = {};
                 strike += enhanced;
             }
 
+            var affected = 0;
+
             for (var key = 0, len = targets.length; key < len; key++) {
                 var target = field_x_assaults[targets[key]];
 
@@ -334,6 +367,8 @@ var SIMULATOR = {};
                     if (debug) echo += debug_name(src_card) + ' bolts ' + debug_name(target) + ' but it is invisible!<br>';
                     continue;
                 }
+
+                affected++;
 
                 var strike_damage = strike;
 
@@ -383,6 +418,8 @@ var SIMULATOR = {};
                     iceshatter(target);
                 }
             }
+
+            return affected;
         },
 
         // Jam (Freeze)
@@ -413,13 +450,13 @@ var SIMULATOR = {};
 
             // No Targets
             if (!targets.length) {
-                // No targets - retry next turn
-                if (skill.c) skill.countdown = 0;
-                return;
+                return 0;
             }
 
             // Check All
             if (!all) targets = choose_random_target(targets);
+
+            var affected = 0;
 
             for (var key = 0, len = targets.length; key < len; key++) {
                 var target = field_x_assaults[targets[key]];
@@ -433,9 +470,13 @@ var SIMULATOR = {};
                     continue;
                 }
 
+                affected++;
+
                 target.jammed = true;
                 if (debug) echo += debug_name(src_card) + ' freezes ' + debug_name(target) + '<br>';
             }
+
+            return affected;
         },
 
         // Frostbreath
@@ -473,7 +514,9 @@ var SIMULATOR = {};
             }
 
             // No Targets
-            if (!targets.length) return;
+            if (!targets.length) return 0;
+
+            var affected = 0;
 
             for (var key = 0, len = targets.length; key < len; key++) {
                 var target = field_x_assaults[targets[key]];
@@ -484,6 +527,8 @@ var SIMULATOR = {};
                     if (debug) echo += debug_name(src_card) + ' breathes frost at ' + debug_name(target) + ' but it is invisible!<br>';
                     continue;
                 }
+
+                affected++;
 
                 var frost_damage = frost;
 
@@ -529,6 +574,8 @@ var SIMULATOR = {};
                     iceshatter(target);
                 }
             }
+
+            return affected;
         },
 
         // Enfeeble (Hex)
@@ -559,7 +606,7 @@ var SIMULATOR = {};
             }
 
             // No Targets
-            if (!targets.length) return;
+            if (!targets.length) return 0;
 
             // Check All
             if (all) {
@@ -575,6 +622,8 @@ var SIMULATOR = {};
                 }
             }
 
+            var affected = 0;
+
             for (var key = 0, len = targets.length; key < len; key++) {
                 var target = field_x_assaults[targets[key]];
                 // Check Evade
@@ -584,9 +633,13 @@ var SIMULATOR = {};
                     continue;
                 }
 
+                affected++;
+
                 target['enfeebled'] += enfeeble;
                 if (debug) echo += debug_name(src_card) + ' hexes ' + debug_name(target) + ' by ' + enfeeble + '<br>';
             }
+
+            return affected;
         },
 
         // Weaken
@@ -594,12 +647,18 @@ var SIMULATOR = {};
         // - Targets active_next_turn, unjammed, enemy assaults with attack > 0
         // - Can be evaded
         // - Can be enhanced
-        weaken: function (src_card, skill) {
+        weakenself: function (src_card, skill) {
+            return activationSkills.weaken(src_card, skill, true);
+        },
+        weaken: function (src_card, skill, self) {
 
             var faction = skill['y'];
 
-            var p = get_p(src_card);
-            var o = get_o(src_card);
+            if (self) {
+                var o = get_p(src_card);
+            } else {
+                var o = get_o(src_card);
+            }
 
             var weaken = skill['x'];
 
@@ -621,7 +680,7 @@ var SIMULATOR = {};
             }
 
             // No Targets
-            if (!targets.length) return;
+            if (!targets.length) return 0;
 
             // Check All
             if (all) {
@@ -637,6 +696,8 @@ var SIMULATOR = {};
                 }
             }
 
+            var affected = 0;
+
             for (var key = 0, len = targets.length; key < len; key++) {
                 var target = field_x_assaults[targets[key]];
 
@@ -647,6 +708,8 @@ var SIMULATOR = {};
                     continue;
                 }
 
+                affected++;
+
                 target.attack_weaken += weaken;
                 var maxWeaken = target.permanentAttack();
                 if (target.attack_weaken > maxWeaken) target.attack_weaken = maxWeaken;
@@ -655,6 +718,8 @@ var SIMULATOR = {};
                     echo += debug_name(src_card) + ' weakens ' + debug_name(target) + ' by ' + weaken + '<br>';
                 }
             }
+
+            return affected;
         },
     };
 
@@ -683,7 +748,7 @@ var SIMULATOR = {};
             }
 
             // No Targets
-            if (!targets.length) return;
+            if (!targets.length) return 0;
 
             // Check All
             if (all) {
@@ -699,9 +764,13 @@ var SIMULATOR = {};
                 }
             }
 
+            var affected = 0;
+
             for (var key = 0, len = targets.length; key < len; key++) {
 
                 var target = field_p_assaults[targets[key]];
+
+                affected++;
 
                 // Check Nullify
                 if (target.nullified) {
@@ -722,6 +791,8 @@ var SIMULATOR = {};
                     echo += debug_name(src_card) + ' empowers ' + debug_name(target) + ' by ' + rally_amt + '<br>';
                 }
             }
+
+            return affected;
         },
 
         // Legion
@@ -748,10 +819,13 @@ var SIMULATOR = {};
             var len = target_key + 2;
             if (target_key < 0) target_key += 2;
 
+            var affected = 0;
+
             while (target_key <= len) {
                 // Check left
                 var target = field_p_assaults[target_key];
                 if (target && target.isActive() && target.isInFaction(faction)) {
+                    affected++;
                     // Check Nullify
                     if (target.nullified) {
                         target.nullified--;
@@ -766,6 +840,8 @@ var SIMULATOR = {};
                 }
                 target_key += 2;
             }
+
+            return affected;
         },
 
         // Fervor
@@ -807,6 +883,9 @@ var SIMULATOR = {};
                     if (enhanced) echo += '<u>(Enhance: +' + enhanced + ')</u><br>';
                     echo += debug_name(src_card) + ' activates fervor for ' + fervorAmount + '<br>';
                 }
+                return 1;
+            } else {
+                return 0;
             }
         },
 
@@ -844,12 +923,14 @@ var SIMULATOR = {};
                 }
 
                 // No Targets
-                if (!targets.length) return;
+                if (!targets.length) return 0;
 
                 // Check All
                 if (!all) {
                     targets = choose_random_target(targets);
                 }
+
+                var affected = 0;
 
                 var strike = 1;
                 for (var key = 0, len = targets.length; key < len; key++) {
@@ -861,6 +942,7 @@ var SIMULATOR = {};
                         if (debug) echo += debug_name(src_card) + ' throws a bomb at ' + debug_name(target) + ' but it is invisible!<br>';
                         continue;
                     }
+                    affected++;
 
                     var strike_damage = strike;
 
@@ -903,6 +985,8 @@ var SIMULATOR = {};
                     }
                 }
             }
+
+            return affected;
         },
 
         // Enhance
@@ -938,9 +1022,7 @@ var SIMULATOR = {};
 
             // No Targets
             if (!targets.length) {
-                // No targets - retry next turn
-                if (skill.c) skill.countdown = 0;
-                return;
+                return 0;
             }
 
             // Check All
@@ -948,8 +1030,12 @@ var SIMULATOR = {};
                 targets = choose_random_target(targets);
             }
 
+            var affected = 0;
+
             for (var key = 0, len = targets.length; key < len; key++) {
                 var target = field_p_assaults[targets[key]];
+
+                affected++;
 
                 // Check Nullify
                 if (target.nullified) {
@@ -972,6 +1058,8 @@ var SIMULATOR = {};
                     if (debug) echo += debug_name(src_card) + ' enhances ' + s + ' of ' + debug_name(target, false) + ' by ' + (mult * 100) + '%<br>';
                 }
             }
+
+            return affected;
         },
 
         // Enhance
@@ -1006,9 +1094,7 @@ var SIMULATOR = {};
 
             // No Targets
             if (!targets.length) {
-                // No targets - retry next turn
-                if (skill.c) skill.countdown = 0;
-                return;
+                return 0;
             }
 
             var skill = {
@@ -1021,8 +1107,12 @@ var SIMULATOR = {};
                 targets = choose_random_target(targets);
             }
 
+            var affected = 0;
+
             for (var key = 0, len = targets.length; key < len; key++) {
                 var target = field_p_assaults[targets[key]];
+
+                affected++;
 
                 // Check Nullify
                 if (target.nullified) {
@@ -1034,6 +1124,8 @@ var SIMULATOR = {};
                 target.imbue(skill);
                 if (debug) echo += debug_name(src_card) + ' imbues ' + debug_name(target, false) + ' with ' + debug_skill(skill) + '<br>';
             }
+
+            return affected;
         },
     };
 
@@ -1046,17 +1138,16 @@ var SIMULATOR = {};
         for (var i = 0, len = skills.length; i < len; i++) {
             var skill = skills[i];
 
-            if (skill.c) {
-                if (skill.countdown) {
-                    skill.countdown--;
-                    continue;
-                } else {
-                    skill.countdown = skill.c - 1;
-                }
+            if (skill.countdown) {
+                continue;
             }
 
             // Delegate to skill function
-            activationSkills[skill.id](src_card, skill);
+            var affected = activationSkills[skill.id](src_card, skill);
+
+            if (skill.c && affected > 0) {
+                skill.countdown = skill.c;
+            }
         }
     };
 
@@ -1307,8 +1398,14 @@ var SIMULATOR = {};
 
         if (debug) echo += '<div id="turn_"' + turn + ' class="turn-info"><hr/><br/><u>Turn ' + turn + ' begins for ' + debug_name(field[p]['commander']) + '</u><br>';
 
-        var field_p_assaults = field[p]['assaults'];
-        var field_o_assaults = field[o]['assaults'];
+        var field_p = field[p];
+        var field_o = field[o];
+        var field_p_assaults = field_p.assaults;
+        var field_o_assaults = field_o.assaults;
+
+        // countdown any skills with timers
+        doCountDowns(field_p.commander);
+
         // Count down timer on your field
         // Remove from your field: Enfeeble, Protect
         for (var i = 0, len = field_p_assaults.length; i < len; i++) {
@@ -1351,6 +1448,9 @@ var SIMULATOR = {};
             current_assault.barrier_ice = 0;
             current_assault.enhanced = 0;
             current_assault.removeImbue();
+
+            // countdown any skills with timers
+            doCountDowns(current_assault);
         }
     }
 
@@ -1372,6 +1472,15 @@ var SIMULATOR = {};
             if (deck_p_deck.length == 1) {
                 card_picked = chooseFirstCard(p, deck_p_deck, deck_p_ordered, turn, drawCards);
             } else {
+                for (var i = 0; i < deck_p_deck.length; i++) {
+                    var card = deck_p_deck[i];
+                    if (card.isTrap()) {
+                        play_card(deck_p_deck[i], p);
+                        removeFromDeck(deck_p_deck, i);
+                        i--;
+                    }
+                    if (i === 2) break;
+                }
                 card_picked = deck_p.chooseCard(p, deck_p_deck, deck_p_ordered, turn, drawCards);
             }
 
@@ -1379,16 +1488,20 @@ var SIMULATOR = {};
 
             play_card(deck_p_deck[card_picked], p);
 
-            // Remove from deck
-            var key = card_picked;
-            var len = deck_p_deck.length - 1;
-            while (key < len) {
-                deck_p_deck[key] = deck_p_deck[++key];
-            }
-            deck_p_deck.length = key;
+            removeFromDeck(deck_p_deck, card_picked);
         }
         return true;
     };
+
+    function removeFromDeck(deck, index) {
+        var key = index;
+        var len = deck.length - 1;
+        while (key < len) {
+            deck[key] = deck[++key];
+        }
+        deck.length = key;
+
+    }
 
     function waitForOpponent(p, shuffledDeck, orderedDeck, turn, drawCards) {
 
@@ -1588,22 +1701,14 @@ var SIMULATOR = {};
 
             // Check jammed ("frozen")
             if (current_assault['jammed']) {
-                doCountDowns(current_assault);  // Still countdown any skills with timers
                 if (debug) echo += debug_name(current_assault) + ' is frozen and cannot attack<br>';
                 continue;
             }
 
-            // Dual-strike does not activate if unit has 0 attack
             var activations = 1;
-            var dualStrike = current_assault.flurry;
-            if (dualStrike && current_assault.hasAttack()) {
-                if (dualStrike.countdown) {
-                    dualStrike.countdown--;
-                } else if (current_assault.hasAttack()) {
-                    dualStrike.countdown = dualStrike.c - 1;
-                    activations++;
-                    if (debug) echo += debug_name(current_assault) + ' activates dualstrike<br>';
-                }
+            if (current_assault.dualstrike_triggered) {
+                activations++;
+                if (debug) echo += debug_name(current_assault) + ' activates dualstrike<br>';
             }
 
             for (; activations > 0; activations--) {
@@ -1654,6 +1759,7 @@ var SIMULATOR = {};
             current_assault.attack_weaken = 0;
             current_assault.attack_corroded = 0;
             current_assault.nullified = 0;
+            current_assault.dualstrike_triggered = false;
         }
 
         //debug_dump_field(field);
@@ -1661,19 +1767,34 @@ var SIMULATOR = {};
     };
 
     function doCountDowns(unit) {
-        doSkillCountDowns(unit.skill);
-        doSkillCountDowns(unit.earlyActivationSkills);
+        doSkillCountDowns(unit, unit.skill);
+        doSkillCountDowns(unit, unit.earlyActivationSkills);
 
         var dualStrike = unit.flurry;
-        if (dualStrike && dualStrike.countdown) dualStrike.countdown--;
+        if (dualStrike && dualStrike.countdown) {
+            dualStrike.countdown--;
+
+            if (debug) {
+                if (dualStrike.countdown) {
+                    echo += debug_name(unit) + ' charges  dualstrike (ready in ' + dualStrike.countdown + ' turns)<br/>';
+                } else {
+                    echo += debug_name(unit) + ' readies dualstrike<br/>';
+                }
+            }
+        }
     }
 
-    function doSkillCountDowns(skills) {
+    function doSkillCountDowns(unit, skills) {
         for (var i = 0, len = skills.length; i < len; i++) {
             var skill = skills[i];
             if (skill.countdown) {
-                if (skill.countdown) {
-                    skill.countdown--;
+                skill.countdown--;
+                if (debug) {
+                    if (skill.countdown) {
+                        echo += debug_name(unit) + ' charges ' + convertName(skill.id) + ' (ready in ' + skill.countdown + ' turns)<br/>';
+                    } else {
+                        echo += debug_name(unit) + ' readies ' + convertName(skill.id) + '<br/>';
+                    }
                 }
             }
         }
