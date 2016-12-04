@@ -100,8 +100,7 @@ var SIMULATOR = {};
         }
     };
 
-
-     function iceshatter(src_card) {
+    function iceshatter(src_card) {
         // Bug 27391 - If Barrier is partially reduced before being completely depleted, Iceshatter still deals full damage
         var amount = src_card.barrier_ice;
         //if (amount > src_card.barrier_ice) amount = src_card.barrier_ice;
@@ -124,22 +123,25 @@ var SIMULATOR = {};
         for (var unit_key = 0, unit_len = field_p_assaults.length; unit_key < unit_len; unit_key++) {
             var current_unit = field_p_assaults[unit_key];
 
-            // Check for Dualstrike
-            var dualstrike = current_unit.flurry;
-            if (dualstrike && dualstrike.countdown === 0) {
-                if (current_unit.isActive() && current_unit.hasAttack() && !current_unit.jammed) {
-                    dualstrike.countdown = dualstrike.c;
-                    current_unit.dualstrike_triggered = true;
-                }
-            }
+            if (current_unit.isActive() && current_unit.isUnjammed()) {
 
-            if (current_unit.earlyActivationSkills.length && current_unit.isActive() && current_unit.isUnjammed()) {
+                // Check for Dualstrike
+                var dualstrike = current_unit.flurry;
+                if (dualstrike && dualstrike.countdown === 0) {
+                    // Dual-strike does not activate if unit has 0 attack
+                    if (current_unit.hasAttack()) {
+                        dualstrike.countdown = dualstrike.c;
+                        current_unit.dualstrike_triggered = true;
+                    }
+                }
+
                 doEarlyActivationSkills(current_unit);
             }
         }
     };
 
     function doEarlyActivationSkills(source_card) {
+
         var skills = source_card.earlyActivationSkills;
         var len = skills.length;
         if (len == 0) return;
@@ -532,7 +534,6 @@ var SIMULATOR = {};
 
                 var frost_damage = frost;
 
-
                 // Check Protect/Enfeeble
                 var enfeeble = 0;
                 if (target['enfeebled']) enfeeble = target['enfeebled'];
@@ -626,6 +627,7 @@ var SIMULATOR = {};
 
             for (var key = 0, len = targets.length; key < len; key++) {
                 var target = field_x_assaults[targets[key]];
+
                 // Check Evade
                 if (target['invisible']) {
                     target['invisible']--;
@@ -710,9 +712,7 @@ var SIMULATOR = {};
 
                 affected++;
 
-                target.attack_weaken += weaken;
-                var maxWeaken = target.permanentAttack();
-                if (target.attack_weaken > maxWeaken) target.attack_weaken = maxWeaken;
+                target.attack_weaken += Math.min(weaken, target.adjustedAttack());
                 if (debug) {
                     if (enhanced) echo += '<u>(Enhance: +' + enhanced + ')</u><br>';
                     echo += debug_name(src_card) + ' weakens ' + debug_name(target) + ' by ' + weaken + '<br>';
@@ -942,6 +942,7 @@ var SIMULATOR = {};
                         if (debug) echo += debug_name(src_card) + ' throws a bomb at ' + debug_name(target) + ' but it is invisible!<br>';
                         continue;
                     }
+
                     affected++;
 
                     var strike_damage = strike;
@@ -1002,10 +1003,11 @@ var SIMULATOR = {};
             var p = get_p(src_card);
             var o = get_o(src_card);
 
-            var x = skill['x'];
-            var s = skill['s'];
-            var mult = skill['mult'];
-            var all = skill['all'];
+            var x = skill.x;
+            var faction = skill.y;
+            var s = skill.s;
+            var mult = skill.mult;
+            var all = skill.all;
 
             var field_p_assaults = field[p]['assaults'];
             var require_active_turn = (s != 'counter' && s != 'counterburn' && s != 'armored' && s != 'evade');
@@ -1185,8 +1187,11 @@ var SIMULATOR = {};
 
         // Load enemy deck
         if (getraid) {
+            cache_cpu_deck_cards = update_preset_deck(cache_cpu_deck);
+            /*
             cache_cpu_deck = load_deck_raid(getraid, raidlevel);
             cache_cpu_deck_cards = getDeckCards(cache_cpu_deck);
+            */
         }
         if (cache_cpu_deck_cards) {
             deck['cpu'] = copy_deck(cache_cpu_deck_cards);
@@ -1431,15 +1436,6 @@ var SIMULATOR = {};
                             }
                         }
                     }
-                }
-            }
-
-            var corroded = current_assault.corroded;
-            if (corroded) {
-                var corrosion = Math.min(current_assault.adjustedAttack(), corroded.amount);
-                current_assault.attack_corroded = corrosion;
-                if (debug) {
-                    echo += debug_name(current_assault) + ' loses ' + corrosion + ' attack to corrosion<br>';
                 }
             }
 
@@ -1718,7 +1714,7 @@ var SIMULATOR = {};
                 // Check attack
                 // - check rally and weaken
                 if (!current_assault.hasAttack()) {
-                    if (debug && current_assault['attack_weaken']) echo += debug_name(current_assault) + ' is weakened and cannot attack<br>';
+                    if (debug && current_assault.permanentAttack() > 0) echo += debug_name(current_assault) + ' is weakened and cannot attack<br>';
                     continue;
                 }
 
@@ -1741,25 +1737,12 @@ var SIMULATOR = {};
         }
         // End of Assaults
 
+        // Remove from your field: Chaos, Jam, Enfeeble, Rally, Weaken, Enhance, Nullify
+        // Process Scorch, Poison, and Corrosion
         processDOTs(field_p_assaults);
 
         // Dead cards are removed from both fields. Cards on both fields all shift over to the left if there are any gaps.
         remove_dead();
-
-        field_p_assaults = field_p['assaults'];
-
-        // Remove from your field: Chaos, Jam, Enfeeble, Rally, Weaken, Enhance, Nullify
-        for (var key = 0, len = field_p_assaults.length; key < len; key++) {
-            var current_assault = field_p_assaults[key];
-
-            current_assault.jammed = false;
-            current_assault.enfeebled = 0;
-            current_assault.attack_rally = 0;
-            current_assault.attack_weaken = 0;
-            current_assault.attack_corroded = 0;
-            current_assault.nullified = 0;
-            current_assault.dualstrike_triggered = false;
-        }
 
         //debug_dump_field(field);
         if (debug) echo += '<u>Turn ' + turn + ' ends</u><br><br></div>';
@@ -1800,9 +1783,16 @@ var SIMULATOR = {};
     }
 
     function processDOTs(field_p_assaults) {
-        // Poison/Scorch damage
+
         for (var key = 0, len = field_p_assaults.length; key < len; key++) {
             var current_assault = field_p_assaults[key];
+
+            current_assault.jammed = false;
+            current_assault.enfeebled = 0;
+            current_assault.attack_rally = 0;
+            current_assault.attack_weaken = 0;
+            current_assault.nullified = 0;
+            current_assault.dualstrike_triggered = false;
 
             var amount = current_assault['poisoned'];
             if (amount) {
@@ -1833,10 +1823,18 @@ var SIMULATOR = {};
             var corroded = current_assault.corroded;
             if (corroded) {
                 corroded.timer--;
-                if (corroded.timer === 0) {
+                // TODO: Is this a bug in the game?
+                if (corroded.timer < 0) {
                     current_assault.corroded = false;
+                    current_assault.attack_corroded = 0;
                     if (debug) {
                         echo += debug_name(current_assault) + ' recovers from corrosion<br>';
+                    }
+                } else {
+                    var corrosion = Math.min(current_assault.permanentAttack(), corroded.amount);
+                    current_assault.attack_corroded = corrosion;
+                    if (debug) {
+                        echo += debug_name(current_assault) + ' loses ' + corrosion + ' attack to corrosion<br>';
                     }
                 }
             }
@@ -2019,39 +2017,15 @@ var SIMULATOR = {};
             // - Attacker must not be already dead
             if (target.counter) {
 
-                var counter_damage = 0 + target.counter;
-                var enhanced = getEnhancement(target, 'counter');
-                if (enhanced) {
-                    if (enhanced < 0) {
-                        enhanced = Math.ceil(counter_damage * -enhanced);
+                var counterBase = 0 + target.counter;
+                var counterEnhancement = getEnhancement(target, 'counter');
+                if (counterEnhancement) {
+                    if (counterEnhancement < 0) {
+                        counterEnhancement = Math.ceil(counterBase * -counterEnhancement);
                     }
-                    counter_damage += enhanced;
                 }
 
-                // Protect
-                var protect = 0;
-                if (current_assault['protected']) protect = current_assault['protected'];
-                if (counter_damage >= protect) {
-                    current_assault['protected'] = 0;
-                    counter_damage -= protect;
-                } else {
-                    current_assault['protected'] -= counter_damage;
-                    counter_damage = 0;
-                }
-
-                if (debug) {
-                    echo += '<u>(Counter: +' + target.counter;
-                    if (enhanced) echo += ' Enhance: +' + enhanced;
-                    if (protect) echo += ' Barrier: -' + protect;
-                    echo += ') = ' + counter_damage + ' damage</u><br>';
-                }
-
-                do_damage(current_assault, counter_damage);
-
-                if (debug) {
-                    echo += debug_name(current_assault) + ' takes ' + counter_damage + ' vengeance damage';
-                    echo += (!current_assault.isAlive() ? ' and it dies' : '') + '<br>';
-                }
+                doCounterDamage(current_assault, 'Vengance', counterBase, counterEnhancement)
             }
 
             // Counterburn
@@ -2074,9 +2048,31 @@ var SIMULATOR = {};
                 if (debug) echo += debug_name(target) + ' inflicts counterburn(' + scorch + ') on ' + debug_name(current_assault) + '<br>';
             }
 
+            // Fury
+            // - Target must have received some amount of damage
+            if (target.fury) {
+                var furyBase = target.fury;
+                var furyEnhancement = getEnhancement(target, 'counter');
+                if (furyEnhancement) {
+                    if (furyEnhancement < 0) {
+                        furyEnhancement = Math.ceil(furyBase * -furyEnhancement);
+                    }
+                }
+
+                if (target.isAlive()) {
+                    var fury = furyBase + furyEnhancement;
+                    target.attack_berserk += fury;
+                    if (debug) {
+                        echo += debug_name(target) + ' activates fury and gains ' + fury + ' attack<br>';
+                    }
+                }
+
+                doCounterDamage(current_assault, 'Fury', furyBase, furyEnhancement);
+            }
+
             // Berserk
             // - Must have done some damage to an assault unit
-            if (damage > 0 && current_assault.berserk && current_assault.isAlive()) {
+            if (current_assault.berserk && current_assault.isAlive()) {
 
                 var berserk = current_assault.berserk;
                 var enhanced = getEnhancement(target, 'berserk');
@@ -2154,6 +2150,35 @@ var SIMULATOR = {};
 
         // -- END OF STATUS INFLICTION --
     };
+
+    function doCounterDamage(attacker, counterType, counterBase, counterEnhancement) {
+
+        var counterDamage = counterBase + counterEnhancement;
+
+        // Protect
+        var protect = (attacker.protected || 0);
+        if (counterDamage >= protect) {
+            attacker.protected = 0;
+            counterDamage -= protect;
+        } else {
+            attacker.protected -= counterDamage;
+            counterDamage = 0;
+        }
+
+        if (debug) {
+            echo += '<u>(' + counterType + ': +' + counterBase;
+            if (counterEnhancement) echo += ' Enhance: +' + counterEnhancement;
+            if (protect) echo += ' Barrier: -' + protect;
+            echo += ') = ' + counterDamage + ' damage</u><br>';
+        }
+
+        do_damage(attacker, counterDamage);
+
+        if (debug) {
+            echo += debug_name(attacker) + ' takes ' + counterDamage + ' ' + counterType.toLowerCase() + ' damage';
+            echo += (!attacker.isAlive() ? ' and it dies' : '') + '<br>';
+        }
+    }
 
     var deck = {};
     var field = {};

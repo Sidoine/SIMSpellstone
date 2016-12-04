@@ -217,6 +217,7 @@ function cloneCard(original) {
     copy.counter = original.counter;
     copy.counterburn = original.counterburn;
     copy.evade = original.evade;
+    copy.fury = original.fury;
     copy.leech = original.leech;
     copy.nullify = original.nullify;
     copy.pierce = original.pierce;
@@ -301,6 +302,7 @@ var makeUnit = (function () {
         counter: 0,
         counterburn: 0,
         evade: 0,
+        fury: 0,
         leech: 0,
         nullify: 0,
         pierce: 0,
@@ -426,7 +428,7 @@ var makeUnit = (function () {
             var corroded = this.corroded;
             if (corroded) {
                 if (corroded.timer > 1) {
-                    scorch.timer--;
+                    corroded.timer--;
                     var amount = Math.min(corroded.amount, this.permanentAttack());
                     this.attack_corroded = amount
                     echo += debug_name(this) + ' is corroded by ' + amount + '<br/>';
@@ -531,6 +533,7 @@ var makeUnit = (function () {
                 case 'counter':
                 case 'counterburn':
                 case 'evade':
+                case 'fury':
                 case 'leech':
                 case 'nullify':
                 case 'pierce':
@@ -605,6 +608,7 @@ var makeUnit = (function () {
                 case 'counter':
                 case 'counterburn':
                 case 'evade':
+                case 'fury':
                 case 'flurry':
                 case 'leech':
                 case 'nullify':
@@ -730,8 +734,7 @@ var makeUnit = (function () {
 }());
 
 
-var getEnhancement = function (card, s)
-{
+var getEnhancement = function (card, s) {
     var enhancements = card.enhanced;
     return (enhancements ? (enhancements[s] || 0) : 0);
 };
@@ -1002,7 +1005,7 @@ function copy_skills_2(new_card, original_skills, mult) {
         } else if (mult) {
             var copySkill = copy_skill(newSkill);
             //copySkill.x = ~~(copySkill.x * mult);   // Floor the results
-            copySkill.x = (copySkill.x * mult);
+            copySkill.x = Math.ceil(copySkill.x * mult);
             setSkill_2(new_card, copySkill);
         } else {            // If skill has no timer, we can use the same instance
             setSkill_2(new_card, newSkill);
@@ -1023,6 +1026,7 @@ function setSkill_2(new_card, skill) {
         case 'counter':
         case 'counterburn':
         case 'evade':
+        case 'fury':
         case 'leech':
         case 'nullify':
         case 'pierce':
@@ -1357,6 +1361,7 @@ function debug_passive_skills(card, skillText) {
     debugNonActivatedSkill(card, "counter", skillText);
     debugNonActivatedSkill(card, "counterburn", skillText);
     debugNonActivatedSkill(card, "corrosive", skillText);
+    debugNonActivatedSkill(card, "fury", skillText);
 }
 
 function debug_triggered_skills(card, skillText) {
@@ -1412,11 +1417,15 @@ var multiplierChars = "_*.'";
 var runeDelimiter = "/";
 var indexDelimiter = '-';
 var priorityDelimiter = '|';
-var towers = {
-    601: true,
-    602: true,
-    603: true
-};
+var towers = {};
+for(var id in CARDS) {
+    if(id < 10000) {
+        var card = CARDS[id];
+        if(card.sub_type.indexOf("999") >= 0) {
+            towers[id] = true;
+        }
+    }
+}
 
 // Used to determine how to hash runeIDs
 var maxRuneID = 1000;
@@ -1875,7 +1884,12 @@ function load_preset_deck(deckInfo, level, maxLevel) {
 
     var current_deck = [];
     current_deck.deck = [];
-    current_deck.commander = getPresetUnit(getPresetCommander(deckInfo, level), level, maxLevel);   // Set commander to max level
+    var commanderInfo = getPresetCommander(deckInfo, level);
+    var commander = getPresetUnit(commanderInfo, level, maxLevel);   // Set commander to max level
+    if (commanderInfo.possibilities) {
+        commander.randomInfo = { possibilities: commanderInfo.possibilities, level: level, maxLevel: maxLevel };
+    }
+    current_deck.commander = commander;
     upgradePoints -= current_deck.commander.level - 1;
     var presetDeck = deckInfo.deck;
 
@@ -1903,6 +1917,30 @@ function load_preset_deck(deckInfo, level, maxLevel) {
     return current_deck;
 }
 
+function update_preset_deck(deck) {
+
+    var randomizationInfo = deck.commander.randomInfo;
+    if (randomizationInfo) {
+        let possibilities = randomizationInfo.possibilities;
+        let newCommander = ~~(Math.random() * possibilities.length);
+        let unit = getPresetUnit(possibilities[newCommander], randomizationInfo.level, randomizationInfo.maxLevel);
+        unit.randomInfo = randomizationInfo;
+        deck.commander = unit;
+    }
+
+    var cpu_cards = deck.deck;
+    for (let i = 0, len = cpu_cards.length; i < len; i++) {
+        let unit = cpu_cards[i];
+        var randomizationInfo = unit.randomInfo;
+        if (randomizationInfo) {
+            unit = getPresetUnit(randomizationInfo.unitInfo, randomizationInfo.level, randomizationInfo.maxLevel);
+            unit.randomInfo = randomizationInfo;
+            cpu_cards[i] = unit;
+        }
+    }
+    return getDeckCards(deck);
+}
+
 function getPresetCommander(deckInfo, level) {
     level = parseInt(level);
     var commander = deckInfo.commander;
@@ -1918,6 +1956,7 @@ function getPresetCommander(deckInfo, level) {
         }
         var chosen = ~~(Math.random() * possibilities.length)
         commander = possibilities[chosen];
+        commander.possibilities = possibilities;
     }
     return commander;
 }
@@ -1937,8 +1976,10 @@ function getPresetUnit(unitInfo, level, maxLevel) {
     if (unitInfo.remove_mastery_level && level >= parseInt(unitInfo.remove_mastery_level)) return null;
 
     var cardID = unitInfo.id;
+    var random = false;
     if (!cardID) {
         cardID = getRandomCard(unitInfo);
+        random = true;
     }
     var unitLevel = (unitInfo.level || 1);
 
@@ -1951,7 +1992,12 @@ function getPresetUnit(unitInfo, level, maxLevel) {
         unitLevel = Math.min(level, parseInt(loadCard(cardID).rarity) + 2);
     }
 
-    return makeUnitInfo(cardID, unitLevel);
+    var unit = makeUnitInfo(cardID, unitLevel);
+
+    if (random) {
+        unit.randomInfo = { unitInfo: unitInfo, level: level, maxLevel: maxLevel };
+    }
+    return unit;
 }
 
 function getRandomCard(unitInfo) {
@@ -2282,7 +2328,7 @@ function getCurrentPage() {
 
 // Global arrays
 var rarityStrings = [
-    "None",
+    "",
     "Common",
     "Rare",
     "Epic",
@@ -2291,23 +2337,25 @@ var rarityStrings = [
 ];
 
 var factions = {
-    names: [
-        'Factionless',
-        'Aether',
-        'Chaos',
-        'Wyld',
-        'Frog',
-        'Elemental',
-        'Angel',
-        'Undead',
-        'Void',
-        'Dragon',
-        'Avian',
-        'Goblin',
-        'Seafolk',
-        'Insect',
-        'Ant',
-    ],
+    names: {
+        0: 'Factionless',
+        1: 'Aether',
+        2: 'Chaos',
+        3: 'Wyld',
+        4: 'Frog',
+        5: 'Elemental',
+        6: 'Angel',
+        7: 'Undead',
+        8: 'Void',
+        9: 'Dragon',
+        10: 'Avian',
+        11: 'Goblin',
+        12: 'Seafolk',
+        13: 'Insect',
+        14: 'Ant',
+
+        999: 'Tower'
+    },
     IDs: {
         Factionless: 0,
         Aether: 1,
@@ -2324,5 +2372,7 @@ var factions = {
         Seafolk: 12,
         Insect: 13,
         Ant: 14,
+
+        Tower: 999
     }
 };
