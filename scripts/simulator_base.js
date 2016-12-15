@@ -32,6 +32,9 @@ var SIMULATOR = {};
                 battleground.onCardPlayed(card, deck[p].deck, deck[o].deck);
             }
         }
+        if (showAnimations) {
+            drawField(field, null, null, turn);
+        }
     };
 
     // Dead cards are removed from both fields. Cards on both fields all shift over to the left if there are any gaps.
@@ -161,6 +164,10 @@ var SIMULATOR = {};
                     if (skill.c && affected > 0) {
                         skill.countdown = skill.c;
                     }
+
+                    if (showAnimations) {
+                        drawField(field, null, null, turn, source_card);
+                    }
                 }
             }
         }
@@ -226,14 +233,20 @@ var SIMULATOR = {};
                 }
 
                 affected++;
+                
+                var protect_amt = protect;
+                if (!protect_amt) {
+                    var mult = skill.mult;
+                    protect_amt = Math.ceil(target.health * mult);
+                }
 
-                target.protected += protect;
+                target.protected += protect_amt;
                 if (ice) {
-                    target.barrier_ice += protect;
+                    target.barrier_ice += protect_amt;
                 }
                 if (debug) {
                     if (enhanced) echo += '<u>(Enhance: +' + enhanced + ')</u><br>';
-                    echo += debug_name(src_card) + ' barriers ' + debug_name(target) + ' by ' + protect + '<br>';
+                    echo += debug_name(src_card) + ' barriers ' + debug_name(target) + ' by ' + protect_amt + '<br>';
                 }
             }
 
@@ -246,13 +259,12 @@ var SIMULATOR = {};
         // - Can be enhanced
         heal: function (src_card, skill) {
 
-            var faction = skill['y'];
-
             var p = get_p(src_card);
             var o = get_o(src_card);
 
-            var heal = skill['x'];
-            var all = skill['all'];
+            var faction = skill.y;
+            var heal = skill.x;
+            var all = skill.all;
 
             var field_p_assaults = field[p]['assaults'];
 
@@ -1150,6 +1162,10 @@ var SIMULATOR = {};
             if (skill.c && affected > 0) {
                 skill.countdown = skill.c;
             }
+            
+            if (showAnimations) {
+                drawField(field, null, null, turn, src_card);
+            }
         }
     };
 
@@ -1186,12 +1202,12 @@ var SIMULATOR = {};
         }
 
         // Load enemy deck
-        if (getraid) {
-            cache_cpu_deck_cards = update_preset_deck(cache_cpu_deck);
-            /*
+        if (getmission && missionlevel > 1 && missionlevel < 7) {
+            cache_cpu_deck = load_deck_mission(getmission, missionlevel);
+            cache_cpu_deck_cards = getDeckCards(cache_cpu_deck);
+        } else if (getraid) {
             cache_cpu_deck = load_deck_raid(getraid, raidlevel);
             cache_cpu_deck_cards = getDeckCards(cache_cpu_deck);
-            */
         }
         if (cache_cpu_deck_cards) {
             deck['cpu'] = copy_deck(cache_cpu_deck_cards);
@@ -1272,7 +1288,7 @@ var SIMULATOR = {};
         } else if (getcardlist2) {
             cache_cpu_deck = load_deck_from_cardlist(getcardlist2);
         } else if (getmission) {
-            cache_cpu_deck = load_deck_mission(getmission);
+            cache_cpu_deck = load_deck_mission(getmission, missionlevel);
             pvpAI = false;    // PvE decks do not use "Smart AI"
         } else if (getraid) {
             cache_cpu_deck = load_deck_raid(getraid, raidlevel);
@@ -1302,6 +1318,12 @@ var SIMULATOR = {};
     }
 
     SIMULATOR.pause = false;
+
+    function onCardChosen(turn, drawCards) {
+        clearFrames();
+        performTurns(turn, drawCards);
+    }
+
     function performTurns(turn, drawCards) {
         if (SIMULATOR.pause) {
             SIMULATOR.pause = false;
@@ -1506,7 +1528,7 @@ var SIMULATOR = {};
         if (drawCards) {
             hideTable();
             outputTurns(echo);
-            CARD_GUI.draw_cards(field, null, performTurns, turn);
+            drawField(field, null, performTurns, turn);
             SIMULATOR.sendBattleUpdate(turn);
         }
 
@@ -1530,7 +1552,7 @@ var SIMULATOR = {};
         if (drawCards) {
             hideTable();
             outputTurns(echo);
-            CARD_GUI.draw_cards(field, drawableHand, performTurns, turn);
+            drawField(field, drawableHand, onCardChosen, turn);
         }
         if (choice === undefined) {
             return -1;
@@ -1956,6 +1978,10 @@ var SIMULATOR = {};
             echo += (!target.isAlive() ? ' and it dies' : '') + '<br>';
         }
 
+        if (showAnimations) {
+            drawField(field, null, null, turn, current_assault);
+        }
+
         // WINNING CONDITION
         if (!field_o_commander.isAlive()) {
             return;
@@ -2025,7 +2051,7 @@ var SIMULATOR = {};
                     }
                 }
 
-                doCounterDamage(current_assault, 'Vengance', counterBase, counterEnhancement)
+                doCounterDamage(current_assault, 'Vengance', counterBase, counterEnhancement);
             }
 
             // Counterburn
@@ -2147,7 +2173,10 @@ var SIMULATOR = {};
                 if (debug) echo += debug_name(current_assault) + ' inflicts nullify(' + nullify + ') on ' + debug_name(target) + '<br>';
             }
         }
-
+        
+        if (showAnimations) {
+            drawField(field, null, null, turn, current_assault);
+        }
         // -- END OF STATUS INFLICTION --
     };
 

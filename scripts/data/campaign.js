@@ -768,7 +768,14 @@ var CAMPAIGNS = {
     "name": "Alternate Plan",
     "location_id": "107",
     "side_mission": "",
-    "missions": ["5428","5429","5430","5431"]
+    "missions": ["5432","5433","5434","5435"]
+  },
+  "1107": {
+    "id": "1107",
+    "name": "Spirits of Time",
+    "location_id": "107",
+    "side_mission": "",
+    "missions": ["5436","5437","5438","5439","5440"]
   },
   "1054": {
     "id": "1054",
@@ -33593,7 +33600,7 @@ var MISSIONS = {
     "id": "5412",
     "name": "Love of a Mother",
     "commander": {
-        "id": "249"
+        "id": "292"
     },
     "deck": [
       {
@@ -33653,7 +33660,7 @@ var MISSIONS = {
     "id": "5413",
     "name": "Second Celebration",
     "commander": {
-        "id": "232"
+        "id": "316"
     },
     "deck": [
       {
@@ -33713,7 +33720,7 @@ var MISSIONS = {
     "id": "5414",
     "name": "Original Purpose",
     "commander": {
-        "id": "249"
+        "id": "319"
     },
     "deck": [
       {
@@ -33773,7 +33780,7 @@ var MISSIONS = {
     "id": "5415",
     "name": "Secrets",
     "commander": {
-        "id": "290"
+        "id": "327"
     },
     "deck": [
       {
@@ -34073,7 +34080,7 @@ var MISSIONS = {
     "id": "5420",
     "name": "Dawnglow Frenzy",
     "commander": {
-        "id": "290"
+        "id": "249"
     },
     "deck": [
       {
@@ -34193,7 +34200,7 @@ var MISSIONS = {
     "id": "5422",
     "name": "Unfamiliar Battleground",
     "commander": {
-        "id": "215"
+        "id": "228"
     },
     "deck": [
       {
@@ -34853,7 +34860,7 @@ var MISSIONS = {
     "id": "5433",
     "name": "Futility",
     "commander": {
-        "id": "292"
+        "id": "290"
     },
     "deck": [
       {
@@ -34913,7 +34920,7 @@ var MISSIONS = {
     "id": "5434",
     "name": "Second Thoughts",
     "commander": {
-        "id": "281"
+        "id": "290"
     },
     "deck": [
       {
@@ -34973,7 +34980,7 @@ var MISSIONS = {
     "id": "5435",
     "name": "The Bear and the Boulder",
     "commander": {
-        "id": "215"
+        "id": "220"
     },
     "deck": [
       {
@@ -35025,6 +35032,306 @@ var MISSIONS = {
       },
       {
         "id": "7018",
+        "mastery_level": "7"
+      },
+    ]
+  },
+  "5436": {
+    "id": "5436",
+    "name": "Bah",
+    "commander": {
+        "id": "249"
+    },
+    "deck": [
+      {
+        "id": "26022"
+      },
+      {
+        "id": "26022"
+      },
+      {
+        "id": "1015"
+      },
+      {
+        "id": "1015"
+      },
+      {
+        "id": "1025"
+      },
+      {
+        "id": "1328"
+      },
+      {
+        "id": "1631"
+      },
+      {
+        "id": "1327"
+      },
+      {
+        "id": "2034"
+      },
+      {
+        "id": "2052",
+        "mastery_level": "2"
+      },
+      {
+        "id": "5053",
+        "mastery_level": "3"
+      },
+      {
+        "id": "2044",
+        "mastery_level": "4"
+      },
+      {
+        "id": "5040",
+        "mastery_level": "5"
+      },
+      {
+        "id": "5043",
+        "mastery_level": "6"
+      },
+      {
+        "id": "7018",
+        "mastery_level": "7"
+      },
+    ]
+  },
+  "5437": {
+    "id": "5437",
+    "name": "Ghost of the Past",
+    "commander": {
+        "id": "351"
+    },
+    "deck": [
+      {
+        "id": "7012"
+      },
+      {
+        "id": "6012"
+      },
+      {
+        "id": "7012"
+      },
+      {
+        "id": "6012"
+      },
+      {
+        "id": "11632"
+      },
+      {
+        "id": "5025"
+      },
+      {
+        "id": "1631"
+      },
+      {
+        "id": "1329"
+      },
+      {
+        "id": "2045"
+      },
+      {
+        "id": "7038",
+        "mastery_level": "2"
+      },
+      {
+        "id": "2005",
+        "mastery_level": "3"
+      },
+      {
+        "id": "2005",
+        "mastery_level": "4"
+      },
+      {
+        "id": "2005",
+        "mastery_level": "5"
+      },
+      {
+        "id": "1040",
+        "mastery_level": "6"
+      },
+      {
+        "id": "2006",
+        "mastery_level": "7"
+      },
+    ]
+  },
+  "5438": {
+    "id": "5438",
+    "name": "Ghost of the Present",
+    "commander": {
+        "id": "252"
+    },
+    "deck": [
+      {
+        "id": "5022"
+      },
+      {
+        "id": "5022"
+      },
+      {
+        "id": "1618"
+      },
+      {
+        "id": "1618"
+      },
+      {
+        "id": "1325"
+      },
+      {
+        "id": "5020"
+      },
+      {
+        "id": "1026"
+      },
+      {
+        "id": "1028"
+      },
+      {
+        "id": "2014"
+      },
+      {
+        "id": "7004",
+        "mastery_level": "2"
+      },
+      {
+        "id": "5050",
+        "mastery_level": "3"
+      },
+      {
+        "id": "1028",
+        "mastery_level": "4"
+      },
+      {
+        "id": "1028",
+        "mastery_level": "5"
+      },
+      {
+        "id": "7018",
+        "mastery_level": "6"
+      },
+      {
+        "id": "7018",
+        "mastery_level": "7"
+      },
+    ]
+  },
+  "5439": {
+    "id": "5439",
+    "name": "Ghost of the Future",
+    "commander": {
+        "id": "359"
+    },
+    "deck": [
+      {
+        "id": "7017"
+      },
+      {
+        "id": "7017"
+      },
+      {
+        "id": "7007"
+      },
+      {
+        "id": "7007"
+      },
+      {
+        "id": "1032"
+      },
+      {
+        "id": "5015"
+      },
+      {
+        "id": "1026"
+      },
+      {
+        "id": "2070"
+      },
+      {
+        "id": "1630"
+      },
+      {
+        "id": "7005",
+        "mastery_level": "2"
+      },
+      {
+        "id": "7066",
+        "mastery_level": "3"
+      },
+      {
+        "id": "7005",
+        "mastery_level": "4"
+      },
+      {
+        "id": "5073",
+        "mastery_level": "5"
+      },
+      {
+        "id": "7023",
+        "mastery_level": "6"
+      },
+      {
+        "id": "7023",
+        "mastery_level": "7"
+      },
+    ]
+  },
+  "5440": {
+    "id": "5440",
+    "name": "Lesson Learned",
+    "commander": {
+        "id": "249"
+    },
+    "deck": [
+      {
+        "id": "5022"
+      },
+      {
+        "id": "1015"
+      },
+      {
+        "id": "6022"
+      },
+      {
+        "id": "1618"
+      },
+      {
+        "id": "2041"
+      },
+      {
+        "id": "5010"
+      },
+      {
+        "id": "2058"
+      },
+      {
+        "id": "2070"
+      },
+      {
+        "id": "2066"
+      },
+      {
+        "id": "1030",
+        "mastery_level": "2"
+      },
+      {
+        "id": "2062",
+        "mastery_level": "3"
+      },
+      {
+        "id": "7005",
+        "mastery_level": "4"
+      },
+      {
+        "id": "1032",
+        "mastery_level": "5"
+      },
+      {
+        "id": "1043",
+        "mastery_level": "6"
+      },
+      {
+        "id": "5051",
         "mastery_level": "7"
       },
     ]

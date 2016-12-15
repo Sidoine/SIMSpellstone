@@ -103,10 +103,13 @@ $(function () {
     var missionID = _GET('mission');
     var raidID = _GET('raid');
     if (campaignID) $('#campaign').val(campaignID).change();
-    if (missionID) $('#mission').val(missionID).change();
+    if (missionID) {
+        $('#mission_level').val(_GET('mission_level') || 7);
+        $('#mission').val(missionID).change();
+    }
     if (raidID) {
-        $('#raid').val(raidID).change();
         $('#raid_level').val(_GET('raid_level') || 25);
+        $('#raid').val(raidID).change();
     }
 
     var bges = _GET('bges');
@@ -436,6 +439,7 @@ function generate_link(autostart) {
 
     addValueParam(parameters, "campaign");
     addValueParam(parameters, "mission");
+    addValueParam(parameters, "mission_level");
     addValueParam(parameters, "raid");
     addValueParam(parameters, "raid_level");
 
@@ -537,11 +541,13 @@ function load_deck_builder(player) {
     if (player == 'player') {
         var getdeck = $('#deck1').val();
         var getmission;
+        var missionlevel;
         var getraid;
         var raidlevel;
     } else {
         var getdeck = $('#deck2').val();
         var getmission = $('#mission').val();
+        var missionlevel = $('#mission_level').val();
         var getraid = $('#raid').val();
         var raidlevel = $('#raid_level').val();
     }
@@ -554,7 +560,7 @@ function load_deck_builder(player) {
     if (getdeck) {
         deck = hash_decode(getdeck);
     } else if (getmission) {
-        deck = load_deck_mission(getmission);
+        deck = load_deck_mission(getmission, missionlevel);
     } else if (getraid) {
         deck = load_deck_raid(getraid, raidlevel);
     }
@@ -566,38 +572,6 @@ function load_deck_builder(player) {
     var name = (player == 'player' ? 'Player Deck' : 'Enemy Deck');
     var deckHashField = (player ? $("#" + (player == 'player' ? 'deck1' : 'deck2')) : null);
     open_deck_builder(name, hash, null, deckHashField);
-}
-
-function open_mission_deck_builder() {
-    var mission = TITANS[$("#mission").val()];
-    if (!mission) {
-        var raidID = $("#raid").val();
-        if (raidID) {
-            var raidlevel = $("#raid_level").val();
-            mission = {
-                name: RAIDS[raidID].name,
-                hash: hash_encode(load_deck_raid(raidID, raidlevel))
-            }
-        }
-    }
-    if (mission) {
-        var missionDeck = hash_decode(mission.hash);
-
-        $("#deck_label").text(mission.name);
-        $("#deck_display").children().remove().end().append(CARD_GUI.makeDeckHTML(missionDeck));
-        $("#deck_hash").val(mission.hash);
-        $("#hash_container").show();
-
-        deckPopupDialog.dialog("open");
-        deckPopupDialog.dialog("option", "position", { my: "center", at: "center", of: window });
-    } else {
-        $("#deck_label").text("No mission or raid selected!");
-        $("#deck_display").children().remove();
-        $("#hash_container").hide();
-
-        deckPopupDialog.dialog("open");
-        deckPopupDialog.dialog("option", "position", { my: "center", at: "center", of: window });
-    }
 }
 
 function open_deck_builder(name, hash, inventory, deckHashField) {
@@ -688,6 +662,7 @@ var loss_debug = false;
 var win_debug = false;
 var found_desired = false;
 var play_debug = false;
+var showAnimations = false;
 var getdeck = '';
 var getdeck2 = '';
 var getcardlist = '';
@@ -697,6 +672,7 @@ var getordered2 = false;
 var getexactorder = false;
 var getexactorder2 = false;
 var getmission = false;
+var missionlevel = 0;
 var getraid = false;
 var raidlevel = 0;
 var getbattleground = '';

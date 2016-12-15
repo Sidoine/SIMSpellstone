@@ -34,7 +34,7 @@ $(function () {
         var raidlevel = $('#raid_level');
         if (selectedRaid) {
             newDeck = load_deck_raid(selectedRaid, raidlevel.val());
-            if (RAIDS[selectedRaid].type === "dungeon") {
+            if (RAIDS[selectedRaid].type === "Dungeon") {
                 raidlevel.attr("max", 150);
             } else {
                 raidlevel.attr("max", 40);
@@ -50,11 +50,12 @@ $(function () {
         $("#mission").change();
     });
 
-    $("#mission").change(function () {
+    $("#mission, #mission_level").change(function () {
         var newDeck;
-        if (this.value) {
-            var missionLevel = document.getElementById('mission_level').value;
-            newDeck = load_deck_mission(this.value, missionLevel);
+        var missionID = $('#mission').val();
+        if (missionID) {
+            var missionLevel = $('#mission_level').val();
+            newDeck = load_deck_mission(missionID, missionLevel);
         } else {
             newDeck = hash_decode('');
         }
@@ -150,4 +151,37 @@ function toggleTheme() {
         $("#toggleTheme").val("Light Theme");
     }
     dark = !dark;
+}
+
+var frames = [];
+var frameInterval = null;
+function drawField(field, hand, callback, turn, activeUnit) {
+    var newFrame = CARD_GUI.doDrawField(field, hand, callback, turn, activeUnit);
+    frames.push(newFrame);
+    if (!frameInterval) {
+        drawFrames();
+        frameInterval = setInterval(drawFrames, 500);
+    }
+}
+
+function clearFrames() {
+    frames = [];
+    clearInterval(frameInterval);
+    frameInterval = null;
+}
+
+var disabledInterval = false;
+function drawFrames() {
+    if (frames.length === 0) {
+        if (disabledInterval) {
+            clearInterval(frameInterval);
+            frameInterval = null;
+        } else {
+            disabledInterval = true;
+        }
+    } else {
+        var frame = frames.splice(0, 1)[0];
+        $("#cardSpace").children().remove().end().append(frame);
+        disabledInterval = false;
+    }
 }

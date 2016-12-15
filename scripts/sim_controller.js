@@ -9,6 +9,7 @@ var SIM_CONTROLLER = (function () {
         mass_debug = $('#mass_debug').is(':checked');
         loss_debug = $('#loss_debug').is(':checked');
         win_debug = $('#win_debug').is(':checked');
+        showAnimations = $('#animations').is(':checked');
 
         play_debug = $('#play_debug').is(':checked');
         if (play_debug) debug = false;
@@ -27,21 +28,14 @@ var SIM_CONTROLLER = (function () {
         getordered2 = $('#ordered2').is(':checked');
         getexactorder2 = $('#exactorder2').is(':checked');
         getmission = $('#mission').val();
+        missionlevel = $('#mission_level').val();
         getraid = $('#raid').val();
         raidlevel = $('#raid_level').val();
         getsiege = $('#siege').is(':checked');
         surge = $('#surge').is(':checked');
         tower_level = $('#tower_level').val();
         tower_type = $('#tower_type').val();
-        /*
-        if (!getdeck2) {
-            if (getmission) {
-                getdeck2 = MISSIONS[getmission].hash;
-            } else if (getraid) {
-                getdeck2 = hash_encode(load_deck_raid(getraid, raidlevel));
-            }
-        }
-        */
+
         if (BATTLEGROUNDS) {
             getbattleground = getSelectedBattlegrounds();
             selfbges = getSelectedBattlegrounds("self-");
