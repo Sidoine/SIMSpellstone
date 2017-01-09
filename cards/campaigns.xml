@@ -3642,7 +3642,7 @@
     </rewards>
     <find_item id="3046" drop_per_energy=".25" />
   </campaign>
-  <!-- Event 19 -->
+  <!-- Event 19 Frogs -->
   <campaign>
     <id>1102</id>
     <hidden>1</hidden>
@@ -3788,7 +3788,7 @@
     <hidden>1</hidden>
     <event_only>1</event_only>
     <name>Spirits of Time</name>
-    <icon id="gold_leaf" bundle="17" />
+    <icon id="santaHat" bundle="41" />
     <location_id>107</location_id>
     <x>171</x>
     <y>475</y>
@@ -3802,16 +3802,18 @@
     </missions>
     <rewards>
       <card level="1" id="510" />
-      <card level="2" id="510" />
-      <card level="3" id="510" />
+      <card level="2" id="2075" />
+      <card level="3" id="2075" />
       <card level="4" id="2012" />
-      <card level="5" id="510" />
-      <card level="6" id="510" />
+      <card level="5" id="2075" />
+      <card level="6" id="2075" />
       <card level="7" id="512" />
     </rewards>
     <find_item id="3047" drop_per_energy=".25" />
   </campaign>
+  <!-- ============================ -->
   <!-- START Mythic Titan Campaigns -->
+  <!-- ============================ -->
   <campaign>
     <id>3000</id>
     <name>The Ground Quakes...</name>

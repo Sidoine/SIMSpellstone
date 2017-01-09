@@ -170,6 +170,20 @@ var BATTLEGROUNDS = {
       },
     ]
   },
+  "113": {
+    "name": "Seafolk BGE",
+    "id": "113",
+    "effect": [
+      {
+        "effect_type": "skill",
+        "id": "protect_seafolk",
+        "mult": .2,
+        "y": "12",
+        "z": 12,
+        "all": "1",
+      },
+    ]
+  },
   "501": {
     "name": "Castle Siege",
     "id": "501",
@@ -698,23 +712,16 @@ var BATTLEGROUNDS = {
       {
         "effect_type": "skill",
         "id": "protect",
-        "mult": .25,
+        "mult": .20,
         "y": "4",
         "z": 4,
         "all": "1",
       },
     ]
   },
-  "516": {
-    "name": "Enemy Scaling BGE",
-    "id": "516",
-    "scale_with_level": "1",
-    "starting_level": "1",
-    "hidden": true,
-  },
-  "10001": {
+  "1001": {
     "name": "Primal Mending",
-    "id": "10001",
+    "id": "1001",
     "hidden": true,
     "effect": [
       {
@@ -725,9 +732,9 @@ var BATTLEGROUNDS = {
       },
     ]
   },
-  "10002": {
+  "1002": {
     "name": "Personal Frog Buff",
-    "id": "10002",
+    "id": "1002",
     "hidden": true,
     "effect": [
       {
@@ -739,5 +746,29 @@ var BATTLEGROUNDS = {
         "all": "1",
       },
     ]
+  },
+  "2001": {
+    "name": "Enemy Scaling BGE",
+    "id": "2001",
+    "enemy_only": true,
+    "scale_with_level": "1",
+    "starting_level": "0",
+    "hidden": true,
+  },
+  "2002": {
+    "name": "Enemy Scaling BGE",
+    "id": "2002",
+    "enemy_only": true,
+    "scale_with_level": "1",
+    "starting_level": "0",
+    "hidden": true,
+  },
+  "2003": {
+    "name": "Enemy Scaling BGE",
+    "id": "2003",
+    "enemy_only": true,
+    "scale_with_level": "1",
+    "starting_level": "0",
+    "hidden": true,
   },
 };

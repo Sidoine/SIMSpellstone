@@ -1173,10 +1173,10 @@
     <icon>icon_purple_crystal</icon>
     <hc_cost>1000</hc_cost>
     <cards>
-      <card min_level="1" max_level="1" min_rarity="4" max_rarity="4" type="4" set="1000,3000" />
-      <card min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="4" set="1000,3000" />
-      <card min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="4" set="1000,3000" />
-      <card min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="4" set="1000,3000" />
+      <card min_level="1" max_level="1" min_rarity="4" max_rarity="4" type="4" set="3000" />
+      <card min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="4" set="3000" />
+      <card min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="4" set="3000" />
+      <card min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="4" set="3000" />
     </cards>
   </store_item>
   <store_item>
@@ -1190,7 +1190,7 @@
     <icon>icon_blue_crystal</icon>
     <hc_cost>1000</hc_cost>
     <cards>
-      <card min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="4" set="1000,3000" number="4" />
+      <card min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="4" set="3000" number="4" />
     </cards>
   </store_item>
   <store_item>
@@ -1429,15 +1429,15 @@
     <name>Leveled Aether Pack</name>
     <category>0</category>
     <hidden>1</hidden>
-    <desc>Gives three fully leveled Aether cards from the Standard or Premium Set, all guaranteed ^c0DFFEpics ^cFFFFor higher.</desc>
+    <desc>Gives three fully leveled Aether cards from Premium Set, all guaranteed ^c0DFFEpics ^cFFFFor higher.</desc>
     <asset_prefab>aether_crystal_epic</asset_prefab>
     <icon>icon_blue_crystal</icon>
     <bundle>30</bundle>
     <hc_cost>180</hc_cost>
     <cards>
-      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="1" set="1000,3000" />
-      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="1" set="1000,3000" />
-      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="1" set="1000,3000" />
+      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="1" set="3000" />
+      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="1" set="3000" />
+      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="1" set="3000" />
     </cards>
   </store_item>
   <store_item>
@@ -1445,15 +1445,15 @@
     <name>Leveled Chaos Pack</name>
     <category>0</category>
     <hidden>1</hidden>
-    <desc>Gives three fully leveled Chaos cards from the Standard or Premium Set, all guaranteed ^c0DFFEpics ^cFFFFor higher.</desc>
+    <desc>Gives three fully leveled Chaos cards from Premium Set, all guaranteed ^c0DFFEpics ^cFFFFor higher.</desc>
     <asset_prefab>chaos_crystal_epic</asset_prefab>
     <icon>icon_blue_crystal</icon>
     <bundle>30</bundle>
     <hc_cost>180</hc_cost>
     <cards>
-      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="2" set="1000,3000" />
-      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="2" set="1000,3000" />
-      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="2" set="1000,3000" />
+      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="2" set="3000" />
+      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="2" set="3000" />
+      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="2" set="3000" />
     </cards>
   </store_item>
   <store_item>
@@ -1461,15 +1461,15 @@
     <name>Leveled Wyld Pack</name>
     <category>0</category>
     <hidden>1</hidden>
-    <desc>Gives three fully leveled Wyld cards from the Standard or Premium Set, all guaranteed ^c0DFFEpics ^cFFFFor higher.</desc>
+    <desc>Gives three fully leveled Wyld cards from Premium Set, all guaranteed ^c0DFFEpics ^cFFFFor higher.</desc>
     <asset_prefab>wyld_crystal_epic</asset_prefab>
     <icon>icon_blue_crystal</icon>
     <bundle>30</bundle>
     <hc_cost>180</hc_cost>
     <cards>
-      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="3" set="1000,3000" />
-      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="3" set="1000,3000" />
-      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="3" set="1000,3000" />
+      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="3" set="3000" />
+      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="3" set="3000" />
+      <card fully_leveled="1" min_level="1" max_level="1" min_rarity="3" max_rarity="4" type="3" set="3000" />
     </cards>
   </store_item>
   <store_item>
@@ -1546,6 +1546,39 @@
     <cards>
       <card min_level="1" max_level="1" min_rarity="2" max_rarity="4" set="1000,3000" />
       <card min_level="1" max_level="1" min_rarity="2" max_rarity="4" set="1000,3000" />
+    </cards>
+  </store_item>
+  <store_item>
+    <id>3040</id>
+    <name>Dual Legendary Frog Pack</name>
+    <category>0</category>
+    <hidden>1</hidden>
+    <desc>Gives one random ^cE7FFDual Legendary^cFFFF Frog card!</desc>
+    <priority>1</priority>
+    <asset_prefab>epic_pack</asset_prefab>
+    <icon>icon_purple_crystal</icon>
+    <hc_cost>1000</hc_cost>
+    <cards>
+      <card min_level="1" max_level="1" min_rarity="4" max_rarity="4" type="4" set="3000" fusion_level="1" />
+    </cards>
+  </store_item>
+  <store_item>
+    <id>3041</id>
+    <name>Epic Pack</name>
+    <category>1</category>
+    <hidden>1</hidden>
+    <event_only>1</event_only>
+    <priority>300</priority>
+    <desc>Gives four cards with one guaranteed Epic or higher. Best chance at Legendaries!</desc>
+    <asset_prefab>epic_sale_pack</asset_prefab>
+    <bundle>30</bundle>
+    <icon>icon_blue_crystal</icon>
+    <hc_cost>50</hc_cost>
+    <cards>
+      <card min_level="1" max_level="1" min_rarity="1" max_rarity="4" set="1000" />
+      <card min_level="1" max_level="1" min_rarity="1" max_rarity="4" set="1000" />
+      <card min_level="1" max_level="1" min_rarity="1" max_rarity="4" set="1000" />
+      <card min_level="1" max_level="1" min_rarity="3" max_rarity="4" set="1000" />
     </cards>
   </store_item>
   <!-- =============================== -->
@@ -2022,14 +2055,14 @@
     <hidden>1</hidden>
     <event_only>1</event_only>
     <priority>300</priority>
-    <desc>Includes five Bounty Refill +5 and 1500 gold! May be purchased 5 times!</desc>
+    <desc>Includes four Bounty Refill +10 and 1500 gold! May be purchased 5 times!</desc>
     <asset_prefab>bounty_pack_4</asset_prefab>
     <bundle>15</bundle>
     <icon>icon_blue_crystal</icon>
     <hc_cost>90</hc_cost>
     <!-- Stuff to give -->
     <gold>1500</gold>
-    <item id="1023" quantity="5" />
+    <item id="1024" quantity="4" />
   </store_item>
   <store_item>
     <id>5017</id>
@@ -2328,7 +2361,7 @@
     <hidden>1</hidden>
     <event_only>1</event_only>
     <priority>300</priority>
-    <desc>Includes three fully leveled Aether cards from the Standard or Premium Set, all guaranteed ^c0DFFEpics ^cFFFFor higher! May be purchased 5 times!</desc>
+    <desc>Includes three fully leveled Aether cards from Premium Set, all guaranteed ^c0DFFEpics ^cFFFFor higher! May be purchased 5 times!</desc>
     <asset_prefab>aether_crystal_epic</asset_prefab>
     <background_prefab>aether_epic_banner</background_prefab>
     <bundle>30</bundle>
@@ -2346,7 +2379,7 @@
     <hidden>1</hidden>
     <event_only>1</event_only>
     <priority>300</priority>
-    <desc>Includes three fully leveled Chaos cards from the Standard or Premium Set, all guaranteed ^c0DFFEpics ^cFFFFor higher! May be purchased 5 times!</desc>
+    <desc>Includes three fully leveled Chaos cards from Premium Set, all guaranteed ^c0DFFEpics ^cFFFFor higher! May be purchased 5 times!</desc>
     <asset_prefab>chaos_crystal_epic</asset_prefab>
     <background_prefab>chaos_epic_banner</background_prefab>
     <bundle>30</bundle>
@@ -2364,7 +2397,7 @@
     <hidden>1</hidden>
     <event_only>1</event_only>
     <priority>300</priority>
-    <desc>Includes three fully leveled Wyld cards from the Standard or Premium Set, all guaranteed ^c0DFFEpics ^cFFFFor higher! May be purchased 5 times!</desc>
+    <desc>Includes three fully leveled Wyld cards from Premium Set, all guaranteed ^c0DFFEpics ^cFFFFor higher! May be purchased 5 times!</desc>
     <asset_prefab>wyld_crystal_epic</asset_prefab>
     <background_prefab>wyld_epic_banner</background_prefab>
     <bundle>30</bundle>
@@ -2661,5 +2694,82 @@
     <cards>
       <card min_level="1" max_level="1" unit_id="5063" display_card_id="5063" />
     </cards>
+  </store_item>
+  <store_item>
+    <id>5050</id>
+    <name>Quadra Frog Bundle</name>
+    <banner>1</banner>
+    <category>1</category>
+    <hidden>1</hidden>
+    <event_only>1</event_only>
+    <priority>300</priority>
+    <desc>Gives four copies of one Epic+ Frog card from Premium set. Also includes two Bounty Refills +10, two Energy Potions +20, and one random Rare+ Rune. May only be purchased once.</desc>
+    <asset_prefab>frog_crystal_epicX4</asset_prefab>
+    <background_prefab>event_010_banner_epicX4</background_prefab>
+    <bundle>51</bundle>
+    <!-- <icon>rune_component_bag_item</icon> -->
+    <hc_cost>400</hc_cost>
+    <!-- Stuff to give -->
+    <pack>3016</pack>
+    <item id="1024" quantity="2" />
+    <item id="1004" quantity="2" />
+    <item id="513" quantity="1" />
+  </store_item>
+  <store_item>
+    <id>5051</id>
+    <name>Basilisk Sale!</name>
+    <banner>1</banner>
+    <category>1</category>
+    <hidden>1</hidden>
+    <event_only>1</event_only>
+    <priority>300</priority>
+    <desc>Gives one copy of a ^cE7FFBasilisk^cFFFF! May be purchased four times.</desc>
+    <!-- <asset_prefab>event_015_darkflame</asset_prefab> -->
+    <background_prefab>legendary_card_banner</background_prefab>
+    <bundle>35</bundle>
+    <icon>icon_blue_crystal</icon>
+    <hc_cost>220</hc_cost>
+    <show_desc>1</show_desc>
+    <!-- Stuff to give -->
+    <cards>
+      <card min_level="1" max_level="1" unit_id="7094" display_card_id="7094" />
+    </cards>
+  </store_item>
+  <store_item>
+    <id>5052</id>
+    <name>Dual Legendary Frog Pack</name>
+    <banner>1</banner>
+    <category>1</category>
+    <hidden>1</hidden>
+    <show_desc>1</show_desc>
+    <event_only>1</event_only>
+    <priority>300</priority>
+    <desc>Gives one random ^cE7FFDual Legendary^cFFFF Frog card from Premium Set! May be purchased four times!</desc>
+    <asset_prefab>event_019_dual_legendary</asset_prefab>
+    <background_prefab>christmas_store_banner</background_prefab>
+    <bundle>80</bundle>
+    <!-- <icon>rune_component_bag_item</icon> -->
+    <hc_cost>500</hc_cost>
+    <!-- Stuff to give -->
+    <pack>3040</pack>
+  </store_item>
+  <store_item>
+    <id>5053</id>
+    <name>Legendary Frogstone Bundle</name>
+    <banner>1</banner>
+    <category>1</category>
+    <hidden>1</hidden>
+    <event_only>1</event_only>
+    <priority>300</priority>
+    <desc>Includes one Legendary Frog card and three additional Epic or higher Frog cards from Premium set! May be purchased three times!</desc>
+    <asset_prefab>frog_crystal_legendary</asset_prefab>
+    <bundle>51</bundle>
+    <icon>icon_purple_crystal</icon>
+    <hc_cost>240</hc_cost>
+    <!-- Stuff to give -->
+    <pack>3015</pack>
+    <sp>180</sp>
+    <gold>1000</gold>
+    <item id="1003" quantity="2" />
   </store_item>
 </root>

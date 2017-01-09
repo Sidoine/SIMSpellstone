@@ -7152,7 +7152,7 @@
       <health>70</health>
       <skill id="imbue" x="5" all="1" s="armored" c="3" />
       <skill id="protect" x="3" />
-      <skill id="protect" x="3" all="3" />
+      <skill id="protect" x="3" all="1" />
     </upgrade>
   </unit>
 </root>
