@@ -2,7 +2,7 @@
 
 (function () {
 
-    var inventaire;
+    var inventaire = { commander: {}, deck: []};
     var original_hash;
     var step = 0;
     var best = original_hash;
@@ -11,6 +11,8 @@
     var cardBest= {};
     var cardBestValue = {};
     var orderDeckMode = true;
+    var rankingMode = false;
+    var level
 
     // Initialize simulation loop - runs once per simulation session
     SIM_CONTROLLER.startsim = function () {
@@ -31,6 +33,18 @@
         orderDeckMode = document.getElementById("sim_order").checked;
         if (orderDeckMode) {
             getordered = orderDeckMode;
+        }
+        rankingMode = document.getElementById("sim_ranking").checked;
+
+        if (rankingMode) {
+            var deck = [];
+            for (var cardId in CARDS) {
+                var card = CARDS[cardId];
+                if (parseInt(card.rarity) >= 3 && !FUSIONS[cardId] && card.set != "7000" && card.set != "9999") {
+                    deck.push(makeUnitInfo(cardId, GetMaxLevel(card), []));
+                }
+            }
+            inventaire.deck = deck;
         }
 
         tryNewCard();
@@ -79,6 +93,26 @@
                  var cards = originalDeck.deck.splice(step, 1);
                 originalDeck.deck.splice(targetPosition, 0, cards[0]);
                 getdeck = hash_encode(originalDeck);
+            }
+            else if (rankingMode){
+                var cardToTry = ~~(step);
+                var deckCardToReplace = 15;
+                var log = '<strong>Etape ' + step + '/' + (inventaire.deck.length) + '</strong> == <strong>Best:</strong>' + best + ' (' + best_value + ')';
+                log += '<table>';
+                log += '<tr><td>Original</td><td>' + original_hash + '</td><td>' + originalValue + '</td></tr>';
+                for (var cardName in cardBest) {
+                   log += '<tr><td>' + CARDS[cardName].name + '</td><td>' + cardBest[cardName] + '</td><td>' + cardBestValue[cardName] + '</td></tr>';
+               }
+               log += '</table>'
+                progression.innerHTML = log;
+               
+                if (cardToTry >= inventaire.deck.length) {
+                    return;
+                }
+                currentCardName = inventaire.deck[cardToTry].id;
+                originalDeck.deck[deckCardToReplace] = inventaire.deck[cardToTry];
+                getdeck = hash_encode(originalDeck);
+                step++;
             }
             else{
                 var cardToTry = ~~(step / deckLength);
