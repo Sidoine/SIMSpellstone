@@ -23,9 +23,21 @@ var DATA_UPDATER = (function () {
         $("body").removeClass("loading");
     }
 
-    function doUpdateCards(callback) {
+
+    var cardFiles = [
+        "cards_heroes.xml",
+        "cards_premium_aether.xml",
+        "cards_premium_chaos.xml",
+        "cards_premium_wyld.xml",
+        "cards_reward.xml",
+        "cards_special.xml",
+        "cards_standard.xml",
+        "cards_story.xml"
+    ];
+    function doUpdateCards(callback, file) {
+        file = (file || 0);
         jQuery.ajax({
-            url: baseUrl + "/assets/cards.xml",
+            url: baseUrl + "/assets/" + cardFiles[file],
             success: function (doc) {
                 var units = doc.getElementsByTagName("unit");
                 var newCards = {};
@@ -40,14 +52,23 @@ var DATA_UPDATER = (function () {
                 if (Object.keys(newCards).length > 0 && typeof spoilers !== "undefined") {
                     spoilers = newCards;
                 }
-                if (callback) callback();
+                onloaded(file, callback);
             },
             error: function (response) {
-                if (callback) callback();
+                onloaded(file, callback);
             },
             async: false,
             cache: false,
         });
+    }
+
+    var onloaded = function (file, callback) {
+        file++;
+        if (file < cardFiles.length) {
+            doUpdateCards(callback, file);
+        } else {
+            if (callback) callback();
+        }
     }
 
     function getUnitFromXML(node) {
@@ -57,7 +78,7 @@ var DATA_UPDATER = (function () {
             id: getValue(node, "id"),
             name: getValue(node, "name"),
             desc: getValue(node, "desc"),
-            picture: getValue(node, "picture") || getValue(node, "portrait") || getValue(node, "asset_prefab") || "NotFound",
+            picture: getValue(node, "picture") || prefix(getValue(node, "asset_prefab"), "prefab_"),
             hidden_until: hidden_until,
             rarity: getValue(node, "rarity"),
             set: getValue(node, "set"),
@@ -68,11 +89,15 @@ var DATA_UPDATER = (function () {
             skill: getSkillsFromXML(node),
             upgrades: getUpgradesFromXML(node)
         };
-        if (unit.card_type == "1") {
-            if (unit.picture !== "NotFound") {
-                unit.picture = "portrait_" + unit.picture;
+        if (!unit.picture) {
+            var portrait = getValue(node, "portrait");
+            if (portrait) {
+                unit.picture = "portrait_" + portrait.toLowerCase().replace("portrait_", "");
+            } else {
+                unit.picture = "NotFound";
             }
-        } else {
+        }
+        if (unit.card_type != "1") {
             addNumericField(unit, node, "attack");
             addNumericField(unit, node, "cost");
         }
@@ -130,11 +155,7 @@ var DATA_UPDATER = (function () {
             object[field] = value;
         }
     }
-
-    function addArrayField(object, node, field, isAtt) {
-        object[field] = (getValues(node, field, isAtt) || []);
-    }
-
+    
     function addNumericField(object, node, field, isAtt) {
         var value = getNumeric(node, field, isAtt);
         if (value >= 0) {
@@ -154,6 +175,14 @@ var DATA_UPDATER = (function () {
             }
         }
         return value;
+    }
+
+    function prefix(value, prefix) {
+        if (value) {
+            return prefix + value;
+        } else {
+            return value;
+        }
     }
 
     function getValues(node, name, isAtt) {

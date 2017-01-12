@@ -48,10 +48,6 @@ void Main()
 	Normalize("passive_missions.xml", downloadFiles);
 	Normalize("tutorial1.xml", downloadFiles);
 
-	g_unitIDs = new HashSet<string>();
-	xmlFile = Path.Combine(path, "cards.xml");
-	doc = XDocument.Load(xmlFile);
-
 	StringBuilder sbJSON = new StringBuilder();
 	List<unit> units = new List<unit>();
 
@@ -77,44 +73,61 @@ void Main()
 		.Where(name => name.IndexOf("SpriteSheet") < 0 && name.IndexOf("PortraitSheet") < 0 && name.IndexOf("NotFound") < 0)
 		.ToDictionary(name => name.Replace(".jpg", ""), name => name);
 
-	var unitNodes = doc.Descendants("unit");
-	foreach (var unitXML in unitNodes)
+	g_unitIDs = new HashSet<string>();
+
+	var cardFiles = new[] 
+	{ //"cards.xml"
+		"cards_heroes.xml",
+		"cards_premium_aether.xml",
+		"cards_premium_chaos.xml",
+		"cards_premium_wyld.xml",
+		"cards_reward.xml",
+		"cards_special.xml",
+		"cards_standard.xml",
+		"cards_story.xml"
+	};
+	foreach (var filename in cardFiles)
 	{
-		var stringReader = new StringReader(unitXML.ToString());
-		var unit = (unit)unitDeserializer.Deserialize(stringReader);
-		units.Add(unit);
-		if (!existingUnits.Contains(unit.id))
+		xmlFile = Path.Combine(path, filename);
+		var unitNodes = XDocument.Load(xmlFile).Descendants("unit");
+		foreach (var unitXML in unitNodes)
 		{
-			newUnits.Add(unit.id);
-			unit.picture.Dump("New Image - " + unit.name);
-		}
-		if (unit.portrait != null)
-		{
-			pictures[unit.portrait] = unit.name;
-			var imageFile = Path.Combine(path, @"..\res\cardImages\", unit.picture + ".png");
-			if (!File.Exists(imageFile))
+			var stringReader = new StringReader(unitXML.ToString());
+			var unit = (unit)unitDeserializer.Deserialize(stringReader);
+			units.Add(unit);
+			if (!existingUnits.Contains(unit.id))
 			{
-				notFound[unit.picture] = unit.asset_bundle;
-				unit.picture = "NotFound";
+				newUnits.Add(unit.id);
+				unit.picture.Dump("New Image - " + unit.name);
 			}
-		}
-		else if (unit.picture != null)
-		{
-			pictures[unit.picture] = unit.name;
-			var imageFile = Path.Combine(path, @"..\res\cardImages\", unit.picture + ".jpg");
-			if (!File.Exists(imageFile))
+			if (unit.portrait != null)
 			{
-				notFound[unit.picture] = unit.asset_bundle;
-				unit.picture = "NotFound";
+				pictures[unit.portrait] = unit.name;
+				var imageFile = Path.Combine(path, @"..\res\cardImages\", unit.picture + ".png");
+				if (!File.Exists(imageFile))
+				{
+					notFound[unit.picture] = unit.asset_bundle;
+					unit.picture = "NotFound";
+				}
 			}
-		}
-		else
-		{
-			noImage.Add(unit.name + "(NO IMAGE)");
-		}
-		if (unusedImages.ContainsKey(unit.picture))
-		{
-			unusedImages.Remove(unit.picture);
+			else if (unit.picture != null)
+			{
+				pictures[unit.picture] = unit.name;
+				var imageFile = Path.Combine(path, @"..\res\cardImages\", unit.picture + ".jpg");
+				if (!File.Exists(imageFile))
+				{
+					notFound[unit.picture] = unit.asset_bundle;
+					unit.picture = "NotFound";
+				}
+			}
+			else
+			{
+				noImage.Add(unit.name + "(NO IMAGE)");
+			}
+			if (unusedImages.ContainsKey(unit.picture))
+			{
+				unusedImages.Remove(unit.picture);
+			}
 		}
 	}
 
@@ -645,13 +658,23 @@ public partial class unit
 	/// <remarks/>
 	public string picture
 	{
-		get { return this.pictureField ?? this.portrait ?? this.asset_prefabField; }
+		get { return this.pictureField ?? this.portrait ?? this.asset_prefab; }
 		set { this.pictureField = value; }
 	}
 
 	public string asset_prefab
 	{
-		get { return this.asset_prefabField; }
+		get
+		{
+			if (String.IsNullOrWhiteSpace(this.asset_prefabField))
+			{
+				return String.Empty;
+			}
+			else
+			{
+				return "prefab_" + this.asset_prefabField;
+			}
+		}
 		set { this.asset_prefabField = value; }
 	}
 
@@ -827,6 +850,7 @@ public partial class skill : battlegroundEffect
 	private string sField;
 	private string allField;
 	private string multField;
+	private string on_delay_multField;
 
 	public override bool skip
 	{
@@ -854,6 +878,14 @@ public partial class skill : battlegroundEffect
 	{
 		get { return this.multField; }
 		set { this.multField = value; }
+	}
+
+	/// <remarks/>
+	[System.Xml.Serialization.XmlAttributeAttribute()]
+	public string on_delay_mult
+	{
+		get { return this.on_delay_multField; }
+		set { this.on_delay_multField = value; }
 	}
 
 	/// <remarks/>
@@ -1180,6 +1212,7 @@ private static void AppendSkill(StringBuilder sb, skill skill, string tabs, bool
 	AppendEntryString(sb, "id", skill.id, propTabs);
 	AppendEntry(sb, "x", skill.x, propTabs);
 	AppendEntry(sb, "mult", skill.mult, propTabs);
+	AppendEntry(sb, "on_delay_mult", skill.on_delay_mult, propTabs);
 	AppendEntryString(sb, "y", skill.y, propTabs);
 	AppendEntry(sb, "z", skill.y, propTabs);
 	AppendEntry(sb, "c", skill.c, propTabs);
