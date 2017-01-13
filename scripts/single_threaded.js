@@ -37,11 +37,17 @@
         rankingMode = document.getElementById("sim_ranking").checked;
 
         if (rankingMode) {
+            var originalDeck = hash_decode(original_hash).deck.map(x => x.id);
+            
             var deck = [];
             for (var cardId in CARDS) {
                 var card = CARDS[cardId];
-                if (parseInt(card.rarity) >= 3 && !FUSIONS[cardId] && card.set != "7000" && card.set != "9999") {
-                    deck.push(makeUnitInfo(cardId, GetMaxLevel(card), []));
+                if (parseInt(card.rarity) >= 3 && card.set != "7000" && card.set != "9999") {
+                    var fusion = FUSIONS[cardId];
+                    var fusionCard = fusion && CARDS[fusion];
+                    if (!fusionCard || fusionCard.rarity != card.rarity || originalDeck.some(x => x == Number(cardId))) {
+                        deck.push(makeUnitInfo(cardId, GetMaxLevel(card), []));
+                    }
                 }
             }
             inventaire.deck = deck;
