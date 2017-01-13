@@ -105,11 +105,11 @@
                 var deckCardToReplace = 15;
                 var log = '<strong>Etape ' + step + '/' + (inventaire.deck.length) + '</strong> == <strong>Best:</strong>' + best + ' (' + best_value + ')';
                 log += '<table>';
-                log += '<tr><td>Original</td><td>' + original_hash + '</td><td>' + originalValue + '</td></tr>';
                 for (var cardName in cardBest) {
-                   log += '<tr><td>' + CARDS[cardName].name + '</td><td>' + cardBest[cardName] + '</td><td>' + cardBestValue[cardName] + '</td></tr>';
-               }
-               log += '</table>'
+                    var card = CARDS[cardName];
+                    log += '<tr><td>' + [card.name, cardBestValue[cardName], card.rarity, card.type, card.sub_type.join(',')].join('</td><td>') + '</td></tr>';
+                }
+                log += '</table>'
                 progression.innerHTML = log;
                
                 if (cardToTry >= inventaire.deck.length) {
