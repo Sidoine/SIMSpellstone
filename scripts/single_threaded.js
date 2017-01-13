@@ -107,7 +107,7 @@
                 log += '<table>';
                 for (var cardName in cardBest) {
                     var card = CARDS[cardName];
-                    log += '<tr><td>' + [card.name, cardBestValue[cardName], card.rarity, card.type, card.sub_type.join(',')].join('</td><td>') + '</td></tr>';
+                    log += '<tr><td>' + [card.name, cardBestValue[cardName], card.rarity, card.set, card.type, card.sub_type.join(',')].join('</td><td>') + '</td></tr>';
                 }
                 log += '</table>'
                 progression.innerHTML = log;
