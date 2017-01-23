@@ -40,7 +40,14 @@
             var originalDeck = hash_decode(original_hash).deck.map(x => x.id);
             
             var deck = [];
+            var cardIds = [];
             for (var cardId in CARDS) {
+                cardIds.push(Number(cardId));
+            }
+
+            cardIds.sort((a,b) => b - a);
+
+            for (var cardId of cardIds) {
                 var card = CARDS[cardId];
                 if (parseInt(card.rarity) >= 3 && card.set != "7000" && card.set != "9999") {
                     var fusion = FUSIONS[cardId];
