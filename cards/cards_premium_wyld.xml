@@ -12270,7 +12270,7 @@
     <name>Toadplay</name>
     <picture>Totem_Frogs_A</picture>
     <asset_bundle>79</asset_bundle>
-    <hidden_until_time>1514566800</hidden_until_time>
+    <hidden_until_time>1483030800</hidden_until_time>
     <attack>3</attack>
     <health>16</health>
     <cost>3</cost>
@@ -12312,7 +12312,7 @@
     <name>Roughswamping</name>
     <picture>Totem_Frogs_A</picture>
     <asset_bundle>79</asset_bundle>
-    <hidden_until_time>1514566800</hidden_until_time>
+    <hidden_until_time>1483030800</hidden_until_time>
     <attack>4</attack>
     <health>20</health>
     <cost>3</cost>
@@ -12357,7 +12357,7 @@
     <name>Toadal Hijinks</name>
     <picture>Totem_Frogs_B</picture>
     <asset_bundle>79</asset_bundle>
-    <hidden_until_time>1514566800</hidden_until_time>
+    <hidden_until_time>1483030800</hidden_until_time>
     <attack>5</attack>
     <health>24</health>
     <cost>3</cost>
@@ -13062,6 +13062,139 @@
     </upgrade>
   </unit>
   <unit>
+    <id>7105</id>
+    <card_type>2</card_type>
+    <name>Charybdis</name>
+    <picture>Whirlpool_Monster_Charybdis_A</picture>
+    <asset_bundle>83</asset_bundle>
+    <hidden_until_time>1485190800</hidden_until_time>
+    <attack>7</attack>
+    <health>24</health>
+    <cost>3</cost>
+    <rarity>4</rarity>
+    <skill id="evade" x="1" />
+    <skill id="enfeeble" x="3" />
+    <skill id="enfeeble" x="3" />
+    <type>3</type>
+    <sub_type>12</sub_type>
+    <set>4000</set>
+    <upgrade>
+      <level>2</level>
+      <health>25</health>
+    </upgrade>
+    <upgrade>
+      <level>3</level>
+      <health>26</health>
+    </upgrade>
+    <upgrade>
+      <level>4</level>
+      <skill id="evade" x="1" />
+      <skill id="enfeeble" x="4" />
+      <skill id="enfeeble" x="4" />
+    </upgrade>
+    <upgrade>
+      <level>5</level>
+      <attack>8</attack>
+    </upgrade>
+    <upgrade>
+      <level>6</level>
+      <health>27</health>
+      <skill id="evade" x="2" />
+      <skill id="enfeeble" x="4" />
+      <skill id="enfeeble" x="4" />
+    </upgrade>
+  </unit>
+  <unit>
+    <id>17105</id>
+    <card_type>2</card_type>
+    <fusion_level>1</fusion_level>
+    <name>Swirling Charybdis</name>
+    <picture>Whirlpool_Monster_Charybdis_A</picture>
+    <asset_bundle>83</asset_bundle>
+    <hidden_until_time>1485190800</hidden_until_time>
+    <attack>8</attack>
+    <health>28</health>
+    <cost>3</cost>
+    <rarity>4</rarity>
+    <skill id="evade" x="2" />
+    <skill id="enfeeble" x="4" />
+    <skill id="enfeeble" x="4" />
+    <type>3</type>
+    <sub_type>12</sub_type>
+    <set>4000</set>
+    <upgrade>
+      <level>2</level>
+      <health>29</health>
+    </upgrade>
+    <upgrade>
+      <level>3</level>
+      <skill id="evade" x="2" />
+      <skill id="enfeeble" x="5" />
+      <skill id="enfeeble" x="5" />
+    </upgrade>
+    <upgrade>
+      <level>4</level>
+      <health>30</health>
+    </upgrade>
+    <upgrade>
+      <level>5</level>
+      <attack>9</attack>
+      <health>31</health>
+    </upgrade>
+    <upgrade>
+      <level>6</level>
+      <skill id="evade" x="3" />
+      <skill id="enfeeble" x="5" />
+      <skill id="enfeeble" x="5" />
+    </upgrade>
+  </unit>
+  <unit>
+    <id>27105</id>
+    <card_type>2</card_type>
+    <fusion_level>2</fusion_level>
+    <name>Charybdis of Whirlpools</name>
+    <picture>Whirlpool_Monster_Charybdis_B</picture>
+    <asset_bundle>83</asset_bundle>
+    <hidden_until_time>1485190800</hidden_until_time>
+    <attack>9</attack>
+    <health>31</health>
+    <cost>3</cost>
+    <rarity>4</rarity>
+    <skill id="evade" x="3" />
+    <skill id="enfeeble" x="6" />
+    <skill id="enfeeble" x="5" />
+    <type>3</type>
+    <sub_type>12</sub_type>
+    <set>4000</set>
+    <upgrade>
+      <level>2</level>
+      <health>32</health>
+      <skill id="evade" x="3" />
+      <skill id="enfeeble" x="6" />
+      <skill id="enfeeble" x="6" />
+    </upgrade>
+    <upgrade>
+      <level>3</level>
+      <health>33</health>
+    </upgrade>
+    <upgrade>
+      <level>4</level>
+      <attack>10</attack>
+    </upgrade>
+    <upgrade>
+      <level>5</level>
+      <skill id="evade" x="4" />
+      <skill id="enfeeble" x="6" />
+      <skill id="enfeeble" x="6" />
+    </upgrade>
+    <upgrade>
+      <level>6</level>
+      <skill id="evade" x="4" />
+      <skill id="enfeeble" x="7" />
+      <skill id="enfeeble" x="7" />
+    </upgrade>
+  </unit>
+  <unit>
     <id>7106</id>
     <card_type>2</card_type>
     <name>Octhos, Ruin Baron</name>
@@ -13189,6 +13322,118 @@
       <skill id="rally" x="8" y="12" />
       <skill id="protect" x="8" y="12" />
       <skill id="jam" c="3" />
+    </upgrade>
+  </unit>
+  <unit>
+    <id>7107</id>
+    <card_type>2</card_type>
+    <name>Hammer Krab</name>
+    <picture>Yeti_Crab_A</picture>
+    <asset_bundle>83</asset_bundle>
+    <hidden_until_time>1511110800</hidden_until_time>
+    <attack>4</attack>
+    <health>12</health>
+    <cost>2</cost>
+    <rarity>3</rarity>
+    <skill id="armored" x="2" />
+    <skill id="corrosive" x="1" />
+    <skill id="berserk" x="1" />
+    <type>3</type>
+    <sub_type>12</sub_type>
+    <set>3000</set>
+    <upgrade>
+      <level>2</level>
+      <health>13</health>
+    </upgrade>
+    <upgrade>
+      <level>3</level>
+      <attack>5</attack>
+    </upgrade>
+    <upgrade>
+      <level>4</level>
+      <health>14</health>
+    </upgrade>
+    <upgrade>
+      <level>5</level>
+      <health>15</health>
+    </upgrade>
+  </unit>
+  <unit>
+    <id>17107</id>
+    <card_type>2</card_type>
+    <fusion_level>1</fusion_level>
+    <name>Mallet Krab</name>
+    <picture>Yeti_Crab_A</picture>
+    <asset_bundle>83</asset_bundle>
+    <hidden_until_time>1511110800</hidden_until_time>
+    <attack>6</attack>
+    <health>15</health>
+    <cost>2</cost>
+    <rarity>3</rarity>
+    <skill id="armored" x="3" />
+    <skill id="corrosive" x="1" />
+    <skill id="berserk" x="1" />
+    <type>3</type>
+    <sub_type>12</sub_type>
+    <set>3000</set>
+    <upgrade>
+      <level>2</level>
+      <skill id="armored" x="3" />
+      <skill id="corrosive" x="2" />
+      <skill id="berserk" x="1" />
+    </upgrade>
+    <upgrade>
+      <level>3</level>
+      <skill id="armored" x="3" />
+      <skill id="corrosive" x="2" />
+      <skill id="berserk" x="2" />
+    </upgrade>
+    <upgrade>
+      <level>4</level>
+      <health>16</health>
+    </upgrade>
+    <upgrade>
+      <level>5</level>
+      <health>17</health>
+    </upgrade>
+  </unit>
+  <unit>
+    <id>27107</id>
+    <card_type>2</card_type>
+    <fusion_level>2</fusion_level>
+    <name>Klubber Krab</name>
+    <picture>Yeti_Crab_B</picture>
+    <asset_bundle>83</asset_bundle>
+    <hidden_until_time>1511110800</hidden_until_time>
+    <attack>7</attack>
+    <health>18</health>
+    <cost>2</cost>
+    <rarity>3</rarity>
+    <skill id="armored" x="3" />
+    <skill id="corrosive" x="2" />
+    <skill id="berserk" x="2" />
+    <type>3</type>
+    <sub_type>12</sub_type>
+    <set>3000</set>
+    <upgrade>
+      <level>2</level>
+      <attack>8</attack>
+    </upgrade>
+    <upgrade>
+      <level>3</level>
+      <health>19</health>
+    </upgrade>
+    <upgrade>
+      <level>4</level>
+      <skill id="armored" x="4" />
+      <skill id="corrosive" x="2" />
+      <skill id="berserk" x="2" />
+    </upgrade>
+    <upgrade>
+      <level>5</level>
+      <skill id="armored" x="4" />
+      <skill id="corrosive" x="3" />
+      <skill id="berserk" x="3" />
     </upgrade>
   </unit>
 </root>

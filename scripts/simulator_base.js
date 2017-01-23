@@ -23,10 +23,11 @@ var SIMULATOR = {};
             doEarlyActivationSkills(card);
             activation_skills(card);
         } else {
-            // Activate trap battlegrounds
+            // Activate trap/onPlay battlegrounds
             for (var i = 0; i < battlegrounds.onCardPlayed.length; i++) {
                 var battleground = battlegrounds.onCardPlayed[i];
                 if (battleground.enemy_only && p != 'cpu') continue;
+                if (battleground.self_only && p != 'player') continue;
                 battleground.owner = p;
                 var o = (p === 'player' ? 'cpu' : 'player');
                 battleground.onCardPlayed(card, deck[p].deck, deck[o].deck);
@@ -126,7 +127,7 @@ var SIMULATOR = {};
         for (var unit_key = 0, unit_len = field_p_assaults.length; unit_key < unit_len; unit_key++) {
             var current_unit = field_p_assaults[unit_key];
 
-            if (current_unit.isActive() && current_unit.isUnjammed()) {
+            if (current_unit.isAlive() && current_unit.isActive() && current_unit.isUnjammed()) {
 
                 // Check for Dualstrike
                 var dualstrike = current_unit.flurry;
@@ -210,17 +211,15 @@ var SIMULATOR = {};
             if (!targets.length) return 0;
 
             // Check All
-            if (all) {
-                var enhanced = 0;
-            } else {
+            if (!all) {
                 targets = choose_random_target(targets);
-                var enhanced = getEnhancement(src_card, skill.id);
-                if (enhanced) {
-                    if (enhanced < 0) {
-                        enhanced = Math.ceil(protect * -enhanced);
-                    }
-                    protect += enhanced;
+            }
+            var enhanced = getEnhancement(src_card, skill.id);
+            if (enhanced) {
+                if (enhanced < 0) {
+                    enhanced = Math.ceil(protect * -enhanced);
                 }
+                protect += enhanced;
             }
 
             var affected = 0;
@@ -288,17 +287,15 @@ var SIMULATOR = {};
             if (!targets.length) return 0;
 
             // Check All
-            if (all) {
-                var enhanced = 0;
-            } else {
+            if (!all) {
                 targets = choose_random_target(targets);
-                var enhanced = getEnhancement(src_card, skill.id);
-                if (enhanced) {
-                    if (enhanced < 0) {
-                        enhanced = Math.ceil(heal * -enhanced);
-                    }
-                    heal += enhanced;
+            }
+            var enhanced = getEnhancement(src_card, skill.id);
+            if (enhanced) {
+                if (enhanced < 0) {
+                    enhanced = Math.ceil(heal * -enhanced);
                 }
+                heal += enhanced;
             }
 
             var affected = 0;
@@ -628,17 +625,15 @@ var SIMULATOR = {};
             if (!targets.length) return 0;
 
             // Check All
-            if (all) {
-                var enhanced = 0;
-            } else {
+            if (!all) {
                 targets = choose_random_target(targets);
-                var enhanced = getEnhancement(src_card, skill.id);
-                if (enhanced) {
-                    if (enhanced < 0) {
-                        enhanced = Math.ceil(enfeeble * -enhanced);
-                    }
-                    enfeeble += enhanced;
+            }
+            var enhanced = getEnhancement(src_card, skill.id);
+            if (enhanced) {
+                if (enhanced < 0) {
+                    enhanced = Math.ceil(enfeeble * -enhanced);
                 }
+                enfeeble += enhanced;
             }
 
             var affected = 0;
@@ -703,17 +698,15 @@ var SIMULATOR = {};
             if (!targets.length) return 0;
 
             // Check All
-            if (all) {
-                var enhanced = 0;
-            } else {
+            if (!all) {
                 targets = choose_random_target(targets);
-                var enhanced = getEnhancement(src_card, skill.id);
-                if (enhanced) {
-                    if (enhanced < 0) {
-                        enhanced = Math.ceil(weaken * -enhanced);
-                    }
-                    weaken += enhanced;
+            }
+            var enhanced = getEnhancement(src_card, skill.id);
+            if (enhanced) {
+                if (enhanced < 0) {
+                    enhanced = Math.ceil(weaken * -enhanced);
                 }
+                weaken += enhanced;
             }
 
             var affected = 0;
@@ -769,17 +762,15 @@ var SIMULATOR = {};
             if (!targets.length) return 0;
 
             // Check All
-            if (all) {
-                var enhanced = 0;
-            } else {
+            if (!all) {
                 targets = choose_random_target(targets);
-                var enhanced = getEnhancement(src_card, skill.id);
-                if (enhanced) {
-                    if (enhanced < 0) {
-                        enhanced = Math.ceil(rally * -enhanced);
-                    }
-                    rally += enhanced;
+            }
+            var enhanced = getEnhancement(src_card, skill.id);
+            if (enhanced) {
+                if (enhanced < 0) {
+                    enhanced = Math.ceil(rally * -enhanced);
                 }
+                rally += enhanced;
             }
 
             var affected = 0;
@@ -1146,6 +1137,33 @@ var SIMULATOR = {};
             }
 
             return affected;
+        },
+    };
+
+    var onPlaySkills = {
+
+        ambush: function (src_card, target, skill) {
+
+            var x = skill.x
+            var faction = skill.y;
+            var all = skill.all;
+            var base = skill.base;
+            var mult = skill.mult;
+
+            var damage = x;
+            if (!damage) {
+                var mult = skill.mult;
+                damage = Math.ceil(target[base] * mult);
+            }
+
+            do_damage(target, damage);
+
+            if (debug) {
+                echo += debug_name(src_card) + ' ambushes ' + debug_name(target) + ' for ' + damage + ' damage';
+                echo += (!target.isAlive() ? ' and it dies' : '') + '<br>';
+            }
+
+            return 1;
         },
     };
 
@@ -1717,6 +1735,10 @@ var SIMULATOR = {};
 
             var current_assault = field_p_assaults[key];
 
+            if (!current_assault.isAlive()) {
+                continue;
+            }
+
             // Check Timer
             if (!current_assault.isActive()) {
                 continue;
@@ -2256,6 +2278,7 @@ var SIMULATOR = {};
 
     // public functions
     SIMULATOR.simulate = simulate;
+    SIMULATOR.onPlaySkills = onPlaySkills;
     // public variables
     Object.defineProperties(SIMULATOR, {
         setupDecks: {

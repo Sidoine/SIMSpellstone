@@ -530,6 +530,7 @@ var makeUnit = (function () {
                 // Passive Toggles
                 case 'taunt':
                     this.taunt = true;
+                    this.imbued[skillID] = 1;
                     return;
                 // Passives
                 case 'armored':
@@ -702,7 +703,7 @@ var makeUnit = (function () {
         card.name = original_card.name;
         card.attack = original_card.attack;
         card.health = original_card.health;
-        card.maxLevel = GetMaxLevel(original_card);
+        card.maxLevel = original_card.maxLevel;
         card.level = ((unit_level > card.maxLevel) ? card.maxLevel : unit_level);
         card.cost = original_card.cost;
         card.rarity = original_card.rarity;
@@ -719,6 +720,7 @@ var makeUnit = (function () {
                 if (upgrade.cost !== undefined) card.cost = upgrade.cost;
                 if (upgrade.health !== undefined) card.health = upgrade.health;
                 if (upgrade.attack !== undefined) card.attack = upgrade.attack;
+                if (upgrade.desc !== undefined) card.desc = upgrade.desc;
                 if (upgrade.skill.length > 0) original_skills = upgrade.skill;
                 if (key == card.level) break;
             }
@@ -749,6 +751,63 @@ var getEnhancement = function (card, s) {
     var enhancements = card.enhanced;
     return (enhancements ? (enhancements[s] || 0) : 0);
 };
+
+var isImbued = function (card, skillID, i) {
+    var activation = false;
+    var imbueSkillsKey;
+    switch (skillID) {
+        // Passive Toggles
+        case 'flurry':
+        case 'taunt':
+            return card.imbued[skillID];
+
+        // Passive Skills
+        case 'armored':
+        case 'berserk':
+        case 'burn':
+        case 'corrosive':
+        case 'counter':
+        case 'counterburn':
+        case 'evade':
+        case 'fury':
+        case 'leech':
+        case 'nullify':
+        case 'pierce':
+        case 'poison':
+        case 'valor':
+            return (card[skillID] === card.imbued[skillID])
+
+            // Early Activation skills
+        case 'imbue':
+        case 'enhance':
+        case 'fervor':
+        case 'rally':
+        case 'legion':
+        case 'barrage':
+            imbueSkillsKey = 'earlyActivationSkills';
+            break;
+            // Activation skills (can occur twice on a card)
+        case 'enfeeble':
+        case 'frost':
+        case 'heal':
+        case 'jam':
+        case 'protect':
+        case 'protect_ice':
+        case 'strike':
+        case 'weaken':
+        default:
+            imbueSkillsKey = 'skill';
+            break;
+    }
+
+
+    // Mark the first added skill index
+    if (card.imbued[imbueSkillsKey] !== undefined) {
+        return (i >= imbued[imbueSkillsKey]);
+    } else {
+        return false;
+    }
+}
 
 var addRunes = function (card, runes) {
     if (!card.runes) card.runes = [];
@@ -839,6 +898,38 @@ var MakeSkillModifier = (function () {
 
     return (function (name, effects) {
         return new Modifier(name, effects);
+    })
+}());
+
+var MakeOnPlayBGE = (function () {
+    var OnPlayBGE = function (name, effect) {
+        this.p = null;
+        this.name = name;
+        this.effect = effect;
+        this.runes = [];
+    }
+
+    OnPlayBGE.prototype = {
+        onCardPlayed: function (card) {
+            SIMULATOR.onPlaySkills[this.effect.id](this, card, this.effect);
+        },
+
+        //Card ID is ...
+        isCommander: function () {
+            return false;
+        },
+
+        isAssault: function () {
+            return false;
+        },
+
+        isBattleground: function () {
+            return true;
+        },
+    };
+
+    return (function (name, effects) {
+        return new OnPlayBGE(name, effects);
     })
 }());
 
@@ -957,6 +1048,11 @@ function addBgesFromList(battlegrounds, getbattleground, player) {
                 battlegrounds.onCreate.push(bge);
             } else if (effect_type === "trap_card") {
                 var bge = MakeTrap(battleground.name, effect);
+                if (player === 'player') bge.self_only = true
+                if (player === 'cpu') bge.enemy_only = true
+                battlegrounds.onCardPlayed.push(bge);
+            } else if (effect_type === "on_play") {
+                var bge = MakeOnPlayBGE(battleground.name, effect);
                 if (player === 'player') bge.self_only = true
                 if (player === 'cpu') bge.enemy_only = true
                 battlegrounds.onCardPlayed.push(bge);
@@ -2241,7 +2337,7 @@ function get_slim_card_by_id(unit, getDetails) {
         new_card.id = current_card.id;
         new_card.name = current_card.name;
         new_card.rarity = current_card.rarity;
-        new_card.maxLevel = GetMaxLevel(current_card);
+        new_card.maxLevel = current_card.maxLevel;
         if (unit.level) {
             new_card.level = unit.level;
             if (new_card.level > new_card.maxLevel) new_card.level = new_card.maxLevel;
@@ -2261,6 +2357,7 @@ function get_slim_card_by_id(unit, getDetails) {
                     if (upgrade.cost !== undefined) new_card.cost = upgrade.cost;
                     if (upgrade.health !== undefined) new_card.health = upgrade.health;
                     if (upgrade.attack !== undefined) new_card.attack = upgrade.attack;
+                    if (upgrade.desc !== undefined) new_card.desc = upgrade.desc;
                     if (upgrade.skill.length > 0) new_card.skill = upgrade.skill;
                     if (key == new_card.level) break;
                 }
@@ -2276,16 +2373,6 @@ function get_slim_card_by_id(unit, getDetails) {
     }
 
     return new_card;
-}
-
-function GetMaxLevel(original_card) {
-    if (original_card.maxLevel) return original_card.maxLevel;
-    original_card.maxLevel = 1;
-    var upgrades = original_card.upgrades;
-    if (upgrades) for (var key in upgrades) {
-        if (upgrades.hasOwnProperty(key)) original_card.maxLevel++;
-    }
-    return original_card.maxLevel;
 }
 
 function loadCard(id) {
@@ -2311,13 +2398,14 @@ function getCardInfo(unit)
                 if (upgrade.cost !== undefined) card.cost = upgrade.cost;
                 if (upgrade.health !== undefined) card.health = upgrade.health;
                 if (upgrade.attack !== undefined) card.attack = upgrade.attack;
+                if (upgrade.desc !== undefined) card.desc = upgrade.desc;
                 if (upgrade.skill.length > 0) card.skill = upgrade.skill;
                 if (key == level) break;
             }
         }
     }
     card.level = level;
-    card.maxLevel = GetMaxLevel(original);
+    card.maxLevel = original.maxLevel;
     return card;
 }
 

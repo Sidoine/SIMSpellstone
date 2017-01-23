@@ -542,17 +542,11 @@ public partial class unit
 
 	public void AppendUnit(StringBuilder sb)
 	{
-		if (rarity == "0" && sub_type == null)
+		if (name == "Croak Dropper")
 		{
-			if (upgrades != null)
-			{
-				// Towers
-				if (card_type == "2")
-				{
-					sub_type = new string[] { "999" };
-				}
-			}
+			var breakpoint = true;
 		}
+		
 		sb.Append("  \"").Append(id).Append("\": {\r\n");
 		AppendEntryString(sb, "id", id, unitTabs);
 		AppendEntryString(sb, "name", name, unitTabs);
@@ -564,12 +558,16 @@ public partial class unit
 		AppendEntryString(sb, "card_type", card_type, unitTabs);
 		AppendEntryString(sb, "type", type, unitTabs);
 		AppendEntryArray(sb, "sub_type", sub_type, unitTabs);
+		AppendEntry(sb, "health", health, unitTabs);
 		if (card_type != "1")
 		{
 			AppendEntry(sb, "attack", attack, unitTabs);
 		}
-		AppendEntry(sb, "health", health, unitTabs);
 		AppendEntry(sb, "cost", cost, unitTabs);
+		
+		var maxLevel = 1 + (upgrades != null ? upgrades.Length : 0);
+		AppendEntry(sb, "maxLevel", maxLevel.ToString(), unitTabs);
+		
 		AppendSkills(sb, skills, unitTabs);
 		AppendUpgrades(sb);
 		sb.Append("  },\r\n");
@@ -601,6 +599,7 @@ public partial class unit
 				AppendEntry(sb, "attack", upgrade.attack, skillUpgradePropTabs);
 				AppendEntry(sb, "health", upgrade.health, skillUpgradePropTabs);
 				AppendEntry(sb, "cost", upgrade.cost, skillUpgradePropTabs);
+				AppendEntry(sb, "desc", upgrade.desc, skillUpgradePropTabs);
 				AppendSkills(sb, upgrade.skills, skillUpgradePropTabs);
 				sb.Append(upgradeTabs).Append("},\r\n");
 			}
@@ -685,7 +684,7 @@ public partial class unit
 		{
 			if (this.portraitField != null)
 			{
-				return "portrait_" + this.portraitField.ToLower().Replace("portrait_", "").Replace("_santa", "");
+				return "portrait_" + this.portraitField.ToLower().Replace("portrait_", "");
 			}
 			else
 			{
@@ -801,6 +800,7 @@ public partial class unitUpgrade
 	private string attackField;
 	private string healthField;
 	private string costField;
+	private string descField;
 	private skill[] skillField;
 
 	/// <remarks/>
@@ -829,6 +829,12 @@ public partial class unitUpgrade
 	{
 		get { return this.costField; }
 		set { this.costField = value; }
+	}
+
+	public string desc
+	{
+		get { return this.descField; }
+		set { this.descField = value; }
 	}
 
 	/// <remarks/>
@@ -972,6 +978,7 @@ public partial class add_skill : battlegroundEffect
 	private string sField;
 	private string allField;
 	private string multField;
+	private string on_delay_multField;
 	private string baseField;
 
 	/// <remarks/>
@@ -988,6 +995,14 @@ public partial class add_skill : battlegroundEffect
 	{
 		get { return this.multField; }
 		set { this.multField = value; }
+	}
+
+	/// <remarks/>
+	[System.Xml.Serialization.XmlAttributeAttribute()]
+	public string on_delay_mult
+	{
+		get { return this.on_delay_multField; }
+		set { this.on_delay_multField = value; }
 	}
 
 	/// <remarks/>
@@ -1214,7 +1229,7 @@ private static void AppendSkill(StringBuilder sb, skill skill, string tabs, bool
 	AppendEntry(sb, "mult", skill.mult, propTabs);
 	AppendEntry(sb, "on_delay_mult", skill.on_delay_mult, propTabs);
 	AppendEntryString(sb, "y", skill.y, propTabs);
-	AppendEntry(sb, "z", skill.y, propTabs);
+	//AppendEntry(sb, "z", skill.z, propTabs);
 	AppendEntry(sb, "c", skill.c, propTabs);
 	AppendEntryString(sb, "s", skill.s, propTabs);
 	AppendEntryString(sb, "all", skill.all, propTabs);
@@ -1237,9 +1252,10 @@ private static void AppendAddSkill(StringBuilder sb, add_skill skill, string tab
 	AppendEntryString(sb, "id", skill.id, tabs);
 	AppendEntry(sb, "x", skill.x, tabs);
 	AppendEntry(sb, "mult", skill.mult, tabs);
+	AppendEntry(sb, "mult", skill.on_delay_mult, tabs);
 	AppendEntryString(sb, "base", skill.Base, tabs);
 	AppendEntryString(sb, "y", skill.y, tabs);
-	AppendEntry(sb, "z", skill.y, tabs);
+	//AppendEntry(sb, "z", skill.z, tabs);
 	AppendEntry(sb, "c", skill.c, tabs);
 	AppendEntryString(sb, "s", skill.s, tabs);
 	AppendEntryString(sb, "all", skill.all, tabs);
