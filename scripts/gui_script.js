@@ -190,7 +190,7 @@ $(function () {
         // Load current battlegrounds
         var bgCheckBoxes = document.getElementsByName("battleground");
         bgCheckBoxes[5].checked = true;
-        bgCheckBoxes[9].checked = true;
+        bgCheckBoxes[10].checked = true;
     }
 
     if (_GET('sims')) {
@@ -810,7 +810,7 @@ function supports_html5_storage() {
 
 // Initialize global variables
 var battle_history = '';
-var max_turns = 50;
+var max_turns = 100;
 var debug = false;
 var mass_debug = false;
 var loss_debug = false;
