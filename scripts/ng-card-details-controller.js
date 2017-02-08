@@ -17,6 +17,16 @@
             $scope.level = unit.level;
             $scope.unit = $window.makeUnitInfo($scope.id, $scope.level),
             $scope.card = $window.getCardInfo($scope.unit);
+            $scope.releaseDate = (function () {
+                var hiddenUntil = $scope.card.hidden_until;
+                if (hiddenUntil) {
+                    hiddenUntil = new Date(Number(hiddenUntil));
+                    hiddenUntil = (hiddenUntil.getMonth() + 1) + "/" + hiddenUntil.getDate() + "/" + hiddenUntil.getFullYear();
+                } else {
+                    hiddenUntil = "";
+                }
+                return hiddenUntil;
+            }());
             return this;
         }
 
@@ -39,7 +49,7 @@
         }
 
         var image;
-        $scope.imageSrc = "res/cardImagesLarge/NotFound.jpg"
+        $scope.imageSrc = "res/cardImagesLarge/NotFound.jpg";
         $scope.$watch('card.id', function (newValue, oldValue)
         {
             if (newValue)
@@ -52,7 +62,10 @@
                 image = new Image();
                 image.onerror = function ()
                 {
-                    this.onerror = null;
+                    this.onerror = function () {
+                        this.onerror = null;
+                        this.src = "res/cardImagesLarge/NotFound.jpg";
+                    };
                     this.src = this.src.replace('ImagesLarge', 'Images');
                 };
                 image.onload = function ()
@@ -85,6 +98,15 @@
         $scope.getRarityString = function ()
         {
             return $window.rarityStrings[$scope.card.rarity];
+        }
+
+        $scope.fontSize = function () {
+            var rarityString = $("#rarity-string").text();
+            var numChars = rarityString.length;
+            var fontSize = Math.ceil(71000 / (numChars * numChars));
+            return {
+                "font-size": fontSize + "px"
+            };
         }
 
         $scope.showRarity = function ()
@@ -261,7 +283,11 @@
 
         $scope.getFaction = function (factionID)
         {
-            return $window.factions.names[factionID];
+            var faction = $window.factions.names[factionID];
+            if (faction == "Tower") {
+                faction = "";
+            }
+            return faction;
         }
 
         $scope.decrementFusion = function ()

@@ -3,7 +3,7 @@
 var loadDeckDialog;
 
 $(function () {
-    $("#deck").change(function ()
+    $("#deck1").change(function ()
     {
         this.value = this.value.trim();
         deckChanged("attack_deck", hash_decode(this.value));
@@ -18,7 +18,9 @@ $(function () {
     function deckChanged(deckID, newDeck) {
         var $deck = $("#" + deckID);
         $deck.children().remove();
-        $deck.append(CARD_GUI.makeDeckHTML(newDeck));
+        if (!_DEFINED("seedtest")) {
+            $deck.append(CARD_GUI.makeDeckHTML(newDeck));
+        }
     }
     var accordions = $(".accordion").accordion({
         collapsible: true,
@@ -26,13 +28,20 @@ $(function () {
         heightStyle: "content",
     }).filter(".start-open").accordion('option', 'active' , 0);
 
-    $("#raid").change(function () {
+    $("#raid, #raid_level").change(function () {
         var newDeck;
-        if (this.value) {
-            var raidlevel = document.getElementById('raid_level').value;
-            newDeck = load_deck_raid(this.value, raidlevel);
+        var selectedRaid = $("#raid").val();
+        var raidlevel = $('#raid_level');
+        if (selectedRaid) {
+            newDeck = load_deck_raid(selectedRaid, raidlevel.val());
+            if (RAIDS[selectedRaid].type === "Dungeon") {
+                raidlevel.attr("max", 150);
+            } else {
+                raidlevel.attr("max", 40);
+            }
         } else {
             newDeck = hash_decode('');
+            raidlevel.attr("max", 40);
         }
         deckChanged("defend_deck", newDeck);
     });
@@ -41,11 +50,12 @@ $(function () {
         $("#mission").change();
     });
 
-    $("#mission").change(function () {
+    $("#mission, #mission_level").change(function () {
         var newDeck;
-        if (this.value) {
-            var missionLevel = document.getElementById('mission_level').value;
-            newDeck = load_deck_mission(this.value, missionLevel);
+        var missionID = $('#mission').val();
+        if (missionID) {
+            var missionLevel = $('#mission_level').val();
+            newDeck = load_deck_mission(missionID, missionLevel);
         } else {
             newDeck = hash_decode('');
         }
@@ -54,13 +64,17 @@ $(function () {
 
     loadDeckDialog = $("#loadDeckDialog").dialog({
         autoOpen: false,
+        minWidth: 320,
         /*
-        width: 250,
         minHeight: 20,
         */
         modal: true,
         resizable: false,
         buttons: {
+            Delete: function () {
+                var name = $("#loadDeckName").val();
+                var newHash = storageAPI.deleteDeck(name);
+            },
             Load: function () {
                 var name = $("#loadDeckName").val();
                 var newHash = storageAPI.loadDeck(name);
@@ -79,9 +93,16 @@ $(function () {
     // Disable this as we now draw the full deck
     debug_dump_decks = function () { };
 
-    setDeckSortable("#attack_deck", '#deck');
+    setDeckSortable("#attack_deck", '#deck1');
     setDeckSortable("#defend_deck", '#deck2');
+
+    setTimeout(DATA_UPDATER.updateCards, 1, doneLoading);
 });
+
+function doneLoading() {
+    $("body").removeClass("loading");
+    checkTutorial();
+}
 
 function setDeckSortable(deckField, associatedHashField)
 {
@@ -137,4 +158,37 @@ function toggleTheme() {
         $("#toggleTheme").val("Light Theme");
     }
     dark = !dark;
+}
+
+var frames = [];
+var frameInterval = null;
+function drawField(field, hand, callback, turn, activeUnit) {
+    var newFrame = CARD_GUI.doDrawField(field, hand, callback, turn, activeUnit);
+    frames.push(newFrame);
+    if (!frameInterval) {
+        drawFrames();
+        frameInterval = setInterval(drawFrames, 500);
+    }
+}
+
+function clearFrames() {
+    frames = [];
+    clearInterval(frameInterval);
+    frameInterval = null;
+}
+
+var disabledInterval = false;
+function drawFrames() {
+    if (frames.length === 0) {
+        if (disabledInterval) {
+            clearInterval(frameInterval);
+            frameInterval = null;
+        } else {
+            disabledInterval = true;
+        }
+    } else {
+        var frame = frames.splice(0, 1)[0];
+        $("#cardSpace").children().remove().end().append(frame);
+        disabledInterval = false;
+    }
 }

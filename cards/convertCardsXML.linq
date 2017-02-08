@@ -24,19 +24,29 @@ void Main()
 	HashSet<string> existingUnits = LoadUnits(doc);
 	HashSet<string> newUnits = new HashSet<string>();
 
+	Normalize("arena.xml", downloadFiles);
 	Normalize("achievements.xml", downloadFiles);
 	Normalize("battleground_effects.xml", downloadFiles);
 	Normalize("campaigns.xml", downloadFiles);
 	Normalize("cards.xml", downloadFiles);
+	Normalize("cards_config.xml", downloadFiles);
+	Normalize("cards_heroes.xml", downloadFiles);
+	Normalize("cards_premium_aether.xml", downloadFiles);
+	Normalize("cards_premium_chaos.xml", downloadFiles);
+	Normalize("cards_premium_wyld.xml", downloadFiles);
+	Normalize("cards_reward.xml", downloadFiles);
+	Normalize("cards_special.xml", downloadFiles);
+	Normalize("cards_standard.xml", downloadFiles);
+	Normalize("cards_story.xml", downloadFiles);
 	Normalize("fusion_recipes_cj2.xml", downloadFiles);
+	Normalize("guilds.xml", downloadFiles);
+	Normalize("guide.xml", downloadFiles);
 	Normalize("levels.xml", downloadFiles);
+	Normalize("market.xml", downloadFiles);
 	Normalize("missions.xml", downloadFiles);
 	Normalize("missions_event.xml", downloadFiles);
 	Normalize("passive_missions.xml", downloadFiles);
-	
-	g_unitIDs = new HashSet<string>();
-	xmlFile = Path.Combine(path, "cards.xml");
-	doc = XDocument.Load(xmlFile);
+	Normalize("tutorial1.xml", downloadFiles);
 
 	StringBuilder sbJSON = new StringBuilder();
 	List<unit> units = new List<unit>();
@@ -63,44 +73,61 @@ void Main()
 		.Where(name => name.IndexOf("SpriteSheet") < 0 && name.IndexOf("PortraitSheet") < 0 && name.IndexOf("NotFound") < 0)
 		.ToDictionary(name => name.Replace(".jpg", ""), name => name);
 
-	var unitNodes = doc.Descendants("unit");
-	foreach (var unitXML in unitNodes)
+	g_unitIDs = new HashSet<string>();
+
+	var cardFiles = new[] 
+	{ //"cards.xml"
+		"cards_heroes.xml",
+		"cards_premium_aether.xml",
+		"cards_premium_chaos.xml",
+		"cards_premium_wyld.xml",
+		"cards_reward.xml",
+		"cards_special.xml",
+		"cards_standard.xml",
+		"cards_story.xml"
+	};
+	foreach (var filename in cardFiles)
 	{
-		var stringReader = new StringReader(unitXML.ToString());
-		var unit = (unit)unitDeserializer.Deserialize(stringReader);
-		units.Add(unit);
-		if (!existingUnits.Contains(unit.id))
+		xmlFile = Path.Combine(path, filename);
+		var unitNodes = XDocument.Load(xmlFile).Descendants("unit");
+		foreach (var unitXML in unitNodes)
 		{
-			newUnits.Add(unit.id);
-			unit.picture.Dump("New Image - " + unit.name);
-		}
-		if (unit.portrait != null)
-		{
-			pictures[unit.portrait] = unit.name;
-			var imageFile = Path.Combine(path, @"..\res\cardImages\", unit.picture + ".png");
-			if (!File.Exists(imageFile))
+			var stringReader = new StringReader(unitXML.ToString());
+			var unit = (unit)unitDeserializer.Deserialize(stringReader);
+			units.Add(unit);
+			if (!existingUnits.Contains(unit.id))
 			{
-				notFound[unit.picture] = unit.asset_bundle;
-				unit.picture = "NotFound";
+				newUnits.Add(unit.id);
+				unit.picture.Dump("New Image - " + unit.name);
 			}
-		}
-		else if (unit.picture != null)
-		{
-			pictures[unit.picture] = unit.name;
-			var imageFile = Path.Combine(path, @"..\res\cardImages\", unit.picture + ".jpg");
-			if (!File.Exists(imageFile))
+			if (unit.portrait != null)
 			{
-				notFound[unit.picture] = unit.asset_bundle;
-				unit.picture = "NotFound";
+				pictures[unit.portrait] = unit.name;
+				var imageFile = Path.Combine(path, @"..\res\cardImages\", unit.picture + ".png");
+				if (!File.Exists(imageFile))
+				{
+					notFound[unit.picture] = unit.asset_bundle;
+					unit.picture = "NotFound";
+				}
 			}
-		}
-		else
-		{
-			noImage.Add(unit.name + "(NO IMAGE)");
-		}
-		if (unusedImages.ContainsKey(unit.picture))
-		{
-			unusedImages.Remove(unit.picture);
+			else if (unit.picture != null)
+			{
+				pictures[unit.picture] = unit.name;
+				var imageFile = Path.Combine(path, @"..\res\cardImages\", unit.picture + ".jpg");
+				if (!File.Exists(imageFile))
+				{
+					notFound[unit.picture] = unit.asset_bundle;
+					unit.picture = "NotFound";
+				}
+			}
+			else
+			{
+				noImage.Add(unit.name + "(NO IMAGE)");
+			}
+			if (unusedImages.ContainsKey(unit.picture))
+			{
+				unusedImages.Remove(unit.picture);
+			}
 		}
 	}
 
@@ -138,7 +165,7 @@ void Main()
 		}
 		var imageName = key.Substring(0, split);
 		var suffix = image.Key[split + 1];
-		var fusion = suffixMap[suffix];
+		int fusion = suffixMap[suffix];
 		
 		string fullID;
 		if (unusedIDHash.ContainsKey(imageName))
@@ -297,6 +324,11 @@ void Main()
 		writer.WriteLine("var FUSIONS = {");
 		writer.WriteLine(String.Join(",\r\n", fusions.OrderBy(f => f.baseCardID).Select(f => f.ToString())));
 		writer.WriteLine("};");
+		writer.WriteLine("var REVERSE_FUSIONS = {};");
+		writer.WriteLine("for(var id in FUSIONS) {");
+		writer.WriteLine("	var fusion = FUSIONS[id];");
+		writer.WriteLine("	REVERSE_FUSIONS[fusion] = id;");
+		writer.WriteLine("}");
 	}
 	file = new FileInfo(Path.Combine(path, "../scripts/data", "bges.js"));
 	using (var writer = file.CreateText())
@@ -385,6 +417,7 @@ public class battleground
 	[XmlArrayItem(Type = typeof(evolve_skill), ElementName = "evolve_skill")]
 	[XmlArrayItem(Type = typeof(skill), ElementName = "skill")]
 	[XmlArrayItem(Type = typeof(starting_card), ElementName = "starting_card")]
+	[XmlArrayItem(Type = typeof(trap_card), ElementName = "trap_card")]
 	public battlegroundEffect[] effect { get; set; }
 	public string id { get; set; }
 	public string desc { get; set; }
@@ -475,6 +508,10 @@ public class battleground
 				{
 					AppendAddSkill(sb, (add_skill)effect_i, tabs3);
 				}
+				else if (effect_i is trap_card)
+				{
+					AppendTrap(sb, (trap_card)effect_i, tabs3);
+				}
 				sb.Append(tabs2).Append("},\r\n");
 			}
 		}
@@ -505,22 +542,32 @@ public partial class unit
 
 	public void AppendUnit(StringBuilder sb)
 	{
+		if (name == "Croak Dropper")
+		{
+			var breakpoint = true;
+		}
+		
 		sb.Append("  \"").Append(id).Append("\": {\r\n");
 		AppendEntryString(sb, "id", id, unitTabs);
 		AppendEntryString(sb, "name", name, unitTabs);
 		AppendEntryString(sb, "desc", desc, unitTabs);
 		AppendEntryString(sb, "picture", picture, unitTabs);
+		AppendEntryString(sb, "hidden_until", hidden_until, unitTabs);
 		AppendEntryString(sb, "rarity", rarity, unitTabs);
 		AppendEntryString(sb, "set", set, unitTabs);
 		AppendEntryString(sb, "card_type", card_type, unitTabs);
 		AppendEntryString(sb, "type", type, unitTabs);
-		AppendEntryString(sb, "sub_type", sub_type, unitTabs);
+		AppendEntryArray(sb, "sub_type", sub_type, unitTabs);
+		AppendEntry(sb, "health", health, unitTabs);
 		if (card_type != "1")
 		{
 			AppendEntry(sb, "attack", attack, unitTabs);
 		}
-		AppendEntry(sb, "health", health, unitTabs);
 		AppendEntry(sb, "cost", cost, unitTabs);
+		
+		var maxLevel = 1 + (upgrades != null ? upgrades.Length : 0);
+		AppendEntry(sb, "maxLevel", maxLevel.ToString(), unitTabs);
+		
 		AppendSkills(sb, skills, unitTabs);
 		AppendUpgrades(sb);
 		sb.Append("  },\r\n");
@@ -552,6 +599,7 @@ public partial class unit
 				AppendEntry(sb, "attack", upgrade.attack, skillUpgradePropTabs);
 				AppendEntry(sb, "health", upgrade.health, skillUpgradePropTabs);
 				AppendEntry(sb, "cost", upgrade.cost, skillUpgradePropTabs);
+				AppendEntry(sb, "desc", upgrade.desc, skillUpgradePropTabs);
 				AppendSkills(sb, upgrade.skills, skillUpgradePropTabs);
 				sb.Append(upgradeTabs).Append("},\r\n");
 			}
@@ -567,12 +615,13 @@ public partial class unit
 	private string portraitField;
 	private string asset_prefabField;
 	private string asset_bundleField;
+	private string hidden_untilField;
 	private string attackField;
 	private string healthField;
 	private string costField;
 	private string rarityField;
 	private string typeField;
-	private string sub_typeField;
+	private string[] sub_typeField;
 	private string setField;
 	private skill[] skillsField;
 	private unitUpgrade[] upgradesField;
@@ -608,13 +657,23 @@ public partial class unit
 	/// <remarks/>
 	public string picture
 	{
-		get { return this.pictureField ?? this.portrait ?? this.asset_prefabField; }
+		get { return this.pictureField ?? this.portrait ?? this.asset_prefab; }
 		set { this.pictureField = value; }
 	}
 
 	public string asset_prefab
 	{
-		get { return this.asset_prefabField; }
+		get
+		{
+			if (String.IsNullOrWhiteSpace(this.asset_prefabField))
+			{
+				return String.Empty;
+			}
+			else
+			{
+				return "prefab_" + this.asset_prefabField;
+			}
+		}
 		set { this.asset_prefabField = value; }
 	}
 
@@ -640,6 +699,31 @@ public partial class unit
 	{
 		get { return this.asset_bundleField; }
 		set { this.asset_bundleField = value; }
+	}
+
+	/// <remarks/>
+	public string hidden_until
+	{
+		get { return this.hidden_untilField; }
+		set
+		{
+			if (!String.IsNullOrEmpty(value))
+			{
+				this.hidden_untilField = value + "000";
+			}
+		}
+	}
+	
+	public string hidden_until_time
+	{
+		get { return this.hidden_untilField; }
+		set
+		{
+			if (!String.IsNullOrEmpty(value))
+			{
+				this.hidden_untilField = value + "000";
+			}
+		}
 	}
 
 	/// <remarks/>
@@ -686,7 +770,8 @@ public partial class unit
 	}
 
 	/// <remarks/>
-	public string sub_type
+	[System.Xml.Serialization.XmlElementAttribute("sub_type")]
+	public string[] sub_type
 	{
 		get { return this.sub_typeField; }
 		set { this.sub_typeField = value; }
@@ -715,6 +800,7 @@ public partial class unitUpgrade
 	private string attackField;
 	private string healthField;
 	private string costField;
+	private string descField;
 	private skill[] skillField;
 
 	/// <remarks/>
@@ -745,6 +831,12 @@ public partial class unitUpgrade
 		set { this.costField = value; }
 	}
 
+	public string desc
+	{
+		get { return this.descField; }
+		set { this.descField = value; }
+	}
+
 	/// <remarks/>
 	[System.Xml.Serialization.XmlElementAttribute("skill")]
 	public skill[] skills
@@ -764,6 +856,7 @@ public partial class skill : battlegroundEffect
 	private string sField;
 	private string allField;
 	private string multField;
+	private string on_delay_multField;
 
 	public override bool skip
 	{
@@ -791,6 +884,14 @@ public partial class skill : battlegroundEffect
 	{
 		get { return this.multField; }
 		set { this.multField = value; }
+	}
+
+	/// <remarks/>
+	[System.Xml.Serialization.XmlAttributeAttribute()]
+	public string on_delay_mult
+	{
+		get { return this.on_delay_multField; }
+		set { this.on_delay_multField = value; }
 	}
 
 	/// <remarks/>
@@ -877,6 +978,7 @@ public partial class add_skill : battlegroundEffect
 	private string sField;
 	private string allField;
 	private string multField;
+	private string on_delay_multField;
 	private string baseField;
 
 	/// <remarks/>
@@ -893,6 +995,14 @@ public partial class add_skill : battlegroundEffect
 	{
 		get { return this.multField; }
 		set { this.multField = value; }
+	}
+
+	/// <remarks/>
+	[System.Xml.Serialization.XmlAttributeAttribute()]
+	public string on_delay_mult
+	{
+		get { return this.on_delay_multField; }
+		set { this.on_delay_multField = value; }
 	}
 
 	/// <remarks/>
@@ -957,6 +1067,48 @@ public partial class starting_card : battlegroundEffect
 	{
 		get { return this.rankField; }
 		set { this.rankField = value; }
+	}
+}
+
+/// <remarks/>
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class trap_card : battlegroundEffect
+{
+	private string baseField;
+	private string multField;
+	private string target_deckField;
+	private string yField;
+
+	/// <remarks/>
+	[System.Xml.Serialization.XmlAttributeAttribute()]
+	public string mult
+	{
+		get { return this.multField; }
+		set { this.multField = value; }
+	}
+
+	/// <remarks/>
+	[System.Xml.Serialization.XmlAttributeAttribute("base")]
+	public string Base
+	{
+		get { return this.baseField; }
+		set { this.baseField = value; }
+	}
+
+	/// <remarks/>
+	[System.Xml.Serialization.XmlAttributeAttribute()]
+	public string target_deck
+	{
+		get { return this.target_deckField; }
+		set { this.target_deckField = value; }
+	}
+
+	/// <remarks/>
+	[System.Xml.Serialization.XmlAttributeAttribute()]
+	public string y
+	{
+		get { return this.yField; }
+		set { this.yField = value; }
 	}
 }
 
@@ -1025,10 +1177,20 @@ private static void AppendEntry(StringBuilder sb, string name, string value, str
 
 private static void AppendEntryString(StringBuilder sb, string name, string value, string tabs)
 {
-	if (value != null)
+	if (!String.IsNullOrEmpty(value))
 	{
-		sb.Append(tabs).Append("\"").Append(name).Append("\"").Append(": ").Append("\"").Append(value).Append("\",\r\n");
+		sb.Append(tabs).Append("\"").Append(name).Append("\": \"").Append(value).Append("\",\r\n");
 	}
+}
+
+private static void AppendEntryArray(StringBuilder sb, string name, string[] values, string tabs)
+{
+	sb.Append(tabs).Append("\"").Append(name).Append("\": [");
+	if (values != null && values.Length > 0)
+	{
+		sb.Append("\"").Append(String.Join("\",\"", values)).Append("\"");
+	}
+	sb.Append("],\r\n");
 }
 
 private static void AppendSkills(StringBuilder sb, skill[] skills, string tabs)
@@ -1065,8 +1227,9 @@ private static void AppendSkill(StringBuilder sb, skill skill, string tabs, bool
 	AppendEntryString(sb, "id", skill.id, propTabs);
 	AppendEntry(sb, "x", skill.x, propTabs);
 	AppendEntry(sb, "mult", skill.mult, propTabs);
+	AppendEntry(sb, "on_delay_mult", skill.on_delay_mult, propTabs);
 	AppendEntryString(sb, "y", skill.y, propTabs);
-	AppendEntry(sb, "z", skill.y, propTabs);
+	//AppendEntry(sb, "z", skill.z, propTabs);
 	AppendEntry(sb, "c", skill.c, propTabs);
 	AppendEntryString(sb, "s", skill.s, propTabs);
 	AppendEntryString(sb, "all", skill.all, propTabs);
@@ -1089,9 +1252,10 @@ private static void AppendAddSkill(StringBuilder sb, add_skill skill, string tab
 	AppendEntryString(sb, "id", skill.id, tabs);
 	AppendEntry(sb, "x", skill.x, tabs);
 	AppendEntry(sb, "mult", skill.mult, tabs);
+	AppendEntry(sb, "mult", skill.on_delay_mult, tabs);
 	AppendEntryString(sb, "base", skill.Base, tabs);
 	AppendEntryString(sb, "y", skill.y, tabs);
-	AppendEntry(sb, "z", skill.y, tabs);
+	//AppendEntry(sb, "z", skill.z, tabs);
 	AppendEntry(sb, "c", skill.c, tabs);
 	AppendEntryString(sb, "s", skill.s, tabs);
 	AppendEntryString(sb, "all", skill.all, tabs);
@@ -1106,6 +1270,14 @@ private static void AppendTowerLevel(StringBuilder sb, starting_card info, strin
 	sb.Append(tabs).Append("},\r\n");
 }
 
+private static void AppendTrap(StringBuilder sb, trap_card info, string tabs)
+{
+	AppendEntry(sb, "id", info.id, tabs);
+	AppendEntryString(sb, "base", info.Base, tabs);
+	AppendEntry(sb, "mult", info.mult, tabs);
+	AppendEntryString(sb, "target_deck", info.target_deck, tabs);
+	AppendEntryString(sb, "y", info.y, tabs);
+}
 
 private static void Normalize(string fileName, bool downloadFiles)
 {

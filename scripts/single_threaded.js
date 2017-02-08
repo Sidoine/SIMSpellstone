@@ -1,137 +1,31 @@
 "use strict";
 
-var SIM_CONTROLLER;
-
 (function () {
-    SIM_CONTROLLER = {};
 
-    var inventaire;
+    var inventaire = { commander: {}, deck: []};
     var original_hash;
     var step = 0;
     var best = original_hash;
     var best_value = 0;
+    var originalValue = 0;
     var cardBest= {};
     var cardBestValue = {};
     var orderDeckMode = true;
+    var rankingMode = false;
+    var level
 
     // Initialize simulation loop - runs once per simulation session
-    SIM_CONTROLLER.startsim = function (autostart) {
-        orders = {};
+    SIM_CONTROLLER.startsim = function () {
+        time_start = Date.now();
 
-        if (_DEFINED('autolink') && !autostart) {
-            window.location.href = generate_link(1, 1);
-            return false;
-        }
-
-        sims_left = $('#sims').val() || 1;
-
-        SIMULATOR.user_controlled = $('#user_controlled').is(':checked');
-
-        debug = $('#debug').is(':checked');
-        mass_debug = $('#mass_debug').is(':checked');
-        loss_debug = $('#loss_debug').is(':checked');
-        win_debug = $('#win_debug').is(':checked');
-
-        auto_mode = $('#auto_mode').is(':checked');
-        getdeck = $('#deck').val();
-        getcardlist = $('#cardlist').val();
-        getordered = $('#ordered').is(':checked');
-        getexactorder = $('#exactorder').is(':checked');
-        getordered2 = $('#ordered2').is(':checked');
-        getexactorder2 = $('#exactorder2').is(':checked');
-        getdeck2 = $('#deck2').val();
-        getcardlist2 = $('#cardlist2').val();
-        getordered2 = $('#ordered2').is(':checked');
-        getexactorder2 = $('#exactorder2').is(':checked');
-        getmission = $('#mission').val();
-        getraid = $('#raid').val();
-        raidlevel = $('#raid_level').val();
-        getsiege = $('#siege').is(':checked');
-        tower_level = $('#tower_level').val();
+        SIM_CONTROLLER.getConfiguration();
         inventaire = hash_decode(document.getElementById('inventory').value);
-        tower_type = $('#tower_type').val();
-        if (getmission) {
-            getdeck2 = TITANS[getmission].hash;
-        } else if (getraid) {
-            getdeck2 = hash_encode(load_deck_raid(getraid, raidlevel));
-        }
-        if (BATTLEGROUNDS) {
-            getbattleground = [];
-            var bgCheckBoxes = document.getElementsByName("battleground");
-            for (var i = 0; i < bgCheckBoxes.length; i++) {
-                var checkbox = bgCheckBoxes[i];
-                if (checkbox && checkbox.checked) {
-                    getbattleground.push(checkbox.value);
-                }
-            }
-            getbattleground = getbattleground.join();
-        }
 
         // Set up battleground effects, if any
-        var battlegrounds = {
-            onCreate: [],
-            onTurn: [],
-        };
-        if (getbattleground) {
-            var selected = getbattleground.split(",");
-            for (i = 0; i < selected.length; i++) {
-                var id = selected[i];
-                var battleground = BATTLEGROUNDS[id];
-                for (var j = 0; j < battleground.effect.length; j++) {
-                    var effect = battleground.effect[j];
-                    var effect_type = effect.effect_type;
-                    if (effect_type === "skill") {
-                        battlegrounds.onTurn.push(MakeBattleground(battleground.name, effect));
-                    } else if (effect_type === "evolve_skill" || effect_type === "add_skill") {
-                        battlegrounds.onCreate.push(MakeSkillModifier(battleground.name, effect));
-                    }
-                }
-            }
-        }
-        if (getraid) {
-            var bge_id = RAIDS[getraid].bge;
-            if (bge_id) {
-                var battleground;
-                for (var i = 0; i < BATTLEGROUNDS.length; i++) {
-                    var battleground = BATTLEGROUNDS[i];
-                    if (battleground.id == bge_id) {
-                        break;
-                    } else {
-                        battleground = null;
-                    }
-                }
-                if (battleground && raidlevel >= battleground.starting_level) {
-                    var enemy_only = battleground.enemy_only;
-
-                    for (var j = 0; j < battleground.effect.length; j++) {
-                        var effect = battleground.effect[j];
-                        var effect_type = effect.effect_type;
-                        if (effect_type === "skill") {
-                            if (battleground.scale_with_level) {
-                                var mult = battleground.scale_with_level * (raidlevel - battleground.starting_level + 1);
-                            } else {
-                                var mult = 1;
-                            }
-                            var bge = MakeBattleground(battleground.name, effect, mult);
-                            bge.enemy_only = enemy_only;
-                            battlegrounds.onTurn.push(bge);
-                        } else if (effect_type === "evolve_skill" || effect_type === "add_skill") {
-                            var bge = MakeSkillModifier(battleground.name, effect);
-                            bge.enemy_only = enemy_only;
-                            battlegrounds.onCreate.push(bge);
-                        }
-                    }
-                }
-            }
-        }
+        SIMULATOR.battlegrounds = getBattlegrounds(getbattleground, getraid);
 // 9216 9227 9252 9241
-        SIMULATOR.battlegrounds = battlegrounds;
 
-        // Hide interface
-        toggleUI(false);
-
-        // Display stop button
-        document.getElementById('stop').style.display = 'block';
+        hideUI();
 
         step = -1;
         best = original_hash = getdeck;
@@ -139,6 +33,31 @@ var SIM_CONTROLLER;
         orderDeckMode = document.getElementById("sim_order").checked;
         if (orderDeckMode) {
             getordered = orderDeckMode;
+        }
+        rankingMode = document.getElementById("sim_ranking").checked;
+
+        if (rankingMode) {
+            var originalDeck = hash_decode(original_hash).deck.map(x => x.id);
+            
+            var deck = [];
+            var cardIds = [];
+            for (var cardId in CARDS) {
+                cardIds.push(Number(cardId));
+            }
+
+            cardIds.sort((a,b) => b - a);
+
+            for (var cardId of cardIds) {
+                var card = CARDS[cardId];
+                if (parseInt(card.rarity) >= 3 && card.set != "7000" && card.set != "9999") {
+                    var fusion = FUSIONS[cardId];
+                    var fusionCard = fusion && CARDS[fusion];
+                    if (!fusionCard || fusionCard.rarity != card.rarity || originalDeck.some(x => x == Number(cardId))) {
+                        deck.push(makeUnitInfo(cardId, GetMaxLevel(card), []));
+                    }
+                }
+            }
+            inventaire.deck = deck;
         }
 
         tryNewCard();
@@ -188,11 +107,32 @@ var SIM_CONTROLLER;
                 originalDeck.deck.splice(targetPosition, 0, cards[0]);
                 getdeck = hash_encode(originalDeck);
             }
+            else if (rankingMode){
+                var cardToTry = ~~(step);
+                var deckCardToReplace = 15;
+                var log = '<strong>Etape ' + step + '/' + (inventaire.deck.length) + '</strong> == <strong>Best:</strong>' + best + ' (' + best_value + ')';
+                log += '<table>';
+                for (var cardName in cardBest) {
+                    var card = CARDS[cardName];
+                    log += '<tr><td>' + [card.name, cardBestValue[cardName], card.rarity, card.set, card.type, card.sub_type.join(',')].join('</td><td>') + '</td></tr>';
+                }
+                log += '</table>'
+                progression.innerHTML = log;
+               
+                if (cardToTry >= inventaire.deck.length) {
+                    return;
+                }
+                currentCardName = inventaire.deck[cardToTry].id;
+                originalDeck.deck[deckCardToReplace] = inventaire.deck[cardToTry];
+                getdeck = hash_encode(originalDeck);
+                step++;
+            }
             else{
                 var cardToTry = ~~(step / deckLength);
                 var deckCardToReplace = step % deckLength;
                 var log = '<strong>Etape ' + step + '/' + (originalDeck.deck.length * inventaire.deck.length) + '</strong> == <strong>Best:</strong>' + best + ' (' + best_value + ')';
                 log += '<table>';
+                log += '<tr><td>Original</td><td>' + original_hash + '</td><td>' + originalValue + '</td></tr>';
                 for (var cardName in cardBest) {
                    log += '<tr><td>' + CARDS[cardName].name + '</td><td>' + cardBest[cardName] + '</td><td>' + cardBestValue[cardName] + '</td></tr>';
                }
@@ -213,6 +153,8 @@ var SIM_CONTROLLER;
             getdeck = original_hash;
         }   
 
+        // Set up battleground effects, if any
+        SIMULATOR.battlegrounds = getBattlegrounds(getbattleground, getraid);
         
         SIMULATOR.setupDecks();
 
@@ -221,10 +163,14 @@ var SIM_CONTROLLER;
         draws = 0;
 
         outp(""); // Clear display
-        hideTable();
-        setSimStatus("Initializing simulations...");
+        if (!SIMULATOR.user_controlled) {
+            hideTable();
+            setSimStatus("Initializing simulations...");
+        } else {
+            setSimStatus("");
+        }
 
-        current_timeout = setTimeout(run_sims, 1);
+        current_timeout = setTimeout(run_sims);
     }
 
     // Interrupt simulations
@@ -232,65 +178,29 @@ var SIM_CONTROLLER;
         time_stop = new Date();
         var elapse = time_elapsed();
         var simpersec = games / elapse;
-        simpersec = simpersec.toFixed(1);
+        simpersec = simpersec.toFixed(2);
+        SIMULATOR.simulating = false;
 
         // Stop the recursion
         if (current_timeout) clearTimeout(current_timeout);
-
-        setSimStatus("Simulations interrupted.", elapse, simpersec);
-        gettable();
-        // Show interface
-        toggleUI(true);
-
-        // Hide stop button
-        document.getElementById('stop').style.display = 'none';
-
-        if(SIM_CONTROLLER.stop_sims_callback) SIM_CONTROLLER.stop_sims_callback()
-    }
-
-    // Loops through all simulations
-    // - keeps track of number of simulations and outputs status
-    function debug_end() {
-        if (SIMULATOR.simulating) {
-            return;
+        if (!SIMULATOR.user_controlled) {
+            setSimStatus("Simulations interrupted.", elapse, simpersec);
+            showWinrate();
         }
+        showUI();
 
-        var result = processSimResult();
-
-        time_stop = new Date();
-
-        var msg;
-        if (result == 'draw') {
-            msg = '<br><h1>DRAW</h1><br>';
-        } else if (result) {
-            msg = '<br><h1>WIN</h1><br>';
-        } else {
-            msg = '<br><h1>LOSS</h1><br>';
-        }
-        if (echo) {
-            outp(echo);
-        }
-        setSimStatus(msg);
-
-        // Show interface
-        toggleUI(true);
-
-        // Hide stop button
-        document.getElementById('stop').style.display = 'none';
-
-        if (SIMULATOR.user_controlled) {
-            scroll_to_end();
-        }
+        if (SIM_CONTROLLER.stop_sims_callback) SIM_CONTROLLER.stop_sims_callback()
     }
 
     function run_sims() {
 
-        if (debug && !mass_debug && !loss_debug && !win_debug) {
+        if (SIMULATOR.user_controlled) {
+            if (run_sim(true)) {
+                SIM_CONTROLLER.debug_end();
+            }
+        } else if ((debug ||play_debug) && !mass_debug && !loss_debug && !win_debug) {
             run_sim(true);
-            debug_end();
-        } else if (SIMULATOR.user_controlled) {
-            run_sim(true);
-            debug_end();
+            SIM_CONTROLLER.debug_end();
         } else if (sims_left > 0) {
             // Interval output - speeds up simulations
             if (run_sims_count >= run_sims_batch) {
@@ -298,7 +208,7 @@ var SIM_CONTROLLER;
                 if (run_sims_batch > 0) { // Use run_sims_batch == 0 to imply a fresh set of simulations
                     run_sims_count = 0;
                     var temp = games / (games + sims_left) * 100;
-                    temp = temp.toFixed(1);
+                    temp = temp.toFixed(2);
 
                     var elapse = time_elapsed();
 
@@ -310,17 +220,16 @@ var SIM_CONTROLLER;
                     }
 
                     setSimStatus("Running simulations...", elapse, simpersecbatch.toFixed(1));
-                    gettable();
+                    showWinrate();
                 }
                 run_sims_batch = 1;
-                if (simpersecbatch > run_sims_batch) // If we can run more at one time, then let's try to
+                if (simpersecbatch > run_sims_batch) // If we can run more at one time, then var's try to
                     run_sims_batch = Math.ceil(simpersecbatch / 8);
                 if (run_sims_batch > sims_left) // Also limit by how many sims are left
                     run_sims_batch = sims_left;
 
-                // Batch messes up mass debug and loss debug! Let's disable batch!
-                if (debug && mass_debug) run_sims_batch = 1;
-                if (debug && (loss_debug || win_debug)) run_sims_batch = 1;
+                // Batch messes up mass debug and loss debug! var's disable batch!
+                if ((debug || play_debug) && (mass_debug || loss_debug || win_debug)) run_sims_batch = 1;
 
                 time_start_batch = new Date();
                 current_timeout = setTimeout(run_sims, 1);
@@ -328,7 +237,6 @@ var SIM_CONTROLLER;
                     run_sim();
                 }
             }
-
         } else {
             run_sims_count = 0;
             run_sims_batch = 0;
@@ -336,21 +244,16 @@ var SIM_CONTROLLER;
 
             var elapse = time_elapsed();
             var simpersec = games / elapse;
-            simpersec = simpersec.toFixed(1);
+            simpersec = simpersec.toFixed(2);
 
             if (echo) {
                 outp(echo);
             }
             setSimStatus("Simulations complete.", elapse, simpersec);
-            gettable();
+            showWinrate();
 
-            // Show interface
-            toggleUI(true);
+            showUI();
 
-            // Hide stop button
-            document.getElementById('stop').style.display = 'none';
-
-           // scroll_to_end();
             if (SIM_CONTROLLER.end_sims_callback) SIM_CONTROLLER.end_sims_callback();
 
             if (wins > best_value){
@@ -358,75 +261,32 @@ var SIM_CONTROLLER;
                 best = getdeck;
             }
 
-            if (currentCardName && (!cardBestValue[currentCardName] || wins > cardBestValue[currentCardName])){
-                cardBestValue[currentCardName] = wins;
-                cardBest[currentCardName] = getdeck;
+            if (currentCardName) {
+                if (!cardBestValue[currentCardName] || wins > cardBestValue[currentCardName]){
+                    cardBestValue[currentCardName] = wins;
+                    cardBest[currentCardName] = getdeck;
+                }
             }
-
+            else{
+                originalValue = wins;
+            }
+            
             setTimeout(tryNewCard, 100);
         }
     }
 
     // Initializes a single simulation - runs once before each individual simulation
     // - needs to reset the decks and fields before each simulation
+    var seedtest = (_GET("seedtest") || 0);
     function run_sim(skipResults) {
-        doSetup();
+        if (seedtest) {
+            Math.seedrandom(seedtest++);
+        }
         if (!SIMULATOR.simulate()) return false;
-        if (!skipResults) processSimResult();
+        if (!skipResults) SIM_CONTROLLER.processSimResult();
     }
 
-    function doSetup() {
-
-        SIMULATOR.simulation_turns = 0;
-
-        // Reset battleground effect
-        battleground = '';
-
-        // Set up empty decks
-        var deck = {
-            cpu: {
-                deck: []
-            },
-            player: {
-                deck: []
-            }
-        }
-        SIMULATOR.deck = deck;
-
-        // Set up empty field
-        var field = {
-            cpu: {
-                assaults: []
-            },
-            player: {
-                assaults: []
-            }
-        };
-        SIMULATOR.field = field;
-
-        // Load player deck
-        if (cache_player_deck_cards) {
-            deck['player'] = copy_deck(cache_player_deck_cards);
-        }
-
-        // Load enemy deck
-        if (cache_cpu_deck_cards) {
-            deck['cpu'] = copy_deck(cache_cpu_deck_cards);
-        }
-
-        // Set up deck order priority reference
-        if (getordered && !getexactorder) deck.player.ordered = copy_card_list(deck.player.deck);
-        if (getordered2 && !getexactorder2) deck.cpu.ordered = copy_card_list(deck.cpu.deck);
-
-        // Output decks for first simulation
-        if (debug && (loss_debug || win_debug)) {
-        } else if (suppressOutput) {
-        } else if (echo == '') {
-            debug_dump_decks();
-        }
-    }
-
-    function processSimResult() {
+    SIM_CONTROLLER.processSimResult = function () {
 
         var result;
         if (!SIMULATOR.field.player.commander.isAlive()) {
@@ -457,7 +317,7 @@ var SIM_CONTROLLER;
         // Increment total turn count
         total_turns += SIMULATOR.simulation_turns;
 
-        if (debug) {
+        if (debug || play_debug) {
             if (loss_debug) {
                 if (result == 'draw') {
                     echo = 'Draw found after ' + games + ' games. Displaying debug output... <br><br>' + echo;
@@ -497,9 +357,9 @@ var SIM_CONTROLLER;
                     echo += '<br><h1>LOSS</h1><br>';
                 }
             }
-        }
 
-        if (debug && mass_debug && sims_left) echo += '<br><hr>NEW BATTLE BEGINS<hr><br>';
+            if (mass_debug && sims_left) echo += '<br><hr>NEW BATTLE BEGINS<hr><br>';
+        }
 
         return result;
     }
@@ -507,7 +367,4 @@ var SIM_CONTROLLER;
     // Global variables used by single-threaded simulator
     var run_sims_count = 0;
     var run_sims_batch = 0;
-    SIM_CONTROLLER.end_sims_callback = false;
-    SIM_CONTROLLER.stop_sims_callback = false;
-    SIM_CONTROLLER.debug_end = debug_end;
 })();

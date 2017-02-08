@@ -31,16 +31,16 @@
                 for (var i = 0, len = campaigns.length; i < len; i++) {
                     var campaign = campaigns[i];
                     var missionsInCampaign = campaign.missions;
-                    var isTitan = true;
+                    var inCampaign = true;
 
                     for (var j = 0; j < missionsInCampaign.length; j++) {
                         var mission = missionsInCampaign[j];
                         if (!missions[mission]) {
-                            isTitan = false;
+                            inCampaign = false;
                             break;
                         }
                     }
-                    if (isTitan) {
+                    if (inCampaign) {
                         newCampaigns.push(campaign);
                     }
                 }
@@ -101,7 +101,7 @@
                     var location = $window.LOCATIONS[location_id];
                     var option = document.createElement('option');
                     campaignList.push({
-                        id: location.id,
+                        id: "loc-" + location.id,
                         name: location.name,
                         isLocation: true
                     });
@@ -166,6 +166,16 @@
             for(var id in $scope.battlegrounds) {
                 var BGE = $scope.battlegrounds[id];
                 if(!(BGE.hidden || BGE.isTower)) selectable.push(BGE);
+            }
+            selectable.sort(function (a, b) { return a.id - b.id; });
+            return selectable;
+        }
+
+        $scope.personalBattlegrounds = function () {
+            var selectable = [];
+            for (var id in $scope.battlegrounds) {
+                var BGE = $scope.battlegrounds[id];
+                if (Number(BGE.id) > 1000) selectable.push(BGE);
             }
             selectable.sort(function (a, b) { return a.id - b.id; });
             return selectable;

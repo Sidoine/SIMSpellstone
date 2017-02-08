@@ -6,9 +6,8 @@ var BATTLEGROUNDS = {
       {
         "effect_type": "skill",
         "id": "heal",
-        "mult": .2,
+        "mult": .25,
         "y": "9",
-        "z": 9,
         "all": "1",
       },
     ]
@@ -22,7 +21,6 @@ var BATTLEGROUNDS = {
         "id": "rally",
         "x": 2,
         "y": "5",
-        "z": 5,
         "all": "1",
       },
     ]
@@ -36,7 +34,6 @@ var BATTLEGROUNDS = {
         "id": "protect",
         "x": 2,
         "y": "4",
-        "z": 4,
         "all": "1",
       },
     ]
@@ -65,10 +62,9 @@ var BATTLEGROUNDS = {
       {
         "effect_type": "add_skill",
         "id": "berserk",
-        "mult": .2,
+        "mult": .3,
         "base": "attack",
         "y": "7",
-        "z": 7,
       },
     ]
   },
@@ -82,7 +78,6 @@ var BATTLEGROUNDS = {
         "mult": 0.5,
         "base": "attack",
         "y": "6",
-        "z": 6,
       },
     ]
   },
@@ -95,7 +90,6 @@ var BATTLEGROUNDS = {
         "id": "rally",
         "mult": .5,
         "y": "5",
-        "z": 5,
         "all": "1",
       },
     ]
@@ -110,7 +104,6 @@ var BATTLEGROUNDS = {
         "mult": .5,
         "base": "attack",
         "y": "4",
-        "z": 4,
       },
     ]
   },
@@ -124,7 +117,6 @@ var BATTLEGROUNDS = {
         "mult": 1,
         "base": "attack",
         "y": "10",
-        "z": 10,
       },
     ]
   },
@@ -138,7 +130,6 @@ var BATTLEGROUNDS = {
         "mult": 0.1,
         "base": "health",
         "y": "13",
-        "z": 13,
       },
     ]
   },
@@ -152,7 +143,33 @@ var BATTLEGROUNDS = {
         "mult": 0.1,
         "base": "health",
         "y": "5",
-        "z": 5,
+      },
+    ]
+  },
+  "112": {
+    "name": "Goblin Barrage",
+    "id": "112",
+    "effect": [
+      {
+        "effect_type": "add_skill",
+        "id": "barrage",
+        "mult": 1,
+        "base": "attack",
+        "y": "11",
+      },
+    ]
+  },
+  "113": {
+    "name": "Underwater Shelter",
+    "id": "113",
+    "effect": [
+      {
+        "effect_type": "skill",
+        "id": "protect_seafolk",
+        "mult": .2,
+        "on_delay_mult": .2,
+        "y": "12",
+        "all": "1",
       },
     ]
   },
@@ -339,13 +356,13 @@ var BATTLEGROUNDS = {
       {
         "effect_type": "skill",
         "id": "heal",
-        "x": .8,
+        "x": 1.2,
         "all": "1",
       },
       {
         "effect_type": "skill",
         "id": "rally",
-        "x": .4,
+        "x": .7,
         "all": "1",
       },
     ]
@@ -448,9 +465,18 @@ var BATTLEGROUNDS = {
     }
   },
   "507": {
-    "name": "Elemental Flash Storms",
+    "name": "Flash Storms",
     "id": "507",
-    "hidden": true,
+    "effect": [
+      {
+        "effect_type": "trap_card",
+        "id": 604,
+        "base": "attack",
+        "mult": 0.5,
+        "target_deck": "opponent",
+        "y": "5",
+      },
+    ]
   },
   "508": {
     "name": "The Thunderdome",
@@ -541,30 +567,175 @@ var BATTLEGROUNDS = {
     }
   },
   "510": {
-    "name": "Dungeon Boost",
+    "name": "Dungeon's Despair",
     "id": "510",
     "enemy_only": true,
     "scale_with_level": "1",
-    "starting_level": "50",
+    "starting_level": "130",
     "hidden": true,
     "effect": [
       {
         "effect_type": "skill",
         "id": "heal",
-        "x": 1.1,
+        "x": .2,
         "all": "1",
       },
       {
         "effect_type": "skill",
         "id": "rally",
-        "x": .6,
+        "x": .2,
         "all": "1",
       },
     ]
   },
-  "10001": {
+  "511": {
+    "name": "Runic Sanctuary",
+    "id": "511",
+    "effect": [
+      {
+        "effect_type": "skill",
+        "id": "enhance",
+        "mult": 0.5,
+        "s": "protect",
+        "all": "1",
+      },
+    ]
+  },
+  "512": {
+    "name": "Defender's Castle",
+    "id": "512",
+    "isTower": true,
+    "effect": {
+        "2": {
+        	"id": 601,
+        	"level": 1,
+        },
+        "3": {
+        	"id": 601,
+        	"level": 2,
+        },
+        "4": {
+        	"id": 601,
+        	"level": 3,
+        },
+        "5": {
+        	"id": 601,
+        	"level": 4,
+        },
+        "6": {
+        	"id": 601,
+        	"level": 5,
+        },
+        "7": {
+        	"id": 601,
+        	"level": 6,
+        },
+        "8": {
+        	"id": 601,
+        	"level": 7,
+        },
+        "9": {
+        	"id": 601,
+        	"level": 8,
+        },
+        "10": {
+        	"id": 601,
+        	"level": 9,
+        },
+        "11": {
+        	"id": 601,
+        	"level": 10,
+        },
+        "12": {
+        	"id": 601,
+        	"level": 11,
+        },
+        "13": {
+        	"id": 601,
+        	"level": 12,
+        },
+        "14": {
+        	"id": 601,
+        	"level": 13,
+        },
+        "15": {
+        	"id": 601,
+        	"level": 14,
+        },
+        "16": {
+        	"id": 601,
+        	"level": 15,
+        },
+        "17": {
+        	"id": 601,
+        	"level": 16,
+        },
+        "18": {
+        	"id": 601,
+        	"level": 17,
+        },
+    }
+  },
+  "513": {
+    "name": "Firestarter",
+    "id": "513",
+    "effect": [
+      {
+        "effect_type": "skill",
+        "id": "enhance",
+        "mult": 0.5,
+        "s": "burn",
+        "all": "1",
+      },
+    ]
+  },
+  "514": {
+    "name": "The Arena",
+    "id": "514",
+    "hidden": true,
+  },
+  "515": {
+    "name": "Golden Leaf Shelter",
+    "id": "515",
+    "effect": [
+      {
+        "effect_type": "skill",
+        "id": "protect",
+        "mult": .20,
+        "y": "4",
+        "all": "1",
+      },
+    ]
+  },
+  "516": {
+    "name": "Cursed Land",
+    "id": "516",
+    "effect": [
+      {
+        "effect_type": "skill",
+        "id": "enhance",
+        "mult": 0.5,
+        "s": "enfeeble",
+        "all": "1",
+      },
+    ]
+  },
+  "1001": {
+    "name": "Primal Mending",
+    "id": "1001",
+    "hidden": true,
+    "effect": [
+      {
+        "effect_type": "skill",
+        "id": "heal",
+        "x": 2,
+        "all": "1",
+      },
+    ]
+  },
+  "1002": {
     "name": "Personal Frog Buff",
-    "id": "10001",
+    "id": "1002",
     "hidden": true,
     "effect": [
       {
@@ -572,23 +743,32 @@ var BATTLEGROUNDS = {
         "id": "protect",
         "x": 2,
         "y": "4",
-        "z": 4,
         "all": "1",
       },
     ]
   },
-  "10002": {
-    "name": "Personal Enhance Armor",
-    "id": "10002",
+  "2001": {
+    "name": "Enemy Scaling BGE",
+    "id": "2001",
+    "enemy_only": true,
+    "scale_with_level": "1",
+    "starting_level": "0",
     "hidden": true,
-    "effect": [
-      {
-        "effect_type": "skill",
-        "id": "enhance",
-        "x": 1,
-        "s": "armored",
-        "all": "1",
-      },
-    ]
+  },
+  "2002": {
+    "name": "Riptide Nightsong",
+    "id": "2002",
+    "enemy_only": true,
+    "scale_with_level": "1",
+    "starting_level": "5",
+    "hidden": true,
+  },
+  "2003": {
+    "name": "Enemy Scaling BGE",
+    "id": "2003",
+    "enemy_only": true,
+    "scale_with_level": "1",
+    "starting_level": "0",
+    "hidden": true,
   },
 };

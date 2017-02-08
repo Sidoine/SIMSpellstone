@@ -1,6 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- Feature Locking Based on Mission Completion -->
+  <!-- CORE FEATURES -->
+  <feature_lock>
+    <id>edit</id>
+    <mission_req>11</mission_req>
+    <!-- starts unlocked (effectively) -->
+    <!-- <cards_req>16</cards_req> -->
+    <!-- 16+ cards owned -->
+  </feature_lock>
+  <feature_lock>
+    <id>quest</id>
+    <mission_req>12</mission_req>
+    <!-- 12 -->
+  </feature_lock>
   <feature_lock>
     <id>store</id>
     <mission_req>13</mission_req>
@@ -17,6 +30,16 @@
     <!-- 24 -->
   </feature_lock>
   <feature_lock>
+    <id>guilds</id>
+    <mission_req>24</mission_req>
+    <!-- 24 -->
+  </feature_lock>
+  <feature_lock>
+    <id>dailybonus</id>
+    <mission_req>21</mission_req>
+    <!-- 21 -->
+  </feature_lock>
+  <feature_lock>
     <id>pvp</id>
     <mission_req>54</mission_req>
     <!-- 54 -->
@@ -27,11 +50,19 @@
     <!-- 44 -->
   </feature_lock>
   <feature_lock>
-    <id>edit</id>
-    <mission_req>11</mission_req>
-    <!-- starts unlocked (effectively) -->
-    <!-- <cards_req>16</cards_req> -->
-    <!-- 16+ cards owned -->
+    <id>vip_system</id>
+    <mission_req>64</mission_req>
+    <!-- 64 -->
+  </feature_lock>
+  <feature_lock>
+    <id>runes</id>
+    <mission_req>244</mission_req>
+    <!-- 244 -->
+  </feature_lock>
+  <feature_lock>
+    <id>bulkraresalvage</id>
+    <mission_req>244</mission_req>
+    <!-- 244 -->
   </feature_lock>
   <feature_lock>
     <id>salvage</id>
@@ -39,38 +70,20 @@
     <!-- player has edited deck -->
   </feature_lock>
   <feature_lock>
-    <id>quest</id>
-    <mission_req>12</mission_req>
-    <!-- 12 -->
-  </feature_lock>
-  <feature_lock>
-    <id>runes</id>
+    <id>crafting</id>
     <mission_req>244</mission_req>
     <!-- 244 -->
   </feature_lock>
-  <!-- <feature_lock>
-		<id>passivemissions</id>
-		<mission_req>-1</mission_req> 
-	</feature_lock> -->
   <feature_lock>
-    <id>combatspeed</id>
-    <mission_req>44</mission_req>
-    <!-- 44 -->
+    <id>livepvp</id>
+    <achievement_req>451</achievement_req>
+    <!-- player has reached bounty rank 5 deck -->
   </feature_lock>
+  <!-- NON CORE FEATURES -->
   <feature_lock>
-    <id>skip</id>
-    <mission_req>64</mission_req>
-    <!-- 64 -->
-  </feature_lock>
-  <feature_lock>
-    <id>autoplay</id>
-    <mission_req>104</mission_req>
-    <!-- 104 -->
-  </feature_lock>
-  <feature_lock>
-    <id>guilds</id>
-    <mission_req>24</mission_req>
-    <!-- 24 -->
+    <id>guildlivepvp</id>
+    <mission_req>11</mission_req>
+    <!-- 11 -->
   </feature_lock>
   <feature_lock>
     <id>mythic</id>
@@ -87,15 +100,33 @@
     <mission_req>11</mission_req>
     <!-- 11 -->
   </feature_lock>
+  <!-- COMBAT OPTIONS -->
   <feature_lock>
-    <id>vip_system</id>
+    <id>combatspeed</id>
+    <mission_req>44</mission_req>
+    <!-- 44 -->
+  </feature_lock>
+  <feature_lock>
+    <id>skip</id>
     <mission_req>64</mission_req>
     <!-- 64 -->
   </feature_lock>
   <feature_lock>
-    <id>guildlivepvp</id>
-    <mission_req>11</mission_req>
+    <id>autoplay</id>
+    <mission_req>104</mission_req>
+    <!-- 104 -->
+  </feature_lock>
+  <!-- DISABLED FEATURES -->
+  <feature_lock>
+    <id>pointchest</id>
+    <!-- Star Chest for Arena -->
+    <mission_req>-1</mission_req>
     <!-- 11 -->
+  </feature_lock>
+  <feature_lock>
+    <id>passivemissions</id>
+    <mission_req>-1</mission_req>
+    <!-- -1 -->
   </feature_lock>
   <!-- MISSIONS BEGIN -->
   <!-- Elaria Missions BEGIN -->
@@ -1794,7 +1825,7 @@
       </line>
       <line>
         <commander>necromancer</commander>
-        <text>Why are you sieging Karthos? Do you wish to upset Tarien?</text>
+        <text>Why are you sieging Karthos? Do you wish to upset Tarian?</text>
       </line>
       <line>
         <commander>flamebender</commander>
@@ -4651,9 +4682,9 @@
       <card id="8010" mastery_level="6" />
       <card id="1340" name="Blazekin Dragon" />
       <card id="2015" name="Pumpking" />
-      <card id="6014" name="Armored Ogre" remove_mastery_level="6" />
+      <card id="6014" name="Armored Ogre" />
       <card id="6013" name="Rust Goliath" />
-      <card id="6003" name="Black Knight" remove_mastery_level="6" />
+      <card id="6003" name="Black Knight" />
       <card id="6002" name="Spirit of Madness" />
       <card id="2006" name="Zhulong" />
       <card id="6019" name="Canopy Horror" />
@@ -4783,7 +4814,7 @@
     <player_commander>7</player_commander>
     <!--  <commander_req>7</commander_req> -->
     <energy>8</energy>
-    <desc>Elyse sets her books aside. She closely watches the Elementals as they intermingle. One by one she correctly guesses how the results of their entanglement. (Elyse will automatically be appointed)</desc>
+    <desc>Elyse sets her books aside. She closely watches the Elementals as they mingle. One by one, Elyse guesses the origin of each elemental. (Elyse will automatically be appointed)</desc>
     <commander id="226" />
     <!-- Lost Lava Crab-->
     <deck>
@@ -4909,7 +4940,7 @@
       <line>
         <commander>templeguardian</commander>
         <enemy>0</enemy>
-        <text>Oh, ahh. Well large bodies of water makes me nervous, that’s all.</text>
+        <text>Oh, ahh. Well large bodies of water make me nervous, that's all.</text>
       </line>
       <line>
         <commander>elementalhero</commander>
@@ -5582,7 +5613,7 @@
       <line>
         <commander>owlmystic</commander>
         <enemy>0</enemy>
-        <text>Your hand... you  are a follower of Chaos magic. Do you know where your are, orc? We do not take kind to the dark arts here.</text>
+        <text>Your hand... you  are a follower of Chaos magic. Do you know where you are, orc? We do not take kindly to the dark arts here.</text>
       </line>
     </speech>
   </mission>
@@ -6023,6 +6054,17 @@
     <arena_y>150</arena_y>
   </location>
   <location>
+    <id>7</id>
+    <name>Duskwillow</name>
+    <mapBG>Map_Duskwillow</mapBG>
+    <asset_bundle>81</asset_bundle>
+    <combatBG>CombatBGVoid</combatBG>
+    <unlock_time>1484240400</unlock_time>
+    <!-- Thu, 12 Jan 2017 17:00:00 GMT -->
+    <arena_x>250</arena_x>
+    <arena_y>150</arena_y>
+  </location>
+  <location>
     <id>100</id>
     <name>Salt Wastes</name>
     <mapBG>EventMap_001</mapBG>
@@ -6126,6 +6168,16 @@
     <id>110</id>
     <name>Beetleton Bunker</name>
     <mapBG>Map_Beetleton_Bunker</mapBG>
+    <asset_bundle>66</asset_bundle>
+    <combatBG>CombatBGVoid</combatBG>
+    <req>-1</req>
+    <arena_x>250</arena_x>
+    <arena_y>150</arena_y>
+  </location>
+  <location>
+    <id>111</id>
+    <name>Goblin Rise Stronghold</name>
+    <mapBG>Map_Goblin_Fortress</mapBG>
     <asset_bundle>66</asset_bundle>
     <combatBG>CombatBGVoid</combatBG>
     <req>-1</req>

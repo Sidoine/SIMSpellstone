@@ -9233,6 +9233,7 @@
       </line>
     </speech>
   </mission>
+  <!-- Event 15 Elemental -->
   <mission>
     <id>5313</id>
     <name>Long Live the King</name>
@@ -9513,7 +9514,7 @@
     <id>5321</id>
     <name>Around the War Table</name>
     <energy>11</energy>
-    <desc>Our heroes are gathered in the airship. They discuss their strategy against the growing goblin threat. </desc>
+    <desc>Our heroes are gathered in the airship. They discuss their strategy against the growing goblin threat. Allies from all over the continent where goblins have caused trouble have shown up to lend their aid. </desc>
     <commander id="291" />
     <deck>
       <card id="7017" name="Coral Elemental" />
@@ -9637,7 +9638,7 @@
     <id>5325</id>
     <name>Friends in Low Places</name>
     <energy>11</energy>
-    <desc>Rayne examines the ground. She remembers hearing of a tribe of ground elementals that has made home in the Salt Wastes. If she can find them, they might lend their power against the goblins.</desc>
+    <desc>Rayne examines the ground. She remembers hearing of a tribe of ground elementals that has made the Salt Wastes their home. If she can find them, they might lend their power against the goblins.</desc>
     <commander id="291" />
     <deck>
       <card id="5017" name="Steam Tempest" />
@@ -9680,7 +9681,7 @@
     </deck>
     <speech>
       <line>
-        <commander>elyse</commander>
+        <commander>groundelemental2</commander>
         <enemy>0</enemy>
         <text>Who gives Milton head scratches! </text>
       </line>
@@ -9738,12 +9739,12 @@
     </deck>
     <speech>
       <line>
-        <commander>elyse</commander>
+        <commander>groundelemental2</commander>
         <enemy>0</enemy>
         <text>Goblins you say?  Ehh, those creatures make for messy neighbors. Big smelly piles of garbage everywhere.</text>
       </line>
       <line>
-        <commander>elyse</commander>
+        <commander>groundelemental2</commander>
         <enemy>0</enemy>
         <text>Milton cannot risk living so close to such smells. I will see what my tribe can do for you...</text>
       </line>
@@ -9851,7 +9852,7 @@
     <id>5332</id>
     <name>Around the Bend</name>
     <energy>10</energy>
-    <desc>The army begins to round the last bend of the valley. A welcoming party sits waiting for their arrival. </desc>
+    <desc>The army begins to round the last bend of the valley. A welcoming party of dragons and heroes sits waiting for their arrival. </desc>
     <commander id="329" />
     <deck>
       <card id="6007" name="Goblin Crew" />
@@ -9881,7 +9882,7 @@
         <text>Typical orc treachery! Why'd I even listen to you?! </text>
       </line>
       <line>
-        <commander>elyse</commander>
+        <commander>Portrait_King_Goblin</commander>
         <enemy>1</enemy>
         <text>GUARD! Call in the air troops! </text>
       </line>
@@ -9994,7 +9995,7 @@
     <id>5336</id>
     <name>Last Stand</name>
     <energy>10</energy>
-    <desc>Reks, now furious with the turn of events, charges at the tamer. He will not  give up on the expansion of the goblin empire so easily! </desc>
+    <desc>Reks, now furious with the turn of events, charges at Fiona and her dragons in a full on assault. He will not give up on the expansion of the goblin empire so easily!</desc>
     <commander id="329" />
     <deck>
       <card id="5012" name="Static Drake" />
@@ -10016,18 +10017,4276 @@
       <line>
         <commander>Portrait_King_Goblin</commander>
         <enemy>1</enemy>
-        <text>HE HAS THE HAMMER?! How on EARTH did he get THE HAMMER! </text>
+        <text>HE HAS THE HAMMER?! Servant, I told you to store it in the vault!</text>
       </line>
       <line>
         <commander>Portrait_Undercover_Angel_Spy</commander>
         <enemy>1</enemy>
-        <text>Must haven gotten lost in that big ol' vault of yours.</text>
+        <text>Sorry, my King...</text>
       </line>
       <line>
         <commander>Portrait_Spy_Angel</commander>
         <enemy>0</enemy>
-        <text>...I mean, you really did have a lot of stuff in there.</text>
+        <text>Looks like I lost it along with my mask.</text>
+      </line>
+      <line>
+        <commander>Portrait_King_Goblin</commander>
+        <enemy>1</enemy>
+        <text>Whaaaat?! You're no goblin! I've been tricked!</text>
       </line>
     </speech>
+  </mission>
+  <!-- Event 16 -->
+  <mission>
+    <id>5337</id>
+    <name>Starlight, Starbright</name>
+    <energy>11</energy>
+    <desc>Malchior and Tarian return to the strange building that mysteriously appeared near The Void. Malchior waves a glass bottle around frantically, trying to capture as many Will-O-Wisps as he can.</desc>
+    <commander id="267" />
+    <deck>
+      <card id="1010" name="Lightning Elemental" />
+      <card id="1010" />
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1311" />
+      <card id="1331" name="Fallen Soldiers" />
+      <card id="2020" name="Tidetaken Fighter" />
+      <card id="6034" name="Bone Viper" />
+      <card id="1330" name="Devouring Locusts" />
+      <card id="1328" mastery_level="2" name="Poison Bullfrog" />
+      <card id="2002" mastery_level="3" name="Lantern Guardian" />
+      <card id="1332" mastery_level="4" name="Vampiric Emira" />
+      <card id="1632" mastery_level="5" name="Shadow Rider" />
+      <card id="6047" mastery_level="6" name="Wither" />
+      <card id="6003" mastery_level="7" name="Black Knight" />
+    </deck>
+    <speech>
+      <line>
+        <commander>grandexcavator</commander>
+        <enemy>0</enemy>
+        <text>Bright wight, bright light, be contained by my glass prison's might!</text>
+      </line>
+      <line>
+        <commander>lichking</commander>
+        <enemy>0</enemy>
+        <text>...</text>
+      </line>
+      <line>
+        <commander>lichking</commander>
+        <enemy>0</enemy>
+        <text>Yes, do continue. I'll fend off the monsters while you play hopscotch.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5338</id>
+    <name>Strength in Numbers</name>
+    <energy>11</energy>
+    <desc>Tarian continues to fight the monsters while Malchior concentrates on his research. The wisps melt together into Malchior's bottle, seeming to form a single mass.</desc>
+    <commander id="261" />
+    <deck>
+      <card id="1011" name="Archive Keeper" />
+      <card id="1011" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1314" />
+      <card id="2023" name="Grizzly Terror" />
+      <card id="6011" name="Bomb Spirit" />
+      <card id="2025" name="Blight Knight" />
+      <card id="2012" name="Frogling Swarm" />
+      <card id="1332" mastery_level="2" name="Vampiric Emira" />
+      <card id="1632" mastery_level="3" name="Shadow Rider" />
+      <card id="2008" mastery_level="4" name="Shadow of Ash" />
+      <card id="2042" mastery_level="5" name="Carrion Hunter" />
+      <card id="5045" mastery_level="6" name="Echo Elemental" />
+      <card id="6032" mastery_level="7" name="Mumohotep" />
+    </deck>
+    <speech>
+      <line>
+        <commander>grandexcavator</commander>
+        <enemy>0</enemy>
+        <text>Isn't this exciting? These little bugger flames actually seem to repel the energies of The Void.</text>
+      </line>
+      <line>
+        <commander>grandexcavator</commander>
+        <enemy>0</enemy>
+        <text>If we find their source, we might learn something to combat The Void's power.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5339</id>
+    <name>Undead Assault</name>
+    <energy>11</energy>
+    <desc>Undead roam the area, preying on unsuspecting travelers. Tarian fights them off while Malchior collects Will-O-Wisps.</desc>
+    <commander id="265" />
+    <deck>
+      <card id="1315" name="Nix Elemental" />
+      <card id="1315" />
+      <card id="1319" name="Wraith" />
+      <card id="1319" />
+      <card id="1331" name="Fallen Soldiers" />
+      <card id="6011" name="Bomb Spirit" />
+      <card id="5033" name="Lost Soul" />
+      <card id="2032" name="Brimstone" />
+      <card id="1332" mastery_level="2" name="Vampiric Emira" />
+      <card id="2020" mastery_level="3" name="Tidetaken Fighter" />
+      <card id="5035" mastery_level="4" name="Vapor Guard" />
+      <card id="2056" mastery_level="5" name="Drainor" />
+      <card id="7028" mastery_level="6" name="Frozen Tide" />
+      <card id="5037" mastery_level="7" name="Dauntless Baneblade" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5340</id>
+    <name>Hate of the Light</name>
+    <energy>11</energy>
+    <desc>The monsters are attracted to the light, trying desperately to reach Malchior and his bottle of wisps.</desc>
+    <commander id="265" />
+    <deck>
+      <card id="1613" name="Acidic Spider" />
+      <card id="1613" />
+      <card id="1319" name="Wraith" />
+      <card id="1319" />
+      <card id="1331" name="Fallen Soldiers" />
+      <card id="6016" name="Skeletal Giant" />
+      <card id="5021" name="Tower Spirit" />
+      <card id="2019" name="Chalistomper" />
+      <card id="2042" mastery_level="2" name="Carrion Hunter" />
+      <card id="7034" mastery_level="3" name="Spore Elk" />
+      <card id="5035" mastery_level="4" name="Vapor Guard" />
+      <card id="2057" mastery_level="5" name="Twister" />
+      <card id="6076" mastery_level="6" name="Magmatic Bang" />
+      <card id="7033" mastery_level="7" name="Treebond Skull" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5341</id>
+    <name>Residence of the Haunted</name>
+    <energy>11</energy>
+    <desc>The two follow the trail to the mysterious building. They pass rows of gravestones on the path. Light shines from inside the building's windows.</desc>
+    <commander id="268" />
+    <deck>
+      <card id="1317" name="Fire Imp" />
+      <card id="1317" />
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1311" />
+      <card id="1331" name="Fallen Soldiers" />
+      <card id="6016" name="Skeletal Giant" />
+      <card id="6031" name="Iceblood Assassin" />
+      <card id="2020" name="Tidetaken Fighter" />
+      <card id="5015" mastery_level="2" name="Gravity Swell" />
+      <card id="5033" mastery_level="3" name="Lost Soul" />
+      <card id="5035" mastery_level="4" name="Vapor Guard" />
+      <card id="21630" mastery_level="5" name="Monstrous Squid" />
+      <card id="5013" mastery_level="6" name="Radiance" />
+      <card id="21341" mastery_level="7" name="Sanguine Demon" />
+    </deck>
+    <speech>
+      <line>
+        <commander>grandexcavator</commander>
+        <enemy>0</enemy>
+        <text> Look at how the light converges on that shack. Fascinating. Closer, Tarian! We must get closer!</text>
+      </line>
+      <line>
+        <commander>lichking</commander>
+        <enemy>0</enemy>
+        <text>Yes, yes.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5342</id>
+    <name>Wrong Enemy</name>
+    <energy>11</energy>
+    <desc>Malchior and Tarian find that another group has already reached the shack's entrance. They are wearing clothes and cloaks like adventurers.</desc>
+    <commander id="264" />
+    <deck>
+      <card id="1017" name="Judgment" />
+      <card id="1017" />
+      <card id="5006" name="Arms Enforcer" />
+      <card id="5006" />
+      <card id="1030" name="Paladin" />
+      <card id="1029" name="Elementalist" />
+      <card id="5080" name="Djinnflame Brawler" />
+      <card id="7045" name="Sakura" />
+      <card id="1032" mastery_level="2" name="Lunar Elemental" />
+      <card id="2054" mastery_level="3" name="Pack Runner" />
+      <card id="2030" mastery_level="4" name="Ebon Duelist" />
+      <card id="5041" mastery_level="5" name="Skylance Raiders" />
+      <card id="5001" mastery_level="6" name="Aven Skypiercer" />
+      <card id="2022" mastery_level="7" name="Avalanche Equine" />
+    </deck>
+    <speech>
+      <line>
+        <commander>winteradventurers</commander>
+        <enemy>1</enemy>
+        <text>Blast... more Undead! Don't let 'em get through!</text>
+      </line>
+      <line>
+        <commander>lichking</commander>
+        <enemy>0</enemy>
+        <text>Don't stare. It's rude.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5343</id>
+    <name>Tarian's Offer</name>
+    <energy>11</energy>
+    <desc>The adventurers are panicked by Tarian's appearance. Tarian tries to reason with the adventurers.</desc>
+    <commander id="264" />
+    <deck>
+      <card id="1019" name="Oracle" />
+      <card id="1019" />
+      <card id="6022" name="Illusion Caster" />
+      <card id="6022" />
+      <card id="2040" name="Owlmancer" />
+      <card id="2058" name="Bismuth Bully" />
+      <card id="6075" name="Consuming Mireling" />
+      <card id="6046" name="Celerity" />
+      <card id="1326" mastery_level="2" name="Titan of Fire" />
+      <card id="1026" mastery_level="3" name="Glass Colossus" />
+      <card id="1329" mastery_level="4" name="Shadow Assassin" />
+      <card id="5030" mastery_level="5" name="Loxphas Mage" />
+      <card id="6001" mastery_level="6" name="Orobas" />
+      <card id="7071" mastery_level="7" name="Gorilleus" />
+    </deck>
+    <speech>
+      <line>
+        <commander>lichking</commander>
+        <enemy>0</enemy>
+        <text>Stand down or face our wrath.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5344</id>
+    <name>Malchior's Offer</name>
+    <energy>11</energy>
+    <desc>Tarian's threat has only worked the adventurers into a greater frenzy. Malchior tries to reason with the adventurers on his friend's behalf.</desc>
+    <commander id="271" />
+    <deck>
+      <card id="1610" name="Ranger" />
+      <card id="1610" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="5022" />
+      <card id="2000" name="Wasteland Nomad" />
+      <card id="2027" name="Halo Mage" />
+      <card id="7075" name="Diamode" />
+      <card id="1327" name="Fallen Angel" />
+      <card id="2024" mastery_level="2" name="Dusk Noble" />
+      <card id="2021" mastery_level="3" name="Snowstep Ranger" />
+      <card id="1629" mastery_level="4" name="Rock Titan" />
+      <card id="5020" mastery_level="5" name="Frost Frog" />
+      <card id="5074" mastery_level="6" name="Godfried the Hunter" />
+      <card id="5019" mastery_level="7" name="Vivid Aurora" />
+    </deck>
+    <speech>
+      <line>
+        <commander>grandexcavator</commander>
+        <enemy>0</enemy>
+        <text>Stand aside, Tarian, I'll handle negotiations.</text>
+      </line>
+      <line>
+        <commander>grandexcavator</commander>
+        <enemy>0</enemy>
+        <text>CEASE YOUR STRUGGLES OR PERISH IN FIRE!</text>
+      </line>
+      <line>
+        <commander>grandexcavator</commander>
+        <enemy>0</enemy>
+        <text>Oh dear. They still appear to desire the fight.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5345</id>
+    <name>The Fallen Aether Leader</name>
+    <energy>11</energy>
+    <desc>The adventurers have been defeated, when a familiar face intervenes...</desc>
+    <commander id="269" />
+    <deck>
+      <card id="6017" name="Tar Pit Stalker" />
+      <card id="6017" />
+      <card id="1315" name="Nix Elemental" />
+      <card id="1315" />
+      <card id="6034" name="Bone Viper" />
+      <card id="6036" name="Cursed Ogre" />
+      <card id="7015" name="Bog Aberration" />
+      <card id="1325" name="Chaos Storm" />
+      <card id="2020" mastery_level="2" name="Tidetaken Fighter" />
+      <card id="6031" mastery_level="3" name="Iceblood Assassin" />
+      <card id="1332" mastery_level="4" name="Vampiric Emira" />
+      <card id="6034" mastery_level="5" name="Bone Viper" />
+      <card id="1642" mastery_level="6" name="Icestone Beast" />
+      <card id="2007" mastery_level="7" name="Platinum Golem" />
+    </deck>
+    <speech>
+      <line>
+        <commander>seraph</commander>
+        <enemy>1</enemy>
+        <text>ENOUGH!</text>
+      </line>
+      <line>
+        <commander>lichking</commander>
+        <enemy>0</enemy>
+        <text>Samael? What are you doing here?!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5346</id>
+    <name>Single Purpose</name>
+    <energy>11</energy>
+    <desc>Samael explains that he had originally hired the adventurers. He also explains his true purpose for coming out to such a desolate area.</desc>
+    <commander id="236" />
+    <deck>
+      <card id="1014" name="Cherub" />
+      <card id="1014" />
+      <card id="1315" name="Nix Elemental" />
+      <card id="1315" />
+      <card id="1025" name="Lightbound Archer" />
+      <card id="1027" name="Griffin Knight" />
+      <card id="2009" name="Sapling" />
+      <card id="1026" name="Glass Colossus" />
+      <card id="5040" mastery_level="2" name="Winged Trumpeter" />
+      <card id="7041" mastery_level="3" name="Feral Angel" />
+      <card id="5028" mastery_level="4" name="Winter Blacksmith" />
+      <card id="2031" mastery_level="5" name="Dryad" />
+      <card id="1042" mastery_level="6" name="Archgeneral" />
+      <card id="1041" mastery_level="7" name="Avenging Angel" />
+    </deck>
+    <speech>
+      <line>
+        <commander>seraph</commander>
+        <enemy>1</enemy>
+        <text>This place reeks of The Void. I shall dismantle its power before some fool seeks to harness it.</text>
+      </line>
+      <line>
+        <commander>seraph</commander>
+        <enemy>1</enemy>
+        <text>Now... what is your purpose here?</text>
+      </line>
+      <line>
+        <commander>grandexcavator</commander>
+        <enemy>0</enemy>
+        <text>We're here to harness the power of The Void!</text>
+      </line>
+      <line>
+        <commander>lichking</commander>
+        <enemy>0</enemy>
+        <text>Malchior!! </text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5347</id>
+    <name>Dangerous Power</name>
+    <energy>11</energy>
+    <desc>Samael is furious that Malchior and Tarian are researching ways to use The Void.</desc>
+    <commander id="264" />
+    <deck>
+      <card id="1017" name="Judgment" />
+      <card id="1017" />
+      <card id="1319" name="Wraith" />
+      <card id="1319" />
+      <card id="1025" name="Lightbound Archer" />
+      <card id="2002" name="Lantern Guardian" />
+      <card id="2057" name="Twister" />
+      <card id="1026" name="Glass Colossus" />
+      <card id="2027" mastery_level="2" name="Halo Mage" />
+      <card id="6015" mastery_level="3" name="Acidic Sludge" />
+      <card id="5005" mastery_level="4" name="Storm Giant" />
+      <card id="5046" mastery_level="5" name="Dawn" />
+      <card id="5043" mastery_level="6" name="Empyrean" />
+      <card id="5002" mastery_level="7" name="Twilight Mirror" />
+    </deck>
+    <speech>
+      <line>
+        <commander>seraph</commander>
+        <enemy>1</enemy>
+        <text>I would expect no less idiocy from agents of Chaos.</text>
+      </line>
+      <line>
+        <commander>seraph</commander>
+        <enemy>1</enemy>
+        <text>Men, eliminate these fools! I shall find the source where The Void's power emanates, and destroy it myself!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5348</id>
+    <name>High Stakes</name>
+    <energy>11</energy>
+    <desc>After dispatching Samael's guard, Malchior and Tarian enter the shack. They must search quickly if they are to find the source of The Void's power before Samael.</desc>
+    <commander id="269" />
+    <deck>
+      <card id="5017" name="Steam Tempest" />
+      <card id="5017" />
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1311" />
+      <card id="6029" name="Spinehead Stalker" />
+      <card id="5065" name="Hive Guard" />
+      <card id="6011" name="Bomb Spirit" />
+      <card id="5021" name="Tower Spirit" />
+      <card id="6031" mastery_level="2" name="Iceblood Assassin" />
+      <card id="1325" mastery_level="3" name="Chaos Storm" />
+      <card id="2023" mastery_level="4" name="Grizzly Terror" />
+      <card id="5080" mastery_level="5" name="Djinnflame Brawler" />
+      <card id="1342" mastery_level="6" name="Ronin" />
+      <card id="5034" mastery_level="7" name="Skyward Guardian" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5349</id>
+    <name>Fight Your Way Through</name>
+    <energy>11</energy>
+    <desc>The inside of the building is filled with Undead. Malchior and Tarian must fight their way through.</desc>
+    <commander id="270" />
+    <deck>
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1314" />
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1311" />
+      <card id="7035" name="Carrion Tiger" />
+      <card id="5033" name="Lost Soul" />
+      <card id="7034" name="Spore Elk" />
+      <card id="2020" name="Tidetaken Fighter" />
+      <card id="2023" mastery_level="2" name="Grizzly Terror" />
+      <card id="6042" mastery_level="3" name="Shadow of Thunder" />
+      <card id="1632" mastery_level="4" name="Shadow Rider" />
+      <card id="7021" mastery_level="5" name="Shadow Elemental" />
+      <card id="7036" mastery_level="6" name="Deepwood Corpse" />
+      <card id="1341" mastery_level="7" name="Blood Demon" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5350</id>
+    <name>A Familiar Face</name>
+    <energy>11</energy>
+    <desc>Malchior spots a gigantic Spellstone, laced with black magic. Before they can get closer, Malchior and Tarian encounter another unexpected guest...</desc>
+    <commander id="331" />
+    <deck>
+      <card id="5007" name="Arcane Scroll" />
+      <card id="5007" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1314" />
+      <card id="5033" name="Lost Soul" />
+      <card id="6004" name="Branding Construct" />
+      <card id="6050" name="Wortwog" />
+      <card id="2020" name="Tidetaken Fighter" />
+      <card id="6031" mastery_level="2" name="Iceblood Assassin" />
+      <card id="2009" mastery_level="3" name="Sapling" />
+      <card id="6044" mastery_level="4" name="Firewalker" />
+      <card id="7021" mastery_level="5" name="Shadow Elemental" />
+      <card id="6035" mastery_level="6" name="Demos" />
+      <card id="2015" mastery_level="7" name="Pumpking" />
+    </deck>
+    <speech>
+      <line>
+        <commander>grandexcavator</commander>
+        <enemy>0</enemy>
+        <text>Over here! This is no ordinary Spellstone. Look at those odd tendrils of magic around it - it must be the medium for The Void's power. </text>
+      </line>
+      <line>
+        <commander>maniacgeneral</commander>
+        <enemy>1</enemy>
+        <text>Well well well... What do we have here, MORE foolish adventurers?!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5351</id>
+    <name>General Garrick</name>
+    <energy>11</energy>
+    <desc>Tarian recognizes their assailant as one of his own men. The other had disappeared some time ago. Yet the man doesn't seem to recognize Tarian...</desc>
+    <commander id="269" />
+    <deck>
+      <card id="1318" name="Smelted Lava Slug" />
+      <card id="1318" />
+      <card id="1319" name="Wraith" />
+      <card id="1319" />
+      <card id="6011" name="Bomb Spirit" />
+      <card id="5053" name="Anura Witch" />
+      <card id="6075" name="Consuming Mireling" />
+      <card id="6016" name="Skeletal Giant" />
+      <card id="6031" mastery_level="2" name="Iceblood Assassin" />
+      <card id="2032" mastery_level="3" name="Brimstone" />
+      <card id="6029" mastery_level="4" name="Spinehead Stalker" />
+      <card id="2008" mastery_level="5" name="Shadow of Ash" />
+      <card id="1343" mastery_level="6" name="Firehorn" />
+      <card id="5009" mastery_level="7" name="Royal Guardian" />
+    </deck>
+    <speech>
+      <line>
+        <commander>lichking</commander>
+        <enemy>0</enemy>
+        <text>General Garrick?! I thought you were dead!</text>
+      </line>
+      <line>
+        <commander>grandexcavator</commander>
+        <enemy>0</enemy>
+        <text>You know the man?</text>
+      </line>
+      <line>
+        <commander>lichking</commander>
+        <enemy>0</enemy>
+        <text>When The Void first appeared, I sent him to investigate. I haven't seen him in months.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5352</id>
+    <name>Lost Sanity</name>
+    <energy>11</energy>
+    <desc>The Chaos general fights recklessly, with Undead joining his struggle against Tarian and Malchior.</desc>
+    <commander id="331" />
+    <deck>
+      <card id="1012" name="Cloud Sylph" />
+      <card id="1012" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1314" />
+      <card id="6016" name="Skeletal Giant" />
+      <card id="5065" name="Hive Guard" />
+      <card id="6051" name="Treeblade Thief" />
+      <card id="6029" name="Spinehead Stalker" />
+      <card id="6031" mastery_level="2" name="Iceblood Assassin" />
+      <card id="1032" mastery_level="3" name="Lunar Elemental" />
+      <card id="5021" mastery_level="4" name="Tower Spirit" />
+      <card id="6046" mastery_level="5" name="Celerity" />
+      <card id="5061" mastery_level="6" name="Thunderfist Rex" />
+      <card id="6002" mastery_level="7" name="Spirit of Madness" />
+    </deck>
+    <speech>
+      <line>
+        <commander>maniacgeneral</commander>
+        <enemy>1</enemy>
+        <text>You have no idea what you're dealing with!</text>
+      </line>
+      <line>
+        <commander>grandexcavator</commander>
+        <enemy>0</enemy>
+        <text>Look at how the Void Spellstone's power reaches towards him... He's being possessed!</text>
+      </line>
+      <line>
+        <commander>lichking</commander>
+        <enemy>0</enemy>
+        <text>Not for long...</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5353</id>
+    <name>Found Sanity</name>
+    <energy>11</energy>
+    <desc>Malchior sprinkles the Will-O-Wisps' essence upon the Chaos general. </desc>
+    <commander id="265" />
+    <deck>
+      <card id="1319" name="Wraith" />
+      <card id="1319" />
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1311" />
+      <card id="1329" name="Shadow Assassin" />
+      <card id="6038" name="Hemlock" />
+      <card id="6029" name="Spinehead Stalker" />
+      <card id="5021" name="Tower Spirit" />
+      <card id="1331" mastery_level="2" name="Fallen Soldiers" />
+      <card id="1327" mastery_level="3" name="Fallen Angel" />
+      <card id="2049" mastery_level="4" name="Contrapede" />
+      <card id="6020" mastery_level="5" name="Croak Piercer" />
+      <card id="6037" mastery_level="6" name="Keeper of Souls" />
+      <card id="6019" mastery_level="7" name="Canopy Horror" />
+    </deck>
+    <speech>
+      <line>
+        <commander>maniacgeneralreformed</commander>
+        <enemy>0</enemy>
+        <text>What...? Where am I?</text>
+      </line>
+      <line>
+        <commander>lichking</commander>
+        <enemy>0</enemy>
+        <text>You've done it. He's returning to his senses.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5354</id>
+    <name>Reformed Resolve</name>
+    <energy>11</energy>
+    <desc>General Garrick joins Tarian and Malchior, pledging to stop The Void once more.</desc>
+    <commander id="269" />
+    <deck>
+      <card id="1313" name="Lavafrog" />
+      <card id="1313" />
+      <card id="1318" name="Smelted Lava Slug" />
+      <card id="1318" />
+      <card id="1326" name="Titan of Fire" />
+      <card id="6031" name="Iceblood Assassin" />
+      <card id="6061" name="Decagon" />
+      <card id="5021" name="Tower Spirit" />
+      <card id="1331" mastery_level="2" name="Fallen Soldiers" />
+      <card id="2024" mastery_level="3" name="Dusk Noble" />
+      <card id="2032" mastery_level="4" name="Brimstone" />
+      <card id="6066" mastery_level="5" name="Psychic Beetle" />
+      <card id="6008" mastery_level="6" name="Thousand Arm Demon" />
+      <card id="2026" mastery_level="7" name="Lazarus" />
+    </deck>
+    <speech>
+      <line>
+        <commander>maniacgeneralreformed</commander>
+        <enemy>0</enemy>
+        <text>I'm so sorry, Lord Tarian. What can I do to make this up to you?</text>
+      </line>
+      <line>
+        <commander>lichking</commander>
+        <enemy>0</enemy>
+        <text>Rise up and prepare to fight against The Void once more.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5355</id>
+    <name>The Void Spellstone</name>
+    <energy>11</energy>
+    <desc>With General Garrick's sanity returned, the group returns its attention to the odd Spellstone. There must be some kind of secret for them to unlock!</desc>
+    <commander id="269" />
+    <deck>
+      <card id="5017" name="Steam Tempest" />
+      <card id="5017" />
+      <card id="1313" name="Lavafrog" />
+      <card id="1313" />
+      <card id="1632" name="Shadow Rider" />
+      <card id="6075" name="Consuming Mireling" />
+      <card id="6011" name="Bomb Spirit" />
+      <card id="6036" name="Cursed Ogre" />
+      <card id="1626" mastery_level="2" name="Tusker" />
+      <card id="2019" mastery_level="3" name="Chalistomper" />
+      <card id="2032" mastery_level="4" name="Brimstone" />
+      <card id="7021" mastery_level="5" name="Shadow Elemental" />
+      <card id="6047" mastery_level="6" name="Wither" />
+      <card id="7037" mastery_level="7" name="Bane" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5356</id>
+    <name>Not One More Step</name>
+    <energy>11</energy>
+    <desc>Before the group can study the Spellstone further, Samael interrupts!</desc>
+    <commander id="236" />
+    <deck>
+      <card id="1614" name="Druid" />
+      <card id="1614" />
+      <card id="1014" name="Cherub" />
+      <card id="1014" />
+      <card id="1025" name="Lightbound Archer" />
+      <card id="6069" name="Arachnolite" />
+      <card id="2029" name="Sly Critters" />
+      <card id="1031" name="Noble Champion" />
+      <card id="5072" mastery_level="2" name="Blind Seer" />
+      <card id="5044" mastery_level="3" name="Telepathic Magi" />
+      <card id="2027" mastery_level="4" name="Halo Mage" />
+      <card id="7021" mastery_level="5" name="Shadow Elemental" />
+      <card id="5071" mastery_level="6" name="Stoic Watcher" />
+      <card id="5079" mastery_level="7" name="Cyclopnid" />
+    </deck>
+    <speech>
+      <line>
+        <commander>seraph</commander>
+        <enemy>1</enemy>
+        <text>Stand aside, all of you! That Spellstone is made of pure evil.</text>
+      </line>
+      <line>
+        <commander>maniacgeneralreformed</commander>
+        <enemy>0</enemy>
+        <text>Not one step closer, sir. Lord Tarian needs space to observe the stone.</text>
+      </line>
+      <line>
+        <commander>seraph</commander>
+        <enemy>1</enemy>
+        <text>You... I remember you, you're possessed by The Void!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5357</id>
+    <name>A Matter of Trust</name>
+    <energy>11</energy>
+    <desc>Tarian and Malchior trust that General Garrick has returned to his senses. However, Samael fears that the presence of The Void might spread.</desc>
+    <commander id="263" />
+    <deck>
+      <card id="1315" name="Nix Elemental" />
+      <card id="1315" />
+      <card id="1014" name="Cherub" />
+      <card id="1014" />
+      <card id="1025" name="Lightbound Archer" />
+      <card id="6056" name="Potoo" />
+      <card id="2029" name="Sly Critters" />
+      <card id="1030" name="Paladin" />
+      <card id="7041" mastery_level="2" name="Feral Angel" />
+      <card id="7038" mastery_level="3" name="Sol King" />
+      <card id="2027" mastery_level="4" name="Halo Mage" />
+      <card id="7004" mastery_level="5" name="Ice Golem" />
+      <card id="6041" mastery_level="6" name="Reaper" />
+      <card id="6045" mastery_level="7" name="Darkflame" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5358</id>
+    <name>Judgement</name>
+    <energy>11</energy>
+    <desc>General Garrick worries he is vulnerable to The Void's influence.</desc>
+    <commander id="3" />
+    <deck>
+      <card id="1018" name="Armored Eagle" />
+      <card id="1018" />
+      <card id="1014" name="Cherub" />
+      <card id="1014" />
+      <card id="1327" name="Fallen Angel" />
+      <card id="7047" name="Shaman of the Wild" />
+      <card id="5072" name="Blind Seer" />
+      <card id="1030" name="Paladin" />
+      <card id="7041" mastery_level="2" name="Feral Angel" />
+      <card id="2054" mastery_level="3" name="Pack Runner" />
+      <card id="2021" mastery_level="4" name="Snowstep Ranger" />
+      <card id="7029" mastery_level="5" name="Owl Griffin" />
+      <card id="6071" mastery_level="6" name="Masked Heraid" />
+      <card id="5048" mastery_level="7" name="Highborn Rose" />
+    </deck>
+    <speech>
+      <line>
+        <commander>maniacgeneralreformed</commander>
+        <enemy>0</enemy>
+        <text>Lord Samael is right. The Void could still be inside my mind. Let me take responsibility.</text>
+      </line>
+      <line>
+        <commander>lichking</commander>
+        <enemy>0</enemy>
+        <text>We did not save you just so you could die!</text>
+      </line>
+      <line>
+        <commander>seraph</commander>
+        <enemy>1</enemy>
+        <text>I will destroy him and The Void's power source!!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5359</id>
+    <name>Chain Reaction</name>
+    <energy>11</energy>
+    <desc>Samael's power is great. He unleashes an attack so powerful that it ruptures the Void Spellstone in a great burst of light!</desc>
+    <commander id="3" />
+    <deck>
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1311" />
+      <card id="1317" name="Fire Imp" />
+      <card id="1317" />
+      <card id="2058" name="Bismuth Bully" />
+      <card id="7047" name="Shaman of the Wild" />
+      <card id="1331" name="Fallen Soldiers" />
+      <card id="5035" name="Vapor Guard" />
+      <card id="7075" mastery_level="2" name="Diamode" />
+      <card id="1029" mastery_level="3" name="Elementalist" />
+      <card id="2001" mastery_level="4" name="Dunetooth Demon" />
+      <card id="6029" mastery_level="5" name="Spinehead Stalker" />
+      <card id="1342" mastery_level="6" name="Ronin" />
+      <card id="6013" mastery_level="7" name="Rust Goliath" />
+    </deck>
+    <speech>
+      <line>
+        <commander>seraph</commander>
+        <enemy>1</enemy>
+        <text>It is done. I have clipped the influence of The Void in this region.</text>
+      </line>
+      <line>
+        <commander>grandexcavator</commander>
+        <enemy>0</enemy>
+        <text>No, a chain reaction has started! Everyone, watch out!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5360</id>
+    <name>Hero's Sacrifice</name>
+    <energy>11</energy>
+    <desc>The Spellstone breaks to reveal a creature of horrible might. It slams Samael aside with one sweep of its claws, before turning against the group...</desc>
+    <commander id="330" />
+    <deck>
+      <card id="1319" name="Wraith" />
+      <card id="1319" />
+      <card id="1312" name="Scythe Demon" />
+      <card id="1312" />
+      <card id="1331" name="Fallen Soldiers" />
+      <card id="1331" />
+      <card id="1331" />
+      <card id="2020" name="Tidetaken Fighter" />
+      <card id="6031" mastery_level="2" name="Iceblood Assassin" />
+      <card id="6031" mastery_level="2" />
+      <card id="6016" mastery_level="4" name="Skeletal Giant" />
+      <card id="6011" mastery_level="5" name="Bomb Spirit" />
+      <card id="6027" mastery_level="6" name="Frigela, the Dread" />
+      <card id="2026" mastery_level="7" name="Lazarus" />
+    </deck>
+    <speech>
+      <line>
+        <commander>undeadbrute</commander>
+        <enemy>1</enemy>
+        <text>UWRAAAAARGH!</text>
+      </line>
+      <line>
+        <commander>maniacgeneralreformed</commander>
+        <enemy>0</enemy>
+        <text>Lord Tarian, please take the Aether leader and your friend to safety. I will stay behind and fight this foe.</text>
+      </line>
+    </speech>
+  </mission>
+  <!-- Event 17 -->
+  <mission>
+    <id>5361</id>
+    <name>Nomadic Travels</name>
+    <energy>11</energy>
+    <desc>Decim has wandered across the lands, searching for a baby dragon of his own. During his travels, he comes across Goblin Rise Stronghold, in the Goblin Kingdom.</desc>
+    <commander id="316" />
+    <deck>
+      <card id="6007" name="Goblin Crew" />
+      <card id="1610" name="Ranger" />
+      <card id="6006" name="Chaos Golem" />
+      <card id="1010" name="Lightning Elemental" />
+      <card id="1010" name="Lightning Elemental" />
+      <card id="1329" name="Shadow Assassin" />
+      <card id="1329" name="Shadow Assassin" />
+      <card id="1625" name="Ferocious Clawkin" />
+      <card id="1625" mastery_level="2" name="Ferocious Clawkin" />
+      <card id="1628" mastery_level="3" name="Garganotos" />
+      <card id="1628" mastery_level="3" />
+      <card id="1631" mastery_level="5" name="Venom Dragon" />
+      <card id="1341" mastery_level="6" name="Blood Demon" />
+      <card id="2041" mastery_level="7" name="Sharpwing" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text> Whoa, all the people here are so GREEN! Don't they get enough sunlight?!</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Wait... What's that?!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5362</id>
+    <name>Uncontainable Curiousity</name>
+    <energy>11</energy>
+    <desc>Decim has noticed something behind one of the huts. He hops over a fence that says 'do not enter' in order to get closer...</desc>
+    <commander id="315" />
+    <deck>
+      <card id="6007" name="Goblin Crew" />
+      <card id="1613" name="Acidic Spider" />
+      <card id="1619" name="Earth Elemental" />
+      <card id="1319" name="Wraith" />
+      <card id="1319" name="Wraith" />
+      <card id="1328" name="Poison Bullfrog" />
+      <card id="1328" name="Poison Bullfrog" />
+      <card id="1632" name="Shadow Rider" />
+      <card id="1632" mastery_level="2" name="Shadow Rider" />
+      <card id="1628" mastery_level="3" name="Garganotos" />
+      <card id="1326" mastery_level="4" name="Titan of Fire" />
+      <card id="1027" mastery_level="5" name="Griffin Knight" />
+      <card id="1043" mastery_level="6" name="Lilypad Bard" />
+      <card id="2013" mastery_level="7" name="Stoneclad Toad" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5363</id>
+    <name>The Sparkler Fireworks</name>
+    <energy>11</energy>
+    <desc>Behind the hut is some kind of scrapyard for junk. Decim digs through metal scraps, until he finds what he spotted earlier...</desc>
+    <commander id="341" />
+    <deck>
+      <card id="6007" name="Goblin Crew" />
+      <card id="1615" name="Rune Panther" />
+      <card id="1618" name="Frog Scout" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1325" name="Chaos Storm" />
+      <card id="1325" name="Chaos Storm" />
+      <card id="1628" name="Garganotos" />
+      <card id="1330" mastery_level="2" name="Devouring Locusts" />
+      <card id="1628" mastery_level="3" name="Garganotos" />
+      <card id="2040" mastery_level="4" name="Owlmancer" />
+      <card id="2032" mastery_level="5" name="Brimstone" />
+      <card id="7071" mastery_level="6" name="Gorilleus" />
+      <card id="1642" mastery_level="7" name="Icestone Beast" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Are these... fireworks? Sweet, I love explosions!</text>
+      </line>
+      <line>
+        <commander>mechanicgoblin</commander>
+        <enemy>1</enemy>
+        <text>Oy, this's private property! Whaddya think yer doin'?</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5364</id>
+    <name>Pretty Lights</name>
+    <energy>11</energy>
+    <desc>Decim tries to grab as many fireworks as he can. Unfortunately his fire powers burn out of control, accidentally lighting the fuses. In a wake of explosions, the entire straw hut catches on fire!</desc>
+    <commander id="341" />
+    <deck>
+      <card id="6007" name="Goblin Crew" />
+      <card id="1317" name="Fire Imp" />
+      <card id="1617" name="Water Elemental" />
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1327" name="Fallen Angel" />
+      <card id="1327" name="Fallen Angel" />
+      <card id="1026" name="Glass Colossus" />
+      <card id="1628" name="Garganotos" />
+      <card id="1026" mastery_level="2" name="Glass Colossus" />
+      <card id="1628" mastery_level="3" name="Garganotos" />
+      <card id="2029" mastery_level="4" name="Sly Critters" />
+      <card id="2024" mastery_level="5" name="Dusk Noble" />
+      <card id="5009" mastery_level="6" name="Royal Guardian" />
+      <card id="5003" mastery_level="7" name="White Knight" />
+    </deck>
+    <speech>
+      <line>
+        <commander>mechanicgoblin</commander>
+        <enemy>1</enemy>
+        <text>Guards, guuuards! This man's trying to destroy my property!</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Hey, relax! It's just some pretty lights that uh, might be burning your house down.</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>It was an accident, okay?!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5365</id>
+    <name>Halt, Criminal Scum!</name>
+    <energy>11</energy>
+    <desc>The goblin guards arrive, responding to the commotion that Decim has caused. Decim is in big trouble...</desc>
+    <commander id="323" />
+    <deck>
+      <card id="6007" name="Goblin Crew" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="6006" name="Chaos Golem" />
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1031" name="Noble Champion" />
+      <card id="1031" name="Noble Champion" />
+      <card id="5021" name="Tower Spirit" />
+      <card id="1628" mastery_level="2" name="Garganotos" />
+      <card id="1628" mastery_level="3" name="Garganotos" />
+      <card id="2034" mastery_level="4" name="Leap Frog Duo" />
+      <card id="5021" mastery_level="5" name="Tower Spirit" />
+      <card id="5051" mastery_level="6" name="Amphibious Digger" />
+      <card id="6049" mastery_level="7" name="Goblin Explosioneer" />
+    </deck>
+    <speech>
+      <line>
+        <commander>Portrait_Goblin_Captain</commander>
+        <enemy>1</enemy>
+        <text>Halt! Sir, you're going to need to come with us.</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Nooo.... Not again! It's not my fault!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5366</id>
+    <name>One Star Service</name>
+    <energy>11</energy>
+    <desc>The guards have locked Decim away in the prison depths of Goblin Rise Stronghold. Decim sits in a cell, the lone inhabitant of the dungeon, and mourns his fate.</desc>
+    <commander id="320" />
+    <deck>
+      <card id="6007" name="Goblin Crew" />
+      <card id="5007" name="Arcane Scroll" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="1616" name="Werewarg" />
+      <card id="1312" name="Scythe Demon" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="1628" name="Garganotos" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="1627" mastery_level="2" name="Sage of Croaks" />
+      <card id="1628" mastery_level="3" name="Garganotos" />
+      <card id="5067" mastery_level="4" name="Squito Roamer" />
+      <card id="5020" mastery_level="5" name="Frost Frog" />
+      <card id="5083" mastery_level="6" name="Honor Risen" />
+      <card id="1343" mastery_level="7" name="Firehorn" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Only one piece of moldy bread and a cup of water? They didn't even put a mint under my pillow! This is unacceptable!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5367</id>
+    <name>Uncontainable</name>
+    <energy>11</energy>
+    <desc>Decim grabs the bars and shouts to be let free. Then he remembers that he still has some firework sparklers. He lights a few and holds them against the metal to try and melt them... Only to notice that one of the bars is rusted and he can pull it open.</desc>
+    <commander id="240" />
+    <deck>
+      <card id="6007" name="Goblin Crew" />
+      <card id="5006" name="Arms Enforcer" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1312" name="Scythe Demon" />
+      <card id="1312" name="Scythe Demon" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="1628" name="Garganotos" />
+      <card id="1626" mastery_level="2" name="Tusker" />
+      <card id="1628" mastery_level="3" name="Garganotos" />
+      <card id="5035" mastery_level="4" name="Vapor Guard" />
+      <card id="5020" mastery_level="5" name="Frost Frog" />
+      <card id="7003" mastery_level="6" name="Kraken" />
+      <card id="2015" mastery_level="7" name="Pumpking" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5368</id>
+    <name>The Great Escape</name>
+    <energy>11</energy>
+    <desc>The dungeon is dark, but Decim continues on. A few stray beasts block his path, but Decim will not be stopped.</desc>
+    <commander id="324" />
+    <deck>
+      <card id="6007" name="Goblin Crew" />
+      <card id="1018" name="Armored Eagle" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1011" name="Archive Keeper" />
+      <card id="2020" name="Tidetaken Fighter" />
+      <card id="2020" name="Tidetaken Fighter" />
+      <card id="2049" name="Contrapede" />
+      <card id="1628" name="Garganotos" />
+      <card id="2049" mastery_level="2" name="Contrapede" />
+      <card id="1628" mastery_level="3" name="Garganotos" />
+      <card id="5030" mastery_level="4" name="Loxphas Mage" />
+      <card id="5004" mastery_level="5" name="Lightning Lord" />
+      <card id="7001" mastery_level="6" name="Hekaton" />
+      <card id="5037" mastery_level="7" name="Dauntless Baneblade" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5369</id>
+    <name>Metal Gear Dragon</name>
+    <energy>11</energy>
+    <desc>While trying to find his way out, Decim hears a strange noise in one of the cells. Peering inside, Decim sees something unbelievable.</desc>
+    <commander id="340" />
+    <deck>
+      <card id="1012" name="Cloud Sylph" />
+      <card id="1014" name="Cherub" />
+      <card id="1319" name="Wraith" />
+      <card id="1613" name="Acidic Spider" />
+      <card id="2057" name="Twister" />
+      <card id="2057" name="Twister" />
+      <card id="1629" name="Rock Titan" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="1629" mastery_level="2" name="Rock Titan" />
+      <card id="1028" mastery_level="3" name="Heroic Frog" />
+      <card id="2048" mastery_level="4" name="Sandmite" />
+      <card id="2060" mastery_level="5" name="Patchwork Experiment" />
+      <card id="6068" mastery_level="6" name="Night Larva" />
+      <card id="6000" mastery_level="7" name="Furnace Mech" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Is that... A baby dragon?! Hang on buddy, I'll get you out of there!</text>
+      </line>
+      <line>
+        <commander>windupdragons</commander>
+        <enemy>1</enemy>
+        <text>Ch-ch-ch!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5370</id>
+    <name>Gears and Steel</name>
+    <energy>11</energy>
+    <desc>The 'baby dragon' is unlike anything Decim has seen. Instead of scales, it seems to be made of gears and steel. Whenever Decim tries to get close to them, they snap with their metal jaws.</desc>
+    <commander id="340" />
+    <deck>
+      <card id="1318" name="Smelted Lava Slug" />
+      <card id="1613" name="Acidic Spider" />
+      <card id="1311" name="Molten Skeleton" />
+      <card id="5017" name="Steam Tempest" />
+      <card id="2042" name="Carrion Hunter" />
+      <card id="2042" name="Carrion Hunter" />
+      <card id="1331" name="Fallen Soldiers" />
+      <card id="1331" name="Fallen Soldiers" />
+      <card id="1331" mastery_level="2" name="Fallen Soldiers" />
+      <card id="1332" mastery_level="3" name="Vampiric Emira" />
+      <card id="2031" mastery_level="4" name="Dryad" />
+      <card id="2060" mastery_level="5" name="Patchwork Experiment" />
+      <card id="6065" mastery_level="6" name="Torchsnout" />
+      <card id="6000" mastery_level="7" name="Furnace Mech" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>CALM DOWN BUDDY!</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>What's got you so upset, huh? Oh hey, looks like more of your friends are still trapped. I'll set 'em all free!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5371</id>
+    <name>Prison Break</name>
+    <energy>11</energy>
+    <desc>Decim has freed a whole host of mechanical dragonlings. The commotion attracts the goblin guards, but the wind-up dragons stampede towards freedom. Decim gets swept up with them, still struggling to escape!</desc>
+    <commander id="323" />
+    <deck>
+      <card id="6007" name="Goblin Crew" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="1610" name="Ranger" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="2053" name="Rocket Rider" />
+      <card id="2053" name="Rocket Rider" />
+      <card id="1325" name="Chaos Storm" />
+      <card id="2008" name="Shadow of Ash" />
+      <card id="1325" mastery_level="2" name="Chaos Storm" />
+      <card id="1029" mastery_level="3" name="Elementalist" />
+      <card id="2008" mastery_level="4" name="Shadow of Ash" />
+      <card id="6031" mastery_level="5" name="Iceblood Assassin" />
+      <card id="6014" mastery_level="6" name="Armored Siegefist" />
+      <card id="6049" mastery_level="7" name="Goblin Explosioneer" />
+    </deck>
+    <speech>
+      <line>
+        <commander>Portrait_Goblin_Captain</commander>
+        <enemy>1</enemy>
+        <text>What's going on here?! What are you doing here!?</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Look out, little buddies! I'll protect you!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5372</id>
+    <name>Relentless Guards</name>
+    <energy>11</energy>
+    <desc>Decim has escaped the prison complex with his new friends, but still needs to find a way out of Goblin Rise Stronghold. He looks around wildly for a place to escape, while fighting off the goblin guards...</desc>
+    <commander id="321" />
+    <deck>
+      <card id="6007" name="Goblin Crew" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="1019" name="Oracle" />
+      <card id="1012" name="Cloud Sylph" />
+      <card id="2002" name="Lantern Guardian" />
+      <card id="2002" name="Lantern Guardian" />
+      <card id="1330" name="Devouring Locusts" />
+      <card id="1628" name="Garganotos" />
+      <card id="2005" mastery_level="2" name="Sailing Drake" />
+      <card id="1330" mastery_level="3" name="Devouring Locusts" />
+      <card id="1628" mastery_level="4" name="Garganotos" />
+      <card id="5080" mastery_level="5" name="Djinnflame Brawler" />
+      <card id="7026" mastery_level="6" name="Frostjaw" />
+      <card id="1042" mastery_level="7" name="Archgeneral" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5373</id>
+    <name>The Creator</name>
+    <energy>11</energy>
+    <desc>While looking for an exit, Decim and his new friends come face to face with guard goblins and a familiar enemy...</desc>
+    <commander id="341" />
+    <deck>
+      <card id="6007" name="Goblin Crew" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="1017" name="Judgment" />
+      <card id="1319" name="Wraith" />
+      <card id="5005" name="Storm Giant" />
+      <card id="5005" name="Storm Giant" />
+      <card id="1027" name="Griffin Knight" />
+      <card id="5021" name="Tower Spirit" />
+      <card id="5021" mastery_level="2" name="Tower Spirit" />
+      <card id="1027" mastery_level="3" name="Griffin Knight" />
+      <card id="1628" mastery_level="4" name="Garganotos" />
+      <card id="6020" mastery_level="5" name="Croak Piercer" />
+      <card id="6014" mastery_level="6" name="Armored Siegefist" />
+      <card id="5018" mastery_level="7" name="Grand Knight Frog" />
+    </deck>
+    <speech>
+      <line>
+        <commander>mechanicgoblin</commander>
+        <enemy>1</enemy>
+        <text>You! What are you doing with my creations?!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5374</id>
+    <name>Freedom or Death</name>
+    <energy>11</energy>
+    <desc>Decim tries to reason with the angry goblin. There seems to be some misunderstanding about the nature of Decim's 'friend.'</desc>
+    <commander id="320" />
+    <deck>
+      <card id="6007" name="Goblin Crew" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="1315" name="Nix Elemental" />
+      <card id="1313" name="Lavafrog" />
+      <card id="1329" name="Shadow Assassin" />
+      <card id="1329" name="Shadow Assassin" />
+      <card id="2053" name="Rocket Rider" />
+      <card id="1327" name="Fallen Angel" />
+      <card id="2053" mastery_level="2" name="Rocket Rider" />
+      <card id="1327" mastery_level="3" name="Fallen Angel" />
+      <card id="1628" mastery_level="4" name="Garganotos" />
+      <card id="6072" mastery_level="5" name="Bone Wielder" />
+      <card id="6014" mastery_level="6" name="Armored Siegefist" />
+      <card id="5002" mastery_level="7" name="Twilight Mirror" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Your creations? These dragonlings were locked away in the dungeon. They must be set free!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5375</id>
+    <name>Dangerous Origins</name>
+    <energy>11</energy>
+    <desc>Decim tries to herd the mechanical dragonlings away from the angry goblins. Escaping with an entire pack of them will be difficult...</desc>
+    <commander id="340" />
+    <deck>
+      <card id="6007" name="Goblin Crew" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="1317" name="Fire Imp" />
+      <card id="1614" name="Druid" />
+      <card id="1329" name="Shadow Assassin" />
+      <card id="2030" name="Ebon Duelist" />
+      <card id="1630" name="Giant Squid" />
+      <card id="6004" name="Branding Construct" />
+      <card id="6072" mastery_level="2" name="Bone Wielder" />
+      <card id="2053" mastery_level="3" name="Rocket Rider" />
+      <card id="1025" mastery_level="4" name="Lightbound Archer" />
+      <card id="2004" mastery_level="5" name="Lavatail Dragon" />
+      <card id="5001" mastery_level="6" name="Aven Skypiercer" />
+      <card id="8002" mastery_level="7" name="Frostbite Skeleton" />
+    </deck>
+    <speech>
+      <line>
+        <commander>mechanicgoblin</commander>
+        <enemy>1</enemy>
+        <text>Those things were locked away because they're so dangerous, but I didn't have the heart to destroy them. Please, you must listen to me and return them.</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text> FREEDOM!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5376</id>
+    <name>Final Push</name>
+    <energy>11</energy>
+    <desc>Decim realizes that the mechanical dragonlings seem to be attracted by the sparkler's light! He waves the light around frantically, orchestrating the wind-up creatures to follow him.</desc>
+    <commander id="323" />
+    <deck>
+      <card id="6007" name="Goblin Crew" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1329" name="Shadow Assassin" />
+      <card id="1325" name="Chaos Storm" />
+      <card id="1628" name="Garganotos" />
+      <card id="1030" name="Paladin" />
+      <card id="6072" mastery_level="2" name="Bone Wielder" />
+      <card id="2053" mastery_level="3" name="Rocket Rider" />
+      <card id="6072" mastery_level="4" name="Bone Wielder" />
+      <card id="2053" mastery_level="5" name="Rocket Rider" />
+      <card id="6085" mastery_level="6" name="Released Captives" />
+      <card id="7026" mastery_level="7" name="Frostjaw" />
+    </deck>
+    <speech>
+      <line>
+        <commander>Portrait_Goblin_Captain</commander>
+        <enemy>1</enemy>
+        <text>This nonsense has gone on long enough. Yer comin' back with us!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5377</id>
+    <name>Termite Double Dragons</name>
+    <energy>11</energy>
+    <desc>The wind-up dragonlings run straight against the stronghold's wall, their metal jaws chomping through the wood. The guards are unable to stop Decim or the creations.</desc>
+    <commander id="340" />
+    <deck>
+      <card id="1011" name="Archive Keeper" />
+      <card id="1318" name="Smelted Lava Slug" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="6017" name="Tar Pit Stalker" />
+      <card id="1332" name="Vampiric Emira" />
+      <card id="1325" name="Chaos Storm" />
+      <card id="1628" name="Garganotos" />
+      <card id="2014" name="Tadpole Warmage" />
+      <card id="6072" mastery_level="2" name="Bone Wielder" />
+      <card id="2053" mastery_level="3" name="Rocket Rider" />
+      <card id="2032" mastery_level="4" name="Brimstone" />
+      <card id="6021" mastery_level="5" name="Marsh Ogre" />
+      <card id="6027" mastery_level="6" name="Frigela, the Dread" />
+      <card id="1340" mastery_level="7" name="Blazekin Dragon" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text> We did it! I don't suppose one of you baby dragonlings wants to stick around and be MY dragon, would you?</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Owch! Ow, okay, I get it!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5378</id>
+    <name>Surprise Attack</name>
+    <energy>11</energy>
+    <desc>Decim has a clear shot of running away, when he hears a cry of alarm behind him. Turning around, he sees a pack of Undead has wandered into Goblin Rise Stronghold!</desc>
+    <commander id="265" />
+    <deck>
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1613" name="Acidic Spider" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1319" name="Wraith" />
+      <card id="1332" name="Vampiric Emira" />
+      <card id="2023" name="Grizzly Terror" />
+      <card id="1331" name="Fallen Soldiers" />
+      <card id="2001" name="Dunetooth Demon" />
+      <card id="6066" mastery_level="2" name="Psychic Beetle" />
+      <card id="2020" mastery_level="3" name="Tidetaken Fighter" />
+      <card id="5033" mastery_level="4" name="Lost Soul" />
+      <card id="2059" mastery_level="5" name="Matriarch's Call" />
+      <card id="7036" mastery_level="6" name="Deepwood Corpse" />
+      <card id="2026" mastery_level="7" name="Lazarus" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5379</id>
+    <name>A Mentor's Wisdom</name>
+    <energy>11</energy>
+    <desc>Decim abandons his original escape plan, moving back to the stronghold. The goblins need his help! He remembers the teachings of his mentor, that he should help those in need and maintain a clear focus...</desc>
+    <commander id="268" />
+    <deck>
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1315" name="Nix Elemental" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1319" name="Wraith" />
+      <card id="1329" name="Shadow Assassin" />
+      <card id="2023" name="Grizzly Terror" />
+      <card id="1331" name="Fallen Soldiers" />
+      <card id="2042" name="Carrion Hunter" />
+      <card id="6038" mastery_level="2" name="Hemlock" />
+      <card id="6016" mastery_level="3" name="Skeletal Giant" />
+      <card id="6011" mastery_level="4" name="Bomb Spirit" />
+      <card id="6034" mastery_level="5" name="Bone Viper" />
+      <card id="5036" mastery_level="6" name="Winter Tail" />
+      <card id="5085" mastery_level="7" name="Haunting Heir" />
+    </deck>
+    <speech>
+      <line>
+        <commander>mechanicgoblin</commander>
+        <enemy>1</enemy>
+        <text>Somebody, help!</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Ugh. If I leave now, Rayne will never let me hear the end of it...</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Hang on, I'm coming!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5380</id>
+    <name>Undead Resurrection</name>
+    <energy>11</energy>
+    <desc>Each time an Undead falls, another one rises to take its place. Decim fights fiercely, blasting each returning Undead with more fireballs...</desc>
+    <commander id="270" />
+    <deck>
+      <card id="1311" name="Molten Skeleton" />
+      <card id="6006" name="Chaos Golem" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1313" name="Lavafrog" />
+      <card id="1632" name="Shadow Rider" />
+      <card id="2023" name="Grizzly Terror" />
+      <card id="1331" name="Fallen Soldiers" />
+      <card id="5030" name="Loxphas Mage" />
+      <card id="6034" mastery_level="2" name="Bone Viper" />
+      <card id="6016" mastery_level="3" name="Skeletal Giant" />
+      <card id="6011" mastery_level="4" name="Bomb Spirit" />
+      <card id="6029" mastery_level="5" name="Spinehead Stalker" />
+      <card id="6032" mastery_level="6" name="Mumohotep" />
+      <card id="5083" mastery_level="7" name="Honor Risen" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5381</id>
+    <name>Crispy Undead</name>
+    <energy>11</energy>
+    <desc>Decim now fights side by side with the goblins, trying to defend them from the mindless Undead. Their numbers are beginning to finally thin.</desc>
+    <commander id="267" />
+    <deck>
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1010" name="Lightning Elemental" />
+      <card id="1319" name="Wraith" />
+      <card id="1613" name="Acidic Spider" />
+      <card id="1326" name="Titan of Fire" />
+      <card id="2020" name="Tidetaken Fighter" />
+      <card id="1331" name="Fallen Soldiers" />
+      <card id="5053" name="Anura Witch" />
+      <card id="6031" mastery_level="2" name="Iceblood Assassin" />
+      <card id="6036" mastery_level="3" name="Cursed Ogre" />
+      <card id="6011" mastery_level="4" name="Bomb Spirit" />
+      <card id="7035" mastery_level="5" name="Carrion Tiger" />
+      <card id="6003" mastery_level="6" name="Black Knight" />
+      <card id="6033" mastery_level="7" name="Firebeard" />
+    </deck>
+    <speech>
+      <line>
+        <commander>mechanicgoblin</commander>
+        <enemy>1</enemy>
+        <text>You came back... to save me?</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Yeah whatever! I just was in the mood for barbecue and small fry!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5382</id>
+    <name>Undead Pack Master</name>
+    <energy>11</energy>
+    <desc>The Undead are nearly defeated, when a horrible monster  emerges from the rest of the pack...</desc>
+    <commander id="330" />
+    <deck>
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="6017" name="Tar Pit Stalker" />
+      <card id="5006" name="Arms Enforcer" />
+      <card id="1027" name="Griffin Knight" />
+      <card id="2000" name="Wasteland Nomad" />
+      <card id="1032" name="Lunar Elemental" />
+      <card id="1628" name="Garganotos" />
+      <card id="6029" mastery_level="2" name="Spinehead Stalker" />
+      <card id="6036" mastery_level="3" name="Cursed Ogre" />
+      <card id="5035" mastery_level="4" name="Vapor Guard" />
+      <card id="7035" mastery_level="5" name="Carrion Tiger" />
+      <card id="6049" mastery_level="6" name="Goblin Explosioneer" />
+      <card id="7037" mastery_level="7" name="Bane" />
+    </deck>
+    <speech>
+      <line>
+        <commander>undeadbrute</commander>
+        <enemy>1</enemy>
+        <text>Raaaaawr!</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Yikes, looks like it's boss time!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5383</id>
+    <name>Negotiations</name>
+    <energy>11</energy>
+    <desc>With the rest of the Undead gone, the threat has vanished from Goblin Rise Stronghold. With the immediate threat gone, the goblin guards surround Decim...</desc>
+    <commander id="311" />
+    <deck>
+      <card id="1014" name="Cherub" />
+      <card id="1015" name="Windfrog" />
+      <card id="1017" name="Judgment" />
+      <card id="5006" name="Arms Enforcer" />
+      <card id="1027" name="Griffin Knight" />
+      <card id="2000" name="Wasteland Nomad" />
+      <card id="1032" name="Lunar Elemental" />
+      <card id="1628" name="Garganotos" />
+      <card id="6029" mastery_level="2" name="Spinehead Stalker" />
+      <card id="6036" mastery_level="3" name="Cursed Ogre" />
+      <card id="5035" mastery_level="4" name="Vapor Guard" />
+      <card id="7035" mastery_level="5" name="Carrion Tiger" />
+      <card id="6014" mastery_level="6" name="Armored Siegefist" />
+      <card id="7037" mastery_level="7" name="Bane" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5384</id>
+    <name>Friends Forever</name>
+    <energy>11</energy>
+    <desc>The goblins stare at Decim, but the mechanic goblin comes to his aid. It seems like Rayne's teachings might have turned out to be worthwhile after all.</desc>
+    <commander id="340" />
+    <deck>
+      <card id="1615" name="Rune Panther" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1619" name="Earth Elemental" />
+      <card id="6012" name="Ember Drake" />
+      <card id="1626" name="Tusker" />
+      <card id="1328" name="Poison Bullfrog" />
+      <card id="1331" name="Fallen Soldiers" />
+      <card id="2012" name="Frogling Swarm" />
+      <card id="6021" mastery_level="2" name="Marsh Ogre" />
+      <card id="6036" mastery_level="3" name="Cursed Ogre" />
+      <card id="5035" mastery_level="4" name="Vapor Guard" />
+      <card id="2014" mastery_level="5" name="Tadpole Warmage" />
+      <card id="7026" mastery_level="6" name="Frostjaw" />
+      <card id="5034" mastery_level="7" name="Skyward Guardian" />
+    </deck>
+    <speech>
+      <line>
+        <commander>mechanicgoblin</commander>
+        <enemy>1</enemy>
+        <text>You saved me... saved all of us! I'm sorry, I misjudged you.</text>
+      </line>
+      <line>
+        <commander>Portrait_Goblin_Captain</commander>
+        <enemy>1</enemy>
+        <text>Aye, you're welcome in our stronghold anytime, lad.</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Cool, but all I wanted was a baby dragon. Hey little guy, why don't you come with m-</text>
+      </line>
+      <line>
+        <commander>windupdragons</commander>
+        <enemy>1</enemy>
+        <text>CHOMP</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>OWCH, OW, STOP!</text>
+      </line>
+    </speech>
+  </mission>
+  <!-- Halloween Event -->
+  <mission>
+    <id>5385</id>
+    <name>The Tale of Pumpking</name>
+    <energy>1</energy>
+    <desc>When Decim first arrives at Goblin Rise Stronghold, he tells the tragic tale of Pumpking, a king who only wanted to spread goodwill by giving children candy. However, he met a tragic end when his rivals played an unfair trick upon him.</desc>
+    <commander id="320" />
+    <deck>
+      <card id="1319" name="Wraith" />
+      <card id="1319" />
+      <card id="1613" name="Acidic Spider" />
+      <card id="1613" />
+      <card id="1329" name="Shadow Assassin" />
+      <card id="1330" name="Devouring Locusts" />
+      <card id="1330" />
+      <card id="11331" name="Haunted Soldiers" />
+      <card id="1328" mastery_level="2" name="Poison Bullfrog" />
+      <card id="2024" mastery_level="3" name="Dusk Noble" />
+      <card id="1626" mastery_level="4" name="Tusker" />
+      <card id="1632" mastery_level="5" name="Shadow Rider" />
+      <card id="5082" mastery_level="6" name="Memory" />
+      <card id="6035" mastery_level="7" name="Demos" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>...And whoever dares say Pumpking's name will meet with the King himself, who judges with either treats or tricks!</text>
+      </line>
+      <line>
+        <commander>goblinfootmen</commander>
+        <enemy>1</enemy>
+        <text>Aieee! So scary, so scary! We'll never speak his name!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5386</id>
+    <name>Pumpking's Appearance</name>
+    <energy>1</energy>
+    <desc>The goblin children depart from Decim. Decim laughs at the children's reaction to his story, until he notices that he's not alone...</desc>
+    <commander id="342" />
+    <deck>
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1311" />
+      <card id="1311" />
+      <card id="1311" />
+      <card id="6017" name="Tar Pit Stalker" />
+      <card id="6017" />
+      <card id="1332" name="Vampiric Emira" />
+      <card id="1628" name="Garganotos" />
+      <card id="2015" mastery_level="2" name="Pumpking" />
+      <card id="2015" mastery_level="3" name="Pumpking" />
+      <card id="2015" mastery_level="4" name="Pumpking" />
+      <card id="2015" mastery_level="5" name="Pumpking" />
+      <card id="2015" mastery_level="6" name="Pumpking" />
+      <card id="2015" mastery_level="7" name="Pumpking" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Haha, what a bunch of suckers! Who'd believe a stupid legend like THAT?</text>
+      </line>
+      <line>
+        <commander>pumpkingPortrait</commander>
+        <enemy>1</enemy>
+        <text>.....</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Who... Who are you?! Stay back!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5387</id>
+    <name>More Treat Than Trick</name>
+    <energy>1</energy>
+    <desc>The strange apparition lays something by Decim's feet, before turning and fading into the night...</desc>
+    <commander id="342" />
+    <deck>
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1311" />
+      <card id="1315" name="Nix Elemental" />
+      <card id="1315" />
+      <card id="1632" name="Shadow Rider" />
+      <card id="2032" name="Brimstone" />
+      <card id="2032" />
+      <card id="1628" name="Garganotos" />
+      <card id="1326" mastery_level="2" name="Titan of Fire" />
+      <card id="5035" mastery_level="3" name="Vapor Guard" />
+      <card id="5021" mastery_level="4" name="Tower Spirit" />
+      <card id="2062" mastery_level="5" name="Deadeye Apprentice" />
+      <card id="2015" mastery_level="6" name="Pumpking" />
+      <card id="2015" mastery_level="7" name="Pumpking" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>OH MAN!</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>...Wait, did he leave this pumpkin filled with candy? Sweet, what a cool guy!</text>
+      </line>
+    </speech>
+  </mission>
+  <!-- Event 18 -->
+  <mission>
+    <id>5388</id>
+    <name>Triumphant Return</name>
+    <energy>11</energy>
+    <desc>Decim has returned to Tarragon Peak after his adventure in Goblin Rise Stronghold. For the first time, he was able to make friends with a dragon, and he can't wait to tell the residents of Tarragon Peak.</desc>
+    <commander id="272" />
+    <deck>
+      <card id="1019" name="Oracle" />
+      <card id="6012" name="Ember Drake" />
+      <card id="6012" />
+      <card id="1312" name="Scythe Demon" />
+      <card id="1330" name="Devouring Locusts" />
+      <card id="1631" name="Venom Dragon" />
+      <card id="5015" name="Gravity Swell" />
+      <card id="2033" name="Arcblaze Dragon" />
+      <card id="1326" name="Titan of Fire" />
+      <card id="2001" mastery_level="2" name="Dunetooth Demon" />
+      <card id="1325" mastery_level="3" name="Chaos Storm" />
+      <card id="5025" mastery_level="4" name="Steelskin Dragon" />
+      <card id="7075" mastery_level="5" name="Diamode" />
+      <card id="6008" mastery_level="6" name="Thousand Arm Demon" />
+      <card id="1040" mastery_level="7" name="Storm Dragon" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>That dragon tamer said I'd never be able to care for my own dragon... HA!</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>I can't wait to tell her all about the dragon friends I made in the Goblin Kingdom!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5389</id>
+    <name>The Way of the Wyverns</name>
+    <energy>11</energy>
+    <desc>When Decim returns to Wyverns' Way, he finds that the sanctuary has been damaged. Parts of the building have crumbled, and there are suspicious scorch marks on the ground...</desc>
+    <commander id="314" />
+    <deck>
+      <card id="1012" name="Cloud Sylph" />
+      <card id="7012" name="Life Drake" />
+      <card id="7012" />
+      <card id="6017" name="Tar Pit Stalker" />
+      <card id="1032" name="Lunar Elemental" />
+      <card id="2004" name="Lavatail Dragon" />
+      <card id="5010" name="Concealed Dragon" />
+      <card id="2032" name="Brimstone" />
+      <card id="5041" name="Skylance Raiders" />
+      <card id="1629" mastery_level="2" name="Rock Titan" />
+      <card id="2008" mastery_level="3" name="Shadow of Ash" />
+      <card id="5067" mastery_level="4" name="Squito Roamer" />
+      <card id="7021" mastery_level="5" name="Shadow Elemental" />
+      <card id="5079" mastery_level="6" name="Cyclopnid" />
+      <card id="1340" mastery_level="7" name="Blazekin Dragon" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5390</id>
+    <name>Silent Sanctuary</name>
+    <energy>11</energy>
+    <desc>Decim frantically looks for any signs of life. Just a few days ago, Wyverns' Way was a haven for dragons who had bonded with humans. Now, it is completely deserted.</desc>
+    <commander id="321" />
+    <deck>
+      <card id="1311" name="Molten Skeleton" />
+      <card id="5012" name="Static Drake" />
+      <card id="5012" />
+      <card id="6006" name="Chaos Golem" />
+      <card id="1328" name="Poison Bullfrog" />
+      <card id="2044" name="Quillhide Dragon" />
+      <card id="5004" name="Lightning Lord" />
+      <card id="2041" name="Sharpwing" />
+      <card id="5024" name="Cloudtop Dragon" />
+      <card id="1629" mastery_level="2" name="Rock Titan" />
+      <card id="2046" mastery_level="3" name="Leaping Dragon" />
+      <card id="6061" mastery_level="4" name="Decagon" />
+      <card id="6066" mastery_level="5" name="Psychic Beetle" />
+      <card id="5013" mastery_level="6" name="Radiance" />
+      <card id="1640" mastery_level="7" name="Life Dragon" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>What happened, and why is everything destroyed? Where is everyone?! </text>
+      </line>
+      <line>
+        <commander>goblinraider</commander>
+        <enemy>1</enemy>
+        <text>Look, one of the guardians is still here! Get 'im!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5391</id>
+    <name>See No Evil</name>
+    <energy>11</energy>
+    <desc>Decim defends himself against the goblins, but doesn't understand why they would attack him in the first place. He tries to reason with them...</desc>
+    <commander id="311" />
+    <deck>
+      <card id="1010" name="Lightning Elemental" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="6007" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="2019" name="Chalistomper" />
+      <card id="2063" name="Hob Fletcher" />
+      <card id="2031" name="Dryad" />
+      <card id="5062" name="Cliffhanger Wyrm" />
+      <card id="1625" mastery_level="2" name="Ferocious Clawkin" />
+      <card id="2045" mastery_level="3" name="Chillbeard Giant" />
+      <card id="6050" mastery_level="4" name="Wortwog" />
+      <card id="6089" mastery_level="5" name="Fire Belcher" />
+      <card id="5009" mastery_level="6" name="Royal Guardian" />
+      <card id="7088" mastery_level="7" name="Jubjub" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>I'm not a sanctuary guardian! I'm just passing through!</text>
+      </line>
+      <line>
+        <commander>goblinraider</commander>
+        <enemy>1</enemy>
+        <text>Oy, so ya don't care what happens to the dragons? Pass on through, lad.</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>...What are you doing to the dragons?</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5392</id>
+    <name>Be Free</name>
+    <energy>11</energy>
+    <desc>The goblins show Decim the remnants of cracked dragon eggs, and a line of fettered dragons. As the goblins explain their plan, Decim becomes filled with an unquenchable fury...</desc>
+    <commander id="321" />
+    <deck>
+      <card id="1313" name="Lavafrog" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="6007" />
+      <card id="5012" name="Static Drake" />
+      <card id="1327" name="Fallen Angel" />
+      <card id="2064" name="Tome Sneak" />
+      <card id="5080" name="Djinnflame Brawler" />
+      <card id="2031" name="Dryad" />
+      <card id="5044" name="Telepathic Magi" />
+      <card id="7061" mastery_level="2" name="Thickskin Dragon" />
+      <card id="5062" mastery_level="3" name="Cliffhanger Wyrm" />
+      <card id="6034" mastery_level="4" name="Bone Viper" />
+      <card id="6089" mastery_level="5" name="Fire Belcher" />
+      <card id="7026" mastery_level="6" name="Frostjaw" />
+      <card id="6023" mastery_level="7" name="Broodmother" />
+    </deck>
+    <speech>
+      <line>
+        <commander>goblinraider</commander>
+        <enemy>1</enemy>
+        <text>These dragons belong to us, see. We'll train 'em up right and proper to serve us.</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>...You seriously think you can kidnap dragons and get away with it? I'll break all their chains... I'LL FREE ALL THE DRAGONS!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5393</id>
+    <name>Misplaced Suspicion</name>
+    <energy>11</energy>
+    <desc>The goblins disband, leaving Decim to free the dragons. However, the dragons have become more feral than what Decim anticipated...</desc>
+    <commander id="272" />
+    <deck>
+      <card id="1317" name="Fire Imp" />
+      <card id="6012" name="Ember Drake" />
+      <card id="6012" />
+      <card id="1615" name="Rune Panther" />
+      <card id="2004" name="Lavatail Dragon" />
+      <card id="5010" name="Concealed Dragon" />
+      <card id="5062" name="Cliffhanger Wyrm" />
+      <card id="2023" name="Grizzly Terror" />
+      <card id="5005" name="Storm Giant" />
+      <card id="5024" mastery_level="2" name="Cloudtop Dragon" />
+      <card id="5062" mastery_level="3" name="Cliffhanger Wyrm" />
+      <card id="5069" mastery_level="4" name="Heralidae" />
+      <card id="6044" mastery_level="5" name="Firewalker" />
+      <card id="6060" mastery_level="6" name="Pudgytusk" />
+      <card id="6058" mastery_level="7" name="Tarragon Cuttail" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Just a moment, guys. I'll get you out of here in no time.</text>
+      </line>
+      <line>
+        <commander>moltendragon</commander>
+        <enemy>1</enemy>
+        <text>Grrr.....</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5394</id>
+    <name>Feral Dragons</name>
+    <energy>11</energy>
+    <desc>Decim tries to remove the chains from the dragons, but they behave like wild beasts. Decim refuses to give up, even if the dragons don't understand that he wants to help them.</desc>
+    <commander id="310" />
+    <deck>
+      <card id="5007" name="Arcane Scroll" />
+      <card id="5012" name="Static Drake" />
+      <card id="5012" />
+      <card id="7012" name="Life Drake" />
+      <card id="2004" name="Lavatail Dragon" />
+      <card id="5060" name="Quack Apprentice" />
+      <card id="2046" name="Leaping Dragon" />
+      <card id="1027" name="Griffin Knight" />
+      <card id="2045" name="Chillbeard Giant" />
+      <card id="5024" mastery_level="2" name="Cloudtop Dragon" />
+      <card id="7010" mastery_level="3" name="Honeycomb Dragon" />
+      <card id="2005" mastery_level="4" name="Sailing Drake" />
+      <card id="6021" mastery_level="5" name="Marsh Ogre" />
+      <card id="5061" mastery_level="6" name="Thunderfist Rex" />
+      <card id="5061" mastery_level="7" name="Thunderfist Rex" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5395</id>
+    <name>The Wind Drake</name>
+    <energy>11</energy>
+    <desc>At last Decim finishes removing the bindings. The dragons scatter the moment they're free. All have left... except one.</desc>
+    <commander id="351" />
+    <deck>
+      <card id="1610" name="Ranger" />
+      <card id="5006" name="Arms Enforcer" />
+      <card id="5006" />
+      <card id="7012" name="Life Drake" />
+      <card id="1326" name="Titan of Fire" />
+      <card id="5053" name="Anura Witch" />
+      <card id="2046" name="Leaping Dragon" />
+      <card id="1631" name="Venom Dragon" />
+      <card id="2005" name="Sailing Drake" />
+      <card id="2046" mastery_level="2" name="Leaping Dragon" />
+      <card id="7010" mastery_level="3" name="Honeycomb Dragon" />
+      <card id="7024" mastery_level="4" name="Woolmane Dragon" />
+      <card id="5065" mastery_level="5" name="Hive Guard" />
+      <card id="6059" mastery_level="6" name="Violetfire Igniter" />
+      <card id="2006" mastery_level="7" name="Zhulong" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>There ya go, dragon buddies! </text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Oh hey, one of the dragons stayed behind, but he looks a little scared...</text>
+      </line>
+      <line>
+        <commander>Sailing_Drake</commander>
+        <enemy>1</enemy>
+        <text>*whimper*</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5396</id>
+    <name>Dusty Scales</name>
+    <energy>11</energy>
+    <desc>Decim cautiously approaches the remaining young dragon. A light film of grime has covered its scales.</desc>
+    <commander id="351" />
+    <deck>
+      <card id="1014" name="Cherub" />
+      <card id="5012" name="Static Drake" />
+      <card id="5012" />
+      <card id="7006" name="Treant Sapling" />
+      <card id="1626" name="Tusker" />
+      <card id="5050" name="Cloud Spear" />
+      <card id="7024" name="Woolmane Dragon" />
+      <card id="1631" name="Venom Dragon" />
+      <card id="2019" name="Chalistomper" />
+      <card id="2046" mastery_level="2" name="Leaping Dragon" />
+      <card id="7061" mastery_level="3" name="Thickskin Dragon" />
+      <card id="1627" mastery_level="4" name="Sage of Croaks" />
+      <card id="7053" mastery_level="5" name="Bee Eater" />
+      <card id="6026" mastery_level="6" name="Smokefang" />
+      <card id="1040" mastery_level="7" name="Storm Dragon" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>What's this chalky dust over your scales? Are ya doing okay, little dragon?</text>
+      </line>
+      <line>
+        <commander>Sailing_Drake</commander>
+        <enemy>1</enemy>
+        <text>...</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5397</id>
+    <name>Pantomime</name>
+    <energy>11</energy>
+    <desc>The drake moves a few paces ahead, then pauses to look at Decim. It moves again a little farther, looking back again. Decim guesses it wants to be followed, and moves after it.</desc>
+    <commander id="242" />
+    <deck>
+      <card id="1315" name="Nix Elemental" />
+      <card id="7012" name="Life Drake" />
+      <card id="7012" />
+      <card id="6022" name="Illusion Caster" />
+      <card id="1632" name="Shadow Rider" />
+      <card id="5024" name="Cloudtop Dragon" />
+      <card id="7010" name="Honeycomb Dragon" />
+      <card id="2004" name="Lavatail Dragon" />
+      <card id="2014" name="Tadpole Warmage" />
+      <card id="2005" mastery_level="2" name="Sailing Drake" />
+      <card id="2002" mastery_level="3" name="Lantern Guardian" />
+      <card id="1031" mastery_level="4" name="Noble Champion" />
+      <card id="2029" mastery_level="5" name="Sly Critters" />
+      <card id="5063" mastery_level="6" name="Runic Dragon" />
+      <card id="1340" mastery_level="7" name="Blazekin Dragon" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5398</id>
+    <name>Dragon Fury</name>
+    <energy>11</energy>
+    <desc>The drake has taken Decim to a thin river, one of the few sources of water on Tarragon Peak. However the water level has fallen even further, with a strange black grime coating the edges of the river bank.</desc>
+    <commander id="310" />
+    <deck>
+      <card id="1613" name="Acidic Spider" />
+      <card id="6017" name="Tar Pit Stalker" />
+      <card id="6017" />
+      <card id="1017" name="Judgment" />
+      <card id="6005" name="Gloomkin" />
+      <card id="2048" name="Sandmite" />
+      <card id="1631" name="Venom Dragon" />
+      <card id="2004" name="Lavatail Dragon" />
+      <card id="5011" name="Sky Whale" />
+      <card id="2005" mastery_level="2" name="Sailing Drake" />
+      <card id="1628" mastery_level="3" name="Garganotos" />
+      <card id="2040" mastery_level="4" name="Owlmancer" />
+      <card id="2029" mastery_level="5" name="Sly Critters" />
+      <card id="2013" mastery_level="6" name="Stoneclad Toad" />
+      <card id="6009" mastery_level="7" name="Siphon Dragon" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>This river is what you wanted to show me, dragon buddy?</text>
+      </line>
+      <line>
+        <commander>greenbackdragon</commander>
+        <enemy>1</enemy>
+        <text>RAAAWR!</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Yikes, look out!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5399</id>
+    <name>Connect the Dots</name>
+    <energy>11</energy>
+    <desc>The feral dragon flies away, leaving Decim and the wind drake alone at the riverbed. Decim investigates again...</desc>
+    <commander id="250" />
+    <deck>
+      <card id="1319" name="Wraith" />
+      <card id="5007" name="Arcane Scroll" />
+      <card id="5007" />
+      <card id="6012" name="Ember Drake" />
+      <card id="5084" name="Dotora Spirit" />
+      <card id="1329" name="Shadow Assassin" />
+      <card id="2033" name="Arcblaze Dragon" />
+      <card id="2004" name="Lavatail Dragon" />
+      <card id="5069" name="Heralidae" />
+      <card id="2005" mastery_level="2" name="Sailing Drake" />
+      <card id="2009" mastery_level="3" name="Sapling" />
+      <card id="5067" mastery_level="4" name="Squito Roamer" />
+      <card id="6020" mastery_level="5" name="Croak Piercer" />
+      <card id="2006" mastery_level="6" name="Zhulong" />
+      <card id="5023" mastery_level="7" name="Nightfall Dragon" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>This black grain by the river is gross. My hand burns just from touching it!</text>
+      </line>
+      <line>
+        <commander>Sailing_Drake</commander>
+        <enemy>0</enemy>
+        <text>...Awoo...</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Wait... is this the stuff stuck on your scales?!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5400</id>
+    <name>A Friend in Need</name>
+    <energy>11</energy>
+    <desc>Decim realizes that his new dragon friend must be in pain. Although he doesn't know how to help, Decim is determined to do so.</desc>
+    <commander id="214" />
+    <deck>
+      <card id="1313" name="Lavafrog" />
+      <card id="1318" name="Smelted Lava Slug" />
+      <card id="1318" />
+      <card id="7012" name="Life Drake" />
+      <card id="5058" name="Crescent Moon Owl" />
+      <card id="1632" name="Shadow Rider" />
+      <card id="6063" name="Firetail Dragon" />
+      <card id="2046" name="Leaping Dragon" />
+      <card id="5065" name="Hive Guard" />
+      <card id="6063" mastery_level="2" name="Firetail Dragon" />
+      <card id="2057" mastery_level="3" name="Twister" />
+      <card id="5024" mastery_level="4" name="Cloudtop Dragon" />
+      <card id="6016" mastery_level="5" name="Skeletal Giant" />
+      <card id="5064" mastery_level="6" name="Anshar" />
+      <card id="1040" mastery_level="7" name="Storm Dragon" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Ugh, we need water to clean off your scales, but this river's all mucked up.</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>C'mon buddy, if we follow it a bit further down, maybe the water will clear up.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5401</id>
+    <name>Mysterious Corruption</name>
+    <energy>11</energy>
+    <desc>Decim and his drake friend follow the river's path. The farther they get, the trickle of water slowly starts to increase. Decim can only hope the strange corruption disappears further down.</desc>
+    <commander id="285" />
+    <deck>
+      <card id="1614" name="Druid" />
+      <card id="5012" name="Static Drake" />
+      <card id="5012" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="1626" name="Tusker" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="1631" name="Venom Dragon" />
+      <card id="6010" name="Cliffpass Defender" />
+      <card id="6034" name="Bone Viper" />
+      <card id="2005" mastery_level="2" name="Sailing Drake" />
+      <card id="2049" mastery_level="3" name="Contrapede" />
+      <card id="5050" mastery_level="4" name="Cloud Spear" />
+      <card id="6015" mastery_level="5" name="Acidic Sludge" />
+      <card id="5052" mastery_level="6" name="Paradise Avian" />
+      <card id="6059" mastery_level="7" name="Violetfire Igniter" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5402</id>
+    <name>Spreading Corruption</name>
+    <energy>11</energy>
+    <desc>Monsters sometimes block the two's path. Decim notices that they also are covered in the strange grime. Whatever infected the river has also spread through the wildlife...</desc>
+    <commander id="285" />
+    <deck>
+      <card id="1312" name="Scythe Demon" />
+      <card id="5017" name="Steam Tempest" />
+      <card id="5017" />
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1328" name="Poison Bullfrog" />
+      <card id="1325" name="Chaos Storm" />
+      <card id="5010" name="Concealed Dragon" />
+      <card id="5062" name="Cliffhanger Wyrm" />
+      <card id="6011" name="Bomb Spirit" />
+      <card id="7062" mastery_level="2" name="Brine Bellower" />
+      <card id="2030" mastery_level="3" name="Ebon Duelist" />
+      <card id="5011" mastery_level="4" name="Sky Whale" />
+      <card id="6004" mastery_level="5" name="Branding Construct" />
+      <card id="5051" mastery_level="6" name="Amphibious Digger" />
+      <card id="7060" mastery_level="7" name="Shenami" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5403</id>
+    <name>Polluted Water</name>
+    <energy>11</energy>
+    <desc>Decim and the drake are not having much luck by following the river. In fact, Decim is starting to wonder if they chose the wrong direction...</desc>
+    <commander id="286" />
+    <deck>
+      <card id="1015" name="Windfrog" />
+      <card id="6017" name="Tar Pit Stalker" />
+      <card id="6017" />
+      <card id="1313" name="Lavafrog" />
+      <card id="1331" name="Fallen Soldiers" />
+      <card id="1325" name="Chaos Storm" />
+      <card id="2004" name="Lavatail Dragon" />
+      <card id="2046" name="Leaping Dragon" />
+      <card id="6011" name="Bomb Spirit" />
+      <card id="1631" mastery_level="2" name="Venom Dragon" />
+      <card id="2019" mastery_level="3" name="Chalistomper" />
+      <card id="2057" mastery_level="4" name="Twister" />
+      <card id="5073" mastery_level="5" name="Shell Invader" />
+      <card id="5036" mastery_level="6" name="Winter Tail" />
+      <card id="1640" mastery_level="7" name="Life Dragon" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Geez, is the water getting WORSE? This is absolutely disgusting!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5404</id>
+    <name>Pursuers</name>
+    <energy>11</energy>
+    <desc>Decim and the drake have traveled far, but not all the goblins are content to leave the two in peace. Behind them, goblins have pursued fiercely...</desc>
+    <commander id="322" />
+    <deck>
+      <card id="1018" name="Armored Eagle" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="6007" />
+      <card id="1610" name="Ranger" />
+      <card id="1628" name="Garganotos" />
+      <card id="7087" name="Goblites" />
+      <card id="2004" name="Lavatail Dragon" />
+      <card id="1031" name="Noble Champion" />
+      <card id="5073" name="Shell Invader" />
+      <card id="1631" mastery_level="2" name="Venom Dragon" />
+      <card id="2012" mastery_level="3" name="Frogling Swarm" />
+      <card id="2054" mastery_level="4" name="Pack Runner" />
+      <card id="2053" mastery_level="5" name="Rocket Rider" />
+      <card id="7088" mastery_level="6" name="Jubjub" />
+      <card id="5023" mastery_level="7" name="Nightfall Dragon" />
+    </deck>
+    <speech>
+      <line>
+        <commander>dragonridingringleader</commander>
+        <enemy>1</enemy>
+        <text>There's the lad that stole our dragons! Get 'em!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5405</id>
+    <name>Rematch</name>
+    <energy>11</energy>
+    <desc>An entire troop of goblins have caught up with Decim and the drake! But Decim will not let them take the drake back into captivity... </desc>
+    <commander id="323" />
+    <deck>
+      <card id="1615" name="Rune Panther" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="6007" />
+      <card id="1019" name="Oracle" />
+      <card id="1628" name="Garganotos" />
+      <card id="2064" name="Tome Sneak" />
+      <card id="2046" name="Leaping Dragon" />
+      <card id="1031" name="Noble Champion" />
+      <card id="1030" name="Paladin" />
+      <card id="1628" mastery_level="2" name="Garganotos" />
+      <card id="1626" mastery_level="3" name="Tusker" />
+      <card id="2041" mastery_level="4" name="Sharpwing" />
+      <card id="2053" mastery_level="5" name="Rocket Rider" />
+      <card id="6014" mastery_level="6" name="Armored Siegefist" />
+      <card id="1340" mastery_level="7" name="Blazekin Dragon" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5406</id>
+    <name>A Friend to Protect</name>
+    <energy>11</energy>
+    <desc>Decim stands between the goblins and the sailing drake. Until one side loses, neither will back down...</desc>
+    <commander id="320" />
+    <deck>
+      <card id="1315" name="Nix Elemental" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="6007" />
+      <card id="1317" name="Fire Imp" />
+      <card id="1628" name="Garganotos" />
+      <card id="5089" name="Gomblit" />
+      <card id="2033" name="Arcblaze Dragon" />
+      <card id="2005" name="Sailing Drake" />
+      <card id="1326" name="Titan of Fire" />
+      <card id="2062" mastery_level="2" name="Deadeye Apprentice" />
+      <card id="1027" mastery_level="3" name="Griffin Knight" />
+      <card id="1329" mastery_level="4" name="Shadow Assassin" />
+      <card id="2063" mastery_level="5" name="Hob Fletcher" />
+      <card id="5090" mastery_level="6" name="Reks' Faithful" />
+      <card id="6058" mastery_level="7" name="Tarragon Cuttail" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Just get lost already! You're not taking him back!</text>
+      </line>
+      <line>
+        <commander>Sailing_Drake</commander>
+        <enemy>0</enemy>
+        <text>Grrr!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5407</id>
+    <name>Dragon Guard</name>
+    <energy>11</energy>
+    <desc>Despite being outnumbered, Decim and the drake fight valiantly against the goblins. They unleash a troop of dragons against them!</desc>
+    <commander id="318" />
+    <deck>
+      <card id="1312" name="Scythe Demon" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="6007" />
+      <card id="6012" name="Ember Drake" />
+      <card id="2062" name="Deadeye Apprentice" />
+      <card id="6021" name="Marsh Ogre" />
+      <card id="5025" name="Steelskin Dragon" />
+      <card id="2001" name="Dunetooth Demon" />
+      <card id="1330" name="Devouring Locusts" />
+      <card id="2062" mastery_level="2" name="Deadeye Apprentice" />
+      <card id="2020" mastery_level="3" name="Tidetaken Fighter" />
+      <card id="1028" mastery_level="4" name="Heroic Frog" />
+      <card id="1628" mastery_level="5" name="Garganotos" />
+      <card id="5029" mastery_level="6" name="Snowback Dragon" />
+      <card id="6024" mastery_level="7" name="Bane Dragon" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5408</id>
+    <name>Limited Strength</name>
+    <energy>11</energy>
+    <desc>Each time Decim defeats one of the goblins or dragons, another one seems to take its place. Decim and his ally are starting to get tired...</desc>
+    <commander id="323" />
+    <deck>
+      <card id="1017" name="Judgment" />
+      <card id="5012" name="Static Drake" />
+      <card id="5012" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="7087" name="Goblites" />
+      <card id="1628" name="Garganotos" />
+      <card id="2004" name="Lavatail Dragon" />
+      <card id="1629" name="Rock Titan" />
+      <card id="1029" name="Elementalist" />
+      <card id="6072" mastery_level="2" name="Bone Wielder" />
+      <card id="2002" mastery_level="3" name="Lantern Guardian" />
+      <card id="1625" mastery_level="4" name="Ferocious Clawkin" />
+      <card id="6090" mastery_level="5" name="Crackshot" />
+      <card id="6049" mastery_level="6" name="Goblin Explosioneer" />
+      <card id="1640" mastery_level="7" name="Life Dragon" />
+    </deck>
+    <speech>
+      <line>
+        <commander>Sailing_Drake</commander>
+        <enemy>0</enemy>
+        <text>...Awoo...</text>
+      </line>
+      <line>
+        <commander>Portrait_Goblin_Captain</commander>
+        <enemy>1</enemy>
+        <text>Yer lookin' a wee bit tired, lad. Jus' give up!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5409</id>
+    <name>Confronting Defeat</name>
+    <energy>11</energy>
+    <desc>It's becoming increasingly clear that Decim cannot fight off all the goblins by himself. He must prepare for the worst case scenario...</desc>
+    <commander id="321" />
+    <deck>
+      <card id="1313" name="Lavafrog" />
+      <card id="7012" name="Life Drake" />
+      <card id="7012" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="6089" name="Fire Belcher" />
+      <card id="1628" name="Garganotos" />
+      <card id="7024" name="Woolmane Dragon" />
+      <card id="1627" name="Sage of Croaks" />
+      <card id="1632" name="Shadow Rider" />
+      <card id="1328" mastery_level="2" name="Poison Bullfrog" />
+      <card id="1630" mastery_level="3" name="Giant Squid" />
+      <card id="1329" mastery_level="4" name="Shadow Assassin" />
+      <card id="2064" mastery_level="5" name="Tome Sneak" />
+      <card id="6088" mastery_level="6" name="Doxum's Construct" />
+      <card id="2047" mastery_level="7" name="Conjured Dragon" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Buddy, I'm going to make one final push. Use that time to get away from here!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5410</id>
+    <name>But It Refused...</name>
+    <energy>11</energy>
+    <desc>Against Decim's wishes, the drake remains by his side. The goblins send one of their fiercest dragons against them...</desc>
+    <commander id="259" />
+    <deck>
+      <card id="1018" name="Armored Eagle" />
+      <card id="6012" name="Ember Drake" />
+      <card id="6012" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="2064" name="Tome Sneak" />
+      <card id="1628" name="Garganotos" />
+      <card id="5062" name="Cliffhanger Wyrm" />
+      <card id="2030" name="Ebon Duelist" />
+      <card id="2024" name="Dusk Noble" />
+      <card id="5053" mastery_level="2" name="Anura Witch" />
+      <card id="1327" mastery_level="3" name="Fallen Angel" />
+      <card id="1330" mastery_level="4" name="Devouring Locusts" />
+      <card id="2062" mastery_level="5" name="Deadeye Apprentice" />
+      <card id="7088" mastery_level="6" name="Jubjub" />
+      <card id="6026" mastery_level="7" name="Smokefang" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5411</id>
+    <name>Savior or Destroyer?</name>
+    <energy>11</energy>
+    <desc>When all hope seems lost, the river swells up as if it has its own will. The waves wash over the battlefield, breaking up the combatants. Once the water recedes, a new figure stands before Decim...</desc>
+    <commander id="352" />
+    <deck>
+      <card id="1012" name="Cloud Sylph" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="5022" />
+      <card id="5017" name="Steam Tempest" />
+      <card id="7005" name="Tsunamari" />
+      <card id="1628" name="Garganotos" />
+      <card id="7062" name="Brine Bellower" />
+      <card id="2014" name="Tadpole Warmage" />
+      <card id="1630" name="Giant Squid" />
+      <card id="1028" mastery_level="2" name="Heroic Frog" />
+      <card id="7066" mastery_level="3" name="Aquine" />
+      <card id="2005" mastery_level="4" name="Sailing Drake" />
+      <card id="2062" mastery_level="5" name="Deadeye Apprentice" />
+      <card id="7003" mastery_level="6" name="Kraken" />
+      <card id="7054" mastery_level="7" name="The Thing Below" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>WHOA! What was that?!</text>
+      </line>
+      <line>
+        <commander>kraken_portrait</commander>
+        <enemy>1</enemy>
+        <text>...</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5412</id>
+    <name>Love of a Mother</name>
+    <energy>9</energy>
+    <desc>Cedric and Ursurio leave the Avian territory, heading back to Golden Crown, to return Frobert to his home. The Mayor of Golden Crown is overjoyed to have her son back.</desc>
+    <commander id="292" />
+    <deck>
+      <card id="1015" name="Windfrog" />
+      <card id="1015" />
+      <card id="1613" name="Acidic Spider" />
+      <card id="1613" />
+      <card id="1027" name="Griffin Knight" />
+      <card id="1328" name="Poison Bullfrog" />
+      <card id="1031" name="Noble Champion" />
+      <card id="2040" name="Owlmancer" />
+      <card id="2034" name="Leap Frog Duo" />
+      <card id="1026" mastery_level="2" name="Glass Colossus" />
+      <card id="1631" mastery_level="3" name="Venom Dragon" />
+      <card id="6020" mastery_level="4" name="Croak Piercer" />
+      <card id="1028" mastery_level="5" name="Heroic Frog" />
+      <card id="1640" mastery_level="6" name="Life Dragon" />
+      <card id="1043" mastery_level="7" name="Lilypad Bard" />
+    </deck>
+    <speech>
+      <line>
+        <commander>goldencrownmayor</commander>
+        <enemy>0</enemy>
+        <text>Oh Frobert, my son, you are unharmed!</text>
+      </line>
+      <line>
+        <commander>goldencrownmayor</commander>
+        <enemy>0</enemy>
+        <text>Cedric, you saved my child, just as I knew you would. No matter how far you travel, you will always be Golden Crown's hero.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5413</id>
+    <name>Second Celebration</name>
+    <energy>9</energy>
+    <desc>The frogs are prepared to hold a feast all over again, to celebrate the safe return of Frobert. However, Cedric insists that they must be on their way, despite Ursurio's temptation to stay.</desc>
+    <commander id="316" />
+    <deck>
+      <card id="1610" name="Ranger" />
+      <card id="1610" />
+      <card id="1313" name="Lavafrog" />
+      <card id="1313" />
+      <card id="1631" name="Venom Dragon" />
+      <card id="1628" name="Garganotos" />
+      <card id="2014" name="Tadpole Warmage" />
+      <card id="5060" name="Quack Apprentice" />
+      <card id="7016" name="Webfist Shaman" />
+      <card id="1328" mastery_level="2" name="Poison Bullfrog" />
+      <card id="1327" mastery_level="3" name="Fallen Angel" />
+      <card id="6051" mastery_level="4" name="Treeblade Thief" />
+      <card id="1028" mastery_level="5" name="Heroic Frog" />
+      <card id="1641" mastery_level="6" name="Rhythm of the Wyld" />
+      <card id="2013" mastery_level="7" name="Stoneclad Toad" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5414</id>
+    <name>Original Purpose</name>
+    <energy>9</energy>
+    <desc>Cedric reminds the Golden Crown leader their original mission for coming there. The citizens of Dawnglow watch tearfully as their hero prepares to leave on his journey.</desc>
+    <commander id="319" />
+    <deck>
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1311" />
+      <card id="6022" name="Illusion Caster" />
+      <card id="6022" />
+      <card id="1330" name="Devouring Locusts" />
+      <card id="1329" name="Shadow Assassin" />
+      <card id="2005" name="Sailing Drake" />
+      <card id="5020" name="Frost Frog" />
+      <card id="2012" name="Frogling Swarm" />
+      <card id="2004" mastery_level="2" name="Lavatail Dragon" />
+      <card id="1326" mastery_level="3" name="Titan of Fire" />
+      <card id="7053" mastery_level="4" name="Bee Eater" />
+      <card id="1627" mastery_level="5" name="Sage of Croaks" />
+      <card id="1340" mastery_level="6" name="Blazekin Dragon" />
+      <card id="6048" mastery_level="7" name="Bulwraag" />
+    </deck>
+    <speech>
+      <line>
+        <commander>froghero</commander>
+        <enemy>0</enemy>
+        <text>All in the line of duty, Mayor. Now, didn't you have a final mission for me?</text>
+      </line>
+      <line>
+        <commander>bearcommander</commander>
+        <enemy>0</enemy>
+        <text>Does it involve more banquets?</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5415</id>
+    <name>Secrets</name>
+    <energy>9</energy>
+    <desc>The Golden Crown Mayor bites her lip anxiously. She looks around secretively, as if making sure no one else will hear her words.</desc>
+    <commander id="327" />
+    <deck>
+      <card id="1012" name="Cloud Sylph" />
+      <card id="1012" />
+      <card id="1618" name="Frog Scout" />
+      <card id="1618" />
+      <card id="1625" name="Ferocious Clawkin" />
+      <card id="1626" name="Tusker" />
+      <card id="1628" name="Garganotos" />
+      <card id="2063" name="Hob Fletcher" />
+      <card id="5050" name="Cloud Spear" />
+      <card id="2044" mastery_level="2" name="Quillhide Dragon" />
+      <card id="1325" mastery_level="3" name="Chaos Storm" />
+      <card id="5053" mastery_level="4" name="Anura Witch" />
+      <card id="7051" mastery_level="5" name="Stinglash Rider" />
+      <card id="1342" mastery_level="6" name="Ronin" />
+      <card id="7050" mastery_level="7" name="Krieg, Northern Sword" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5416</id>
+    <name>Final Request</name>
+    <energy>9</energy>
+    <desc>When she has confirmed that only trusted ears will hear the information, the Mayor reveals her final mission to Cedric. Ursurio has promised to help as well, on the condition that Cedric will join their party on the airship.</desc>
+    <commander id="247" />
+    <deck>
+      <card id="1614" name="Druid" />
+      <card id="1614" />
+      <card id="1618" name="Frog Scout" />
+      <card id="1618" />
+      <card id="2060" name="Patchwork Experiment" />
+      <card id="2041" name="Sharpwing" />
+      <card id="5024" name="Cloudtop Dragon" />
+      <card id="2056" name="Drainor" />
+      <card id="1627" name="Sage of Croaks" />
+      <card id="2042" mastery_level="2" name="Carrion Hunter" />
+      <card id="1332" mastery_level="3" name="Vampiric Emira" />
+      <card id="7051" mastery_level="4" name="Stinglash Rider" />
+      <card id="1328" mastery_level="5" name="Poison Bullfrog" />
+      <card id="1343" mastery_level="6" name="Firehorn" />
+      <card id="7049" mastery_level="7" name="Boundtoad" />
+    </deck>
+    <speech>
+      <line>
+        <commander>goldencrownmayor</commander>
+        <enemy>0</enemy>
+        <text>Our neighbor settlement has reported unusual activity. They say other frogs are assaulting their comrades!</text>
+      </line>
+      <line>
+        <commander>froghero</commander>
+        <enemy>0</enemy>
+        <text>Leave it to us, ma'am. We'll look into it before I start my quest against The Void.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5417</id>
+    <name>On the Road</name>
+    <energy>9</energy>
+    <desc>Ursurio travels with Cedric to the settlement that the Golden Crown Mayor had described. The road there is peaceful, with only a stray monster or two.</desc>
+    <commander id="247" />
+    <deck>
+      <card id="1018" name="Armored Eagle" />
+      <card id="1018" />
+      <card id="6012" name="Ember Drake" />
+      <card id="6012" />
+      <card id="2054" name="Pack Runner" />
+      <card id="2034" name="Leap Frog Duo" />
+      <card id="5016" name="Fowl Swarm" />
+      <card id="2056" name="Drainor" />
+      <card id="6010" name="Cliffpass Defender" />
+      <card id="5004" mastery_level="2" name="Lightning Lord" />
+      <card id="2011" mastery_level="3" name="Poliworg" />
+      <card id="6051" mastery_level="4" name="Treeblade Thief" />
+      <card id="5053" mastery_level="5" name="Anura Witch" />
+      <card id="2006" mastery_level="6" name="Zhulong" />
+      <card id="1643" mastery_level="7" name="Nimble Leaper" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5418</id>
+    <name>Frog Civil War</name>
+    <energy>9</energy>
+    <desc>When they reach the settlement, they can see immediate strife. Oddly-colored frogs assault the other residents. The assailants don't have the same look as the native Golden Crown frogs...</desc>
+    <commander id="290" />
+    <deck>
+      <card id="1618" name="Frog Scout" />
+      <card id="1618" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="6007" />
+      <card id="2027" name="Halo Mage" />
+      <card id="2034" name="Leap Frog Duo" />
+      <card id="5044" name="Telepathic Magi" />
+      <card id="5020" name="Frost Frog" />
+      <card id="6010" name="Cliffpass Defender" />
+      <card id="5020" mastery_level="2" name="Frost Frog" />
+      <card id="2011" mastery_level="3" name="Poliworg" />
+      <card id="7051" mastery_level="4" name="Stinglash Rider" />
+      <card id="7020" mastery_level="5" name="Trapper Frog" />
+      <card id="1341" mastery_level="6" name="Blood Demon" />
+      <card id="7052" mastery_level="7" name="Toad the Ravenous" />
+    </deck>
+    <speech>
+      <line>
+        <commander>frogscout</commander>
+        <enemy>1</enemy>
+        <text>Foolish Goldie frogs! We'll show you how a Dawnglow fights!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5419</id>
+    <name>To the Rescue</name>
+    <energy>9</energy>
+    <desc>Cedric and Ursurio rush to save the fleeing frogs. The attackers are merciless, despite both sides being frogs.</desc>
+    <commander id="252" />
+    <deck>
+      <card id="1618" name="Frog Scout" />
+      <card id="1618" />
+      <card id="1618" name="Frog Scout" />
+      <card id="1618" />
+      <card id="2014" name="Tadpole Warmage" />
+      <card id="1628" name="Garganotos" />
+      <card id="5010" name="Concealed Dragon" />
+      <card id="2053" name="Rocket Rider" />
+      <card id="6096" name="Desert Slitherer" />
+      <card id="2031" mastery_level="2" name="Dryad" />
+      <card id="2011" mastery_level="3" name="Poliworg" />
+      <card id="6020" mastery_level="4" name="Croak Piercer" />
+      <card id="7053" mastery_level="5" name="Bee Eater" />
+      <card id="1643" mastery_level="6" name="Nimble Leaper" />
+      <card id="7042" mastery_level="7" name="Scurvy Hopper" />
+    </deck>
+    <speech>
+      <line>
+        <commander>frobert</commander>
+        <enemy>1</enemy>
+        <text>Heeeelp!</text>
+      </line>
+      <line>
+        <commander>froghero</commander>
+        <enemy>0</enemy>
+        <text>Don't worry, you're safe now. We won't let them hurt you.</text>
+      </line>
+      <line>
+        <commander>bearcommander</commander>
+        <enemy>0</enemy>
+        <text>Or eat you!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5420</id>
+    <name>Dawnglow Frenzy</name>
+    <energy>9</energy>
+    <desc>Ursurio realizes that the attacking frogs are familiar. He tries to quell the enemies' desire to fight...</desc>
+    <commander id="249" />
+    <deck>
+      <card id="1618" name="Frog Scout" />
+      <card id="1618" />
+      <card id="1618" name="Frog Scout" />
+      <card id="1618" />
+      <card id="1326" name="Titan of Fire" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="2049" name="Contrapede" />
+      <card id="6044" name="Firewalker" />
+      <card id="1631" name="Venom Dragon" />
+      <card id="2023" mastery_level="2" name="Grizzly Terror" />
+      <card id="2001" mastery_level="3" name="Dunetooth Demon" />
+      <card id="5053" mastery_level="4" name="Anura Witch" />
+      <card id="5053" mastery_level="5" name="Anura Witch" />
+      <card id="5001" mastery_level="6" name="Aven Skypiercer" />
+      <card id="2013" mastery_level="7" name="Stoneclad Toad" />
+    </deck>
+    <speech>
+      <line>
+        <commander>bearcommander</commander>
+        <enemy>0</enemy>
+        <text>I have been to Dawnglow and know the frogs there are very kind. What's gotten into you?</text>
+      </line>
+      <line>
+        <commander>frogscout</commander>
+        <enemy>1</enemy>
+        <text>Destroy... destroy...!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5421</id>
+    <name>Mad Frogs</name>
+    <energy>9</energy>
+    <desc>The Dawnglow frogs claw at everything like madmen. Most Golden Crown frogs have hidden away in their homes. Cedric and Ursurio fight the enemies alone.</desc>
+    <commander id="290" />
+    <deck>
+      <card id="1618" name="Frog Scout" />
+      <card id="1618" />
+      <card id="1615" name="Rune Panther" />
+      <card id="1615" />
+      <card id="1027" name="Griffin Knight" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="2002" name="Lantern Guardian" />
+      <card id="6038" name="Hemlock" />
+      <card id="2005" name="Sailing Drake" />
+      <card id="2000" mastery_level="2" name="Wasteland Nomad" />
+      <card id="2001" mastery_level="3" name="Dunetooth Demon" />
+      <card id="2034" mastery_level="4" name="Leap Frog Duo" />
+      <card id="7016" mastery_level="5" name="Webfist Shaman" />
+      <card id="1642" mastery_level="6" name="Icestone Beast" />
+      <card id="5051" mastery_level="7" name="Amphibious Digger" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5422</id>
+    <name>Unfamiliar Battleground</name>
+    <energy>9</energy>
+    <desc>Cedric is unfamiliar with how The Void's influence works, but Ursurio can spot the telltale signs. They will need to quell the angry frogs before they can focus on the corruption's source.</desc>
+    <commander id="228" />
+    <deck>
+      <card id="1618" name="Frog Scout" />
+      <card id="1618" />
+      <card id="1614" name="Druid" />
+      <card id="1614" />
+      <card id="1632" name="Shadow Rider" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="1329" name="Shadow Assassin" />
+      <card id="5081" name="Brahzee" />
+      <card id="2004" name="Lavatail Dragon" />
+      <card id="1627" mastery_level="2" name="Sage of Croaks" />
+      <card id="2020" mastery_level="3" name="Tidetaken Fighter" />
+      <card id="7020" mastery_level="4" name="Trapper Frog" />
+      <card id="1028" mastery_level="5" name="Heroic Frog" />
+      <card id="2013" mastery_level="6" name="Stoneclad Toad" />
+      <card id="2013" mastery_level="7" name="Stoneclad Toad" />
+    </deck>
+    <speech>
+      <line>
+        <commander>bearcommander</commander>
+        <enemy>0</enemy>
+        <text>Do you see the dark energy around them, Cedric? This is more work of The Void.</text>
+      </line>
+      <line>
+        <commander>froghero</commander>
+        <enemy>0</enemy>
+        <text>This is my homeland. I won't allow this corruption any longer!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5423</id>
+    <name>No Rest</name>
+    <energy>9</energy>
+    <desc>The frogs have slowed down their attacks, but Cedric and Ursurio are at a stalemate. They cannot kill innocent corrupted frogs, yet whenever one regains their consciousness, they simply resume their attacks.</desc>
+    <commander id="252" />
+    <deck>
+      <card id="1618" name="Frog Scout" />
+      <card id="1618" />
+      <card id="1313" name="Lavafrog" />
+      <card id="1313" />
+      <card id="1031" name="Noble Champion" />
+      <card id="5062" name="Cliffhanger Wyrm" />
+      <card id="1630" name="Giant Squid" />
+      <card id="5067" name="Squito Roamer" />
+      <card id="6063" name="Firetail Dragon" />
+      <card id="2023" mastery_level="2" name="Grizzly Terror" />
+      <card id="2020" mastery_level="3" name="Tidetaken Fighter" />
+      <card id="2014" mastery_level="4" name="Tadpole Warmage" />
+      <card id="1028" mastery_level="5" name="Heroic Frog" />
+      <card id="1040" mastery_level="6" name="Storm Dragon" />
+      <card id="7050" mastery_level="7" name="Krieg, Northern Sword" />
+    </deck>
+    <speech>
+      <line>
+        <commander>froghero</commander>
+        <enemy>0</enemy>
+        <text>This is endless!</text>
+      </line>
+      <line>
+        <commander>bearcommander</commander>
+        <enemy>0</enemy>
+        <text>Let's look for the source of the corruption. If we stop that, they should be free from its influence.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5424</id>
+    <name>Previous Experience</name>
+    <energy>9</energy>
+    <desc>Ursurio tries to remember information from his time in Dawnglow. It could be key to solving their current dilemma.</desc>
+    <commander id="252" />
+    <deck>
+      <card id="1315" name="Nix Elemental" />
+      <card id="1315" />
+      <card id="1318" name="Smelted Lava Slug" />
+      <card id="1318" />
+      <card id="1026" name="Glass Colossus" />
+      <card id="5050" name="Cloud Spear" />
+      <card id="1630" name="Giant Squid" />
+      <card id="5058" name="Crescent Moon Owl" />
+      <card id="6063" name="Firetail Dragon" />
+      <card id="2032" mastery_level="2" name="Brimstone" />
+      <card id="2046" mastery_level="3" name="Leaping Dragon" />
+      <card id="6050" mastery_level="4" name="Wortwog" />
+      <card id="1328" mastery_level="5" name="Poison Bullfrog" />
+      <card id="5029" mastery_level="6" name="Snowback Dragon" />
+      <card id="5051" mastery_level="7" name="Amphibious Digger" />
+    </deck>
+    <speech>
+      <line>
+        <commander>froghero</commander>
+        <enemy>0</enemy>
+        <text>You said you were in Dawnglow. Did you learn anything there that might help us?</text>
+      </line>
+      <line>
+        <commander>bearcommander</commander>
+        <enemy>0</enemy>
+        <text>Crayfish!</text>
+      </line>
+      <line>
+        <commander>bearcommander</commander>
+        <enemy>0</enemy>
+        <text>I mean... Yes, Groc and I found that the swamp water carried The Void's corruption.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5425</id>
+    <name>Water Corruption</name>
+    <energy>9</energy>
+    <desc>Ursurio and Cedric begin searching for sources of water. The swamplands of Dawnglow connect directly to Golden Crown, so the corruption could have traveled through the canals.</desc>
+    <commander id="257" />
+    <deck>
+      <card id="1613" name="Acidic Spider" />
+      <card id="1613" />
+      <card id="5012" name="Static Drake" />
+      <card id="5012" />
+      <card id="1330" name="Devouring Locusts" />
+      <card id="5046" name="Dawn" />
+      <card id="1630" name="Giant Squid" />
+      <card id="5080" name="Djinnflame Brawler" />
+      <card id="5024" name="Cloudtop Dragon" />
+      <card id="2032" mastery_level="2" name="Brimstone" />
+      <card id="2056" mastery_level="3" name="Drainor" />
+      <card id="5046" mastery_level="4" name="Dawn" />
+      <card id="2034" mastery_level="5" name="Leap Frog Duo" />
+      <card id="5061" mastery_level="6" name="Thunderfist Rex" />
+      <card id="6048" mastery_level="7" name="Bulwraag" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5426</id>
+    <name>From Dawn to Gold</name>
+    <energy>9</energy>
+    <desc>The two find the river that connects to Dawnglow. Black specks of The Void's energy float through the waters. The corruption has clearly spread from Dawnglow and into Golden Crown...</desc>
+    <commander id="313" />
+    <deck>
+      <card id="1311" name="Molten Skeleton" />
+      <card id="1311" />
+      <card id="6017" name="Tar Pit Stalker" />
+      <card id="6017" />
+      <card id="1325" name="Chaos Storm" />
+      <card id="5025" name="Steelskin Dragon" />
+      <card id="1630" name="Giant Squid" />
+      <card id="5073" name="Shell Invader" />
+      <card id="2066" name="Basalt Dragon" />
+      <card id="1631" mastery_level="2" name="Venom Dragon" />
+      <card id="5030" mastery_level="3" name="Loxphas Mage" />
+      <card id="2057" mastery_level="4" name="Twister" />
+      <card id="7051" mastery_level="5" name="Stinglash Rider" />
+      <card id="5034" mastery_level="6" name="Skyward Guardian" />
+      <card id="5054" mastery_level="7" name="Reckless Ballista" />
+    </deck>
+    <speech>
+      <line>
+        <commander>froghero</commander>
+        <enemy>0</enemy>
+        <text>Surely the river wasn't always this polluted. It must be what's caused the Dawnglow frogs to go mad.</text>
+      </line>
+      <line>
+        <commander>froghero</commander>
+        <enemy>0</enemy>
+        <text>The same fate might await the Golden Crown frogs... We must act quickly!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5427</id>
+    <name>From the Depths</name>
+    <energy>9</energy>
+    <desc>As Cedric and Ursurio get closer to the waters, something emerges from its depths! It is coated in the same black grime that has polluted the river...</desc>
+    <commander id="352" />
+    <deck>
+      <card id="1015" name="Windfrog" />
+      <card id="1015" />
+      <card id="1619" name="Earth Elemental" />
+      <card id="1619" />
+      <card id="5011" name="Sky Whale" />
+      <card id="5020" name="Frost Frog" />
+      <card id="1630" name="Giant Squid" />
+      <card id="5073" name="Shell Invader" />
+      <card id="2067" name="Symbol of Elaria" />
+      <card id="7005" mastery_level="2" name="Tsunamari" />
+      <card id="5015" mastery_level="3" name="Gravity Swell" />
+      <card id="7015" mastery_level="4" name="Bog Aberration" />
+      <card id="1028" mastery_level="5" name="Heroic Frog" />
+      <card id="7054" mastery_level="6" name="The Thing Below" />
+      <card id="6052" mastery_level="7" name="Fuming Beast" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5428</id>
+    <name>Swamp Fiends</name>
+    <energy>9</energy>
+    <desc>Strange creatures emerge from the waters. Each one is covered in the black grime, glowing with dark energy from The Void...</desc>
+    <commander id="242" />
+    <deck>
+      <card id="1313" name="Lavafrog" />
+      <card id="1313" />
+      <card id="7017" name="Coral Elemental" />
+      <card id="7017" />
+      <card id="2062" name="Deadeye Apprentice" />
+      <card id="5010" name="Concealed Dragon" />
+      <card id="1628" name="Garganotos" />
+      <card id="6031" name="Iceblood Assassin" />
+      <card id="6097" name="Hoard Dragon" />
+      <card id="7066" mastery_level="2" name="Aquine" />
+      <card id="5010" mastery_level="3" name="Concealed Dragon" />
+      <card id="7015" mastery_level="4" name="Bog Aberration" />
+      <card id="6020" mastery_level="5" name="Croak Piercer" />
+      <card id="7014" mastery_level="6" name="Genbu" />
+      <card id="2013" mastery_level="7" name="Stoneclad Toad" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5429</id>
+    <name>Mindless Aggression</name>
+    <energy>9</energy>
+    <desc>The creatures fight with a strange tenacity. They don't flinch even when hit, continuing forward with nearly an Undead-like mentality.</desc>
+    <commander id="247" />
+    <deck>
+      <card id="5022" name="Webfoot Raider" />
+      <card id="5022" />
+      <card id="7017" name="Coral Elemental" />
+      <card id="7017" />
+      <card id="2060" name="Patchwork Experiment" />
+      <card id="5084" name="Dotora Spirit" />
+      <card id="5035" name="Vapor Guard" />
+      <card id="6029" name="Spinehead Stalker" />
+      <card id="7062" name="Brine Bellower" />
+      <card id="1630" mastery_level="2" name="Giant Squid" />
+      <card id="2049" mastery_level="3" name="Contrapede" />
+      <card id="6015" mastery_level="4" name="Acidic Sludge" />
+      <card id="7053" mastery_level="5" name="Bee Eater" />
+      <card id="2051" mastery_level="6" name="Dune Hopper" />
+      <card id="5064" mastery_level="7" name="Anshar" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5430</id>
+    <name>Boiling Water</name>
+    <energy>9</energy>
+    <desc>With the monsters cleared out of the way, Cedric puts his hand into the river. It burns unnaturally, as if the water has somehow become like magma.</desc>
+    <commander id="352" />
+    <deck>
+      <card id="5022" name="Webfoot Raider" />
+      <card id="5022" />
+      <card id="7007" name="Water Serpent" />
+      <card id="7007" />
+      <card id="6034" name="Bone Viper" />
+      <card id="5041" name="Skylance Raiders" />
+      <card id="5020" name="Frost Frog" />
+      <card id="7021" name="Shadow Elemental" />
+      <card id="7062" name="Brine Bellower" />
+      <card id="1630" mastery_level="2" name="Giant Squid" />
+      <card id="2033" mastery_level="3" name="Arcblaze Dragon" />
+      <card id="1626" mastery_level="4" name="Tusker" />
+      <card id="5053" mastery_level="5" name="Anura Witch" />
+      <card id="2047" mastery_level="6" name="Conjured Dragon" />
+      <card id="6058" mastery_level="7" name="Tarragon Cuttail" />
+    </deck>
+    <speech>
+      <line>
+        <commander>froghero</commander>
+        <enemy>0</enemy>
+        <text>Owch! Don't touch the black dust in the river, got it...</text>
+      </line>
+      <line>
+        <commander>bearcommander</commander>
+        <enemy>0</enemy>
+        <text>Let's follow the river further. We might be able to cut it off at its source.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5431</id>
+    <name>The Plan</name>
+    <energy>9</energy>
+    <desc>The river twists and turns, leading the two closer to the border of Dawnglow swamp. They find a particularly narrow spot of the river where the pollution seems to have bottlenecked.</desc>
+    <commander id="246" />
+    <deck>
+      <card id="5017" name="Steam Tempest" />
+      <card id="5017" />
+      <card id="6022" name="Illusion Caster" />
+      <card id="6022" />
+      <card id="6021" name="Marsh Ogre" />
+      <card id="2066" name="Basalt Dragon" />
+      <card id="6054" name="Shadowcrafter" />
+      <card id="7020" name="Trapper Frog" />
+      <card id="6010" name="Cliffpass Defender" />
+      <card id="6005" mastery_level="2" name="Gloomkin" />
+      <card id="5011" mastery_level="3" name="Sky Whale" />
+      <card id="2056" mastery_level="4" name="Drainor" />
+      <card id="5053" mastery_level="5" name="Anura Witch" />
+      <card id="2043" mastery_level="6" name="Eos" />
+      <card id="6024" mastery_level="7" name="Bane Dragon" />
+    </deck>
+    <speech>
+      <line>
+        <commander>bearcommander</commander>
+        <enemy>0</enemy>
+        <text>This place has the worst pollution. If we can do something with the river here, it should prevent the corruption from controlling the Dawnglow frogs.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5432</id>
+    <name>Resistance</name>
+    <energy>9</energy>
+    <desc>From the Dawnglow-Golden Crown divide, monsters pour out from the water. They can sense that Cedric and Ursurio have come to stop The Void...</desc>
+    <commander id="292" />
+    <deck>
+      <card id="1613" name="Acidic Spider" />
+      <card id="1613" />
+      <card id="6022" name="Illusion Caster" />
+      <card id="6022" />
+      <card id="6015" name="Acidic Sludge" />
+      <card id="2066" name="Basalt Dragon" />
+      <card id="6011" name="Bomb Spirit" />
+      <card id="6066" name="Psychic Beetle" />
+      <card id="5093" name="Scaly Newborn" />
+      <card id="6016" mastery_level="2" name="Skeletal Giant" />
+      <card id="6036" mastery_level="3" name="Cursed Ogre" />
+      <card id="5025" mastery_level="4" name="Steelskin Dragon" />
+      <card id="1028" mastery_level="5" name="Heroic Frog" />
+      <card id="1640" mastery_level="6" name="Life Dragon" />
+      <card id="7049" mastery_level="7" name="Boundtoad" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5433</id>
+    <name>Futility</name>
+    <energy>9</energy>
+    <desc>The two continue their fight against the corrupted frogs. The flow of enemies continues...</desc>
+    <commander id="290" />
+    <deck>
+      <card id="1613" name="Acidic Spider" />
+      <card id="1613" />
+      <card id="1010" name="Lightning Elemental" />
+      <card id="1010" />
+      <card id="6011" name="Bomb Spirit" />
+      <card id="2048" name="Sandmite" />
+      <card id="2002" name="Lantern Guardian" />
+      <card id="6056" name="Potoo" />
+      <card id="7093" name="Larva Drakes" />
+      <card id="6042" mastery_level="2" name="Shadow of Thunder" />
+      <card id="6015" mastery_level="3" name="Acidic Sludge" />
+      <card id="5069" mastery_level="4" name="Heralidae" />
+      <card id="1328" mastery_level="5" name="Poison Bullfrog" />
+      <card id="5063" mastery_level="6" name="Runic Dragon" />
+      <card id="7052" mastery_level="7" name="Toad the Ravenous" />
+    </deck>
+    <speech>
+      <line>
+        <commander>froghero</commander>
+        <enemy>0</enemy>
+        <text>There are so many of them! How will we cleanse The Void's corruption?</text>
+      </line>
+      <line>
+        <commander>bearcommander</commander>
+        <enemy>0</enemy>
+        <text>We can't.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5434</id>
+    <name>Second Thoughts</name>
+    <energy>9</energy>
+    <desc>Cedric might be a seasoned warrior, but he is still new against fighting The Void. Yet only magical items can completely cleanse The Void's corruption. Ursurio and Cedric possess no such artifacts.</desc>
+    <commander id="290" />
+    <deck>
+      <card id="1613" name="Acidic Spider" />
+      <card id="1613" />
+      <card id="1615" name="Rune Panther" />
+      <card id="1615" />
+      <card id="6010" name="Cliffpass Defender" />
+      <card id="2042" name="Carrion Hunter" />
+      <card id="1326" name="Titan of Fire" />
+      <card id="6020" name="Croak Piercer" />
+      <card id="7061" name="Thickskin Dragon" />
+      <card id="7034" mastery_level="2" name="Spore Elk" />
+      <card id="5067" mastery_level="3" name="Squito Roamer" />
+      <card id="5067" mastery_level="4" name="Squito Roamer" />
+      <card id="1328" mastery_level="5" name="Poison Bullfrog" />
+      <card id="6019" mastery_level="6" name="Canopy Horror" />
+      <card id="7018" mastery_level="7" name="Frog Emperor" />
+    </deck>
+    <speech>
+      <line>
+        <commander>froghero</commander>
+        <enemy>0</enemy>
+        <text>What do you mean, we can't cleanse the corruption?! Then why are we here?</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5435</id>
+    <name>The Bear and the Boulder</name>
+    <energy>9</energy>
+    <desc>Ursurio lifts a boulder nearly twice his own size! With a great heave, he hurls it onto the divide between Dawnglow and Golden Crown!</desc>
+    <commander id="220" />
+    <deck>
+      <card id="1312" name="Scythe Demon" />
+      <card id="1312" />
+      <card id="1313" name="Lavafrog" />
+      <card id="1313" />
+      <card id="5089" name="Gomblit" />
+      <card id="2031" name="Dryad" />
+      <card id="1631" name="Venom Dragon" />
+      <card id="6020" name="Croak Piercer" />
+      <card id="7010" name="Honeycomb Dragon" />
+      <card id="7029" mastery_level="2" name="Owl Griffin" />
+      <card id="5065" mastery_level="3" name="Hive Guard" />
+      <card id="5025" mastery_level="4" name="Steelskin Dragon" />
+      <card id="1028" mastery_level="5" name="Heroic Frog" />
+      <card id="6052" mastery_level="6" name="Fuming Beast" />
+      <card id="7018" mastery_level="7" name="Frog Emperor" />
+    </deck>
+    <speech>
+      <line>
+        <commander>bearcommander</commander>
+        <enemy>0</enemy>
+        <text>We will simply block off the river instead. Watch my back; I'll block it off with this giant boulder.</text>
+      </line>
+      <line>
+        <commander>bearcommander</commander>
+        <enemy>0</enemy>
+        <text>RAAAAWR!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5436</id>
+    <name>Bah</name>
+    <energy>1</energy>
+    <desc>It's the time of year where everyone gives presents, sings songs, and wears silly red hats. Samael can't understand what enjoyment people get from the holiday.</desc>
+    <commander id="249" />
+    <deck>
+      <card id="26022" name="Hypno Caster" />
+      <card id="26022" name="Hypno Caster" />
+      <card id="1015" name="Windfrog" />
+      <card id="1015" name="Windfrog" />
+      <card id="1025" name="Lightbound Archer" />
+      <card id="1328" name="Poison Bullfrog" />
+      <card id="1631" name="Venom Dragon" />
+      <card id="1327" name="Fallen Angel" />
+      <card id="2034" name="Leap Frog Duo" />
+      <card id="2052" mastery_level="2" name="Protector of Skyhaven" />
+      <card id="5053" mastery_level="3" name="Anura Witch" />
+      <card id="2044" mastery_level="4" name="Quillhide Dragon" />
+      <card id="5040" mastery_level="5" name="Winged Trumpeter" />
+      <card id="5043" mastery_level="6" name="Empyrean" />
+      <card id="7018" mastery_level="7" name="Frog Emperor" />
+    </deck>
+    <speech>
+      <line>
+        <commander>Frog_Scout_Color_Xmas</commander>
+        <enemy>1</enemy>
+        <text>Jingle, jingle, deck the halls~</text>
+      </line>
+      <line>
+        <commander>seraph</commander>
+        <enemy>0</enemy>
+        <text>This incessant noise is giving me a headache.</text>
+      </line>
+      <line>
+        <commander>Frog_Scout_Color_Xmas</commander>
+        <enemy>1</enemy>
+        <text>Hey angel wings! Where's your hat?</text>
+      </line>
+      <line>
+        <commander>seraph</commander>
+        <enemy>0</enemy>
+        <text>Bah! Away from me, merry fools!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5437</id>
+    <name>Ghost of the Past</name>
+    <energy>1</energy>
+    <desc>The celebrating frogs flee from the cranky angel. Samael sulks over the flippant attitude of the frogs, until a mysterious presence appears before him...</desc>
+    <commander id="351" />
+    <deck>
+      <card id="7012" name="Life Drake" />
+      <card id="6012" name="Ember Drake" />
+      <card id="7012" name="Life Drake" />
+      <card id="6012" name="Ember Drake" />
+      <card id="11632" name="Dark Rider" />
+      <card id="5025" name="Steelskin Dragon" />
+      <card id="1631" name="Venom Dragon" />
+      <card id="1329" name="Shadow Assassin" />
+      <card id="2045" name="Chillbeard Giant" />
+      <card id="7038" mastery_level="2" name="Sol King" />
+      <card id="2005" mastery_level="3" name="Sailing Drake" />
+      <card id="2005" mastery_level="4" name="Sailing Drake" />
+      <card id="2005" mastery_level="5" name="Sailing Drake" />
+      <card id="1040" mastery_level="6" name="Storm Dragon" />
+      <card id="2006" mastery_level="7" name="Zhulong" />
+    </deck>
+    <speech>
+      <line>
+        <commander>Sailing_Drake</commander>
+        <enemy>1</enemy>
+        <text>Samael...</text>
+      </line>
+      <line>
+        <commander>seraph</commander>
+        <enemy>0</enemy>
+        <text>Who - who's there?!</text>
+      </line>
+      <line>
+        <commander>Sailing_Drake</commander>
+        <enemy>1</enemy>
+        <text>I am a ghost of the past. And there is a lesson you must learn...</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5438</id>
+    <name>Ghost of the Present</name>
+    <energy>1</energy>
+    <desc>The talking dragon vanishes, leaving Samael confused and alone. He's unsure what lesson he was supposed to have learned. While contemplating the Drake's appearance, a different figure appears...</desc>
+    <commander id="252" />
+    <deck>
+      <card id="5022" name="Webfoot Raider" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="1618" name="Frog Scout" />
+      <card id="1618" name="Frog Scout" />
+      <card id="1325" name="Chaos Storm" />
+      <card id="5020" name="Frost Frog" />
+      <card id="1026" name="Glass Colossus" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="2014" name="Tadpole Warmage" />
+      <card id="7004" mastery_level="2" name="Ice Golem" />
+      <card id="5050" mastery_level="3" name="Cloud Spear" />
+      <card id="1028" mastery_level="4" name="Heroic Frog" />
+      <card id="1028" mastery_level="5" name="Heroic Frog" />
+      <card id="7018" mastery_level="6" name="Frog Emperor" />
+      <card id="7018" mastery_level="7" name="Frog Emperor" />
+    </deck>
+    <speech>
+      <line>
+        <commander>frogemperor</commander>
+        <enemy>1</enemy>
+        <text>Samael...</text>
+      </line>
+      <line>
+        <commander>seraph</commander>
+        <enemy>0</enemy>
+        <text>Another spirit? What is it this time?</text>
+      </line>
+      <line>
+        <commander>frogemperor</commander>
+        <enemy>1</enemy>
+        <text>I am a ghost of the present. And there is a lesson you must learn...</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5439</id>
+    <name>Ghost of the Future</name>
+    <energy>1</energy>
+    <desc>The frog vanishes, leaving Samael alone again. He contemplates the meaning of the spirits' appearances. Then, another spirit appears...</desc>
+    <commander id="359" />
+    <deck>
+      <card id="7017" name="Coral Elemental" />
+      <card id="7017" name="Coral Elemental" />
+      <card id="7007" name="Water Serpent" />
+      <card id="7007" name="Water Serpent" />
+      <card id="1032" name="Lunar Elemental" />
+      <card id="5015" name="Gravity Swell" />
+      <card id="1026" name="Glass Colossus" />
+      <card id="2070" name="Redclaw Tamer" />
+      <card id="1630" name="Giant Squid" />
+      <card id="7005" mastery_level="2" name="Tsunamari" />
+      <card id="7066" mastery_level="3" name="Aquine" />
+      <card id="7005" mastery_level="4" name="Tsunamari" />
+      <card id="5073" mastery_level="5" name="Shell Invader" />
+      <card id="7023" mastery_level="6" name="Zolmosh the Fist" />
+      <card id="7023" mastery_level="7" name="Zolmosh the Fist" />
+    </deck>
+    <speech>
+      <line>
+        <commander>Earthquake_Hammer</commander>
+        <enemy>1</enemy>
+        <text>...</text>
+      </line>
+      <line>
+        <commander>seraph</commander>
+        <enemy>0</enemy>
+        <text>Ah! You... you are the ghost of the future, are you not?</text>
+      </line>
+      <line>
+        <commander>seraph</commander>
+        <enemy>0</enemy>
+        <text>Though I fear you the most of all spirits.. Show me. Show me what it is that I must learn.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5440</id>
+    <name>Lesson Learned</name>
+    <energy>1</energy>
+    <desc>The spirits have finished visiting Samael, leaving him with wisdom that he must decipher. But he understands that he has been given a second chance. He is determined not to waste it.</desc>
+    <commander id="249" />
+    <deck>
+      <card id="5022" name="Webfoot Raider" />
+      <card id="1015" name="Windfrog" />
+      <card id="6022" name="Illusion Caster" />
+      <card id="1618" name="Frog Scout" />
+      <card id="2041" name="Sharpwing" />
+      <card id="5010" name="Concealed Dragon" />
+      <card id="2058" name="Bismuth Bully" />
+      <card id="2070" name="Redclaw Tamer" />
+      <card id="2066" name="Basalt Dragon" />
+      <card id="1030" mastery_level="2" name="Paladin" />
+      <card id="2062" mastery_level="3" name="Deadeye Apprentice" />
+      <card id="7005" mastery_level="4" name="Tsunamari" />
+      <card id="1032" mastery_level="5" name="Lunar Elemental" />
+      <card id="1043" mastery_level="6" name="Lilypad Bard" />
+      <card id="5051" mastery_level="7" name="Amphibious Digger" />
+    </deck>
+    <speech>
+      <line>
+        <commander>Frog_Scout_Color_Xmas</commander>
+        <enemy>1</enemy>
+        <text>Jingle, jingle- Ahh! You!</text>
+      </line>
+      <line>
+        <commander>Seraph_santa</commander>
+        <enemy>0</enemy>
+        <text>Pardon me.... I... apologize for earlier. Might I join you in your song and dance?</text>
+      </line>
+      <line>
+        <commander>Frog_Scout_Color_Xmas</commander>
+        <enemy>1</enemy>
+        <text>Oh! Yes, of course! Gladly!</text>
+      </line>
+    </speech>
+  </mission>
+  <!-- End Christmas Event -->
+  <!-- Campaign Event Map 1 -->
+  <!-- Resource Node -->
+  <mission>
+    <id>5441</id>
+    <name>Thieving Heroes</name>
+    <energy>9</energy>
+    <desc>You've learned that the more Mist Pearls that the Seafolk raiders possess, the stronger their summoning will be for Lady Scylla. If you could steal some of their reserves, it would weaken the sea monster...</desc>
+    <commander id="352" />
+    <deck>
+      <card id="7007" name="Water Serpent" />
+      <card id="7007" name="Water Serpent" />
+      <card id="1015" name="Windfrog" />
+      <card id="1015" name="Windfrog" />
+      <card id="1325" name="Chaos Storm" />
+      <card id="5053" name="Anura Witch" />
+      <card id="2069" name="Webfoot Surfer" />
+      <card id="1326" name="Titan of Fire" />
+      <card id="7093" name="Larva Drakes" />
+      <card id="2014" mastery_level="2" name="Tadpole Warmage" />
+      <card id="5030" mastery_level="3" name="Loxphas Mage" />
+      <card id="6011" mastery_level="4" name="Bomb Spirit" />
+      <card id="2070" mastery_level="5" name="Redclaw Tamer" />
+      <card id="7003" mastery_level="6" name="Kraken" />
+      <card id="7054" mastery_level="7" name="The Thing Below" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5442</id>
+    <name>Against the Tide</name>
+    <energy>9</energy>
+    <desc>The Mist Pearl is a type of catalyst for the raiders' summoning. Every little bit you can take will weaken the revival of their Lady of the Sea.</desc>
+    <commander id="359" />
+    <deck>
+      <card id="5022" name="Webfoot Raider" />
+      <card id="7007" name="Water Serpent" />
+      <card id="6022" name="Illusion Caster" />
+      <card id="7007" name="Water Serpent" />
+      <card id="2067" name="Symbol of Elaria" />
+      <card id="5099" name="Croak Dropper" />
+      <card id="7004" name="Ice Golem" />
+      <card id="5073" name="Shell Invader" />
+      <card id="7078" name="Saprolite" />
+      <card id="5086" mastery_level="2" name="Spirit Blades" />
+      <card id="6050" mastery_level="3" name="Wortwog" />
+      <card id="6051" mastery_level="4" name="Treeblade Thief" />
+      <card id="2070" mastery_level="5" name="Redclaw Tamer" />
+      <card id="7003" mastery_level="6" name="Kraken" />
+      <card id="7023" mastery_level="7" name="Zolmosh the Fist" />
+    </deck>
+  </mission>
+  <!-- Campaign Event Weeks 1-2 -->
+  <mission>
+    <id>5443</id>
+    <name>To Become Stronger</name>
+    <energy>9</energy>
+    <desc>You have heard tales of a remarkable healer who hails from Golden Crown Village. Deciding to investigate, your journey to track the healer eventually leads you to Duskwillow. However, the entire area is being attacked by monsters that rise up from the sea...</desc>
+    <commander id="301" />
+    <deck>
+      <card id="5022" name="Webfoot Raider" />
+      <card id="1317" name="Fire Imp" />
+      <card id="6022" name="Illusion Caster" />
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="5020" name="Frost Frog" />
+      <card id="5073" name="Shell Invader" />
+      <card id="2034" name="Leap Frog Duo" />
+      <card id="7066" name="Aquine" />
+      <card id="7073" name="Heralded Slugger" />
+      <card id="2053" mastery_level="2" name="Rocket Rider" />
+      <card id="5050" mastery_level="3" name="Cloud Spear" />
+      <card id="6051" mastery_level="4" name="Treeblade Thief" />
+      <card id="7005" mastery_level="5" name="Tsunamari" />
+      <card id="8045" mastery_level="6" name="Summoned Abomination" />
+      <card id="7003" mastery_level="7" name="Kraken" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5444</id>
+    <name>Seafolk Plunderers</name>
+    <energy>9</energy>
+    <desc>The merfolk ravage the town that lies next to a great bay. Citizens flee in panic. Gathering your team, you lead them against the raiders.</desc>
+    <commander id="359" />
+    <deck>
+      <card id="5022" name="Webfoot Raider" />
+      <card id="5017" name="Steam Tempest" />
+      <card id="1311" name="Molten Skeleton" />
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="5096" name="Enclave Dragon" />
+      <card id="5073" name="Shell Invader" />
+      <card id="7030" name="Arctic Ambusher" />
+      <card id="7066" name="Aquine" />
+      <card id="7021" name="Shadow Elemental" />
+      <card id="7066" mastery_level="2" name="Aquine" />
+      <card id="7016" mastery_level="3" name="Webfist Shaman" />
+      <card id="6051" mastery_level="4" name="Treeblade Thief" />
+      <card id="7005" mastery_level="5" name="Tsunamari" />
+      <card id="7023" mastery_level="6" name="Zolmosh the Fist" />
+      <card id="7014" mastery_level="7" name="Genbu" />
+    </deck>
+    <speech>
+      <line>
+        <commander>Earthquake_Hammer</commander>
+        <enemy>1</enemy>
+        <text>I am the great Scylla's Servant! Bow down, or FACE MY FIST!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5445</id>
+    <name>Zolmosh the Fist</name>
+    <energy>9</energy>
+    <desc>Your forces face the greatest resistance from a merman named Zolmosh. It seems that he, too, has arrived in Duskwillow for a similar reason to your own...</desc>
+    <commander id="359" />
+    <deck>
+      <card id="5022" name="Webfoot Raider" />
+      <card id="1618" name="Frog Scout" />
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="6007" name="Goblin Crew" />
+      <card id="6020" name="Croak Piercer" />
+      <card id="5067" name="Squito Roamer" />
+      <card id="2069" name="Webfoot Surfer" />
+      <card id="7066" name="Aquine" />
+      <card id="7015" name="Bog Aberration" />
+      <card id="7066" mastery_level="2" name="Aquine" />
+      <card id="2069" mastery_level="3" name="Webfoot Surfer" />
+      <card id="6004" mastery_level="4" name="Branding Construct" />
+      <card id="7005" mastery_level="5" name="Tsunamari" />
+      <card id="7023" mastery_level="6" name="Zolmosh the Fist" />
+      <card id="7023" mastery_level="7" name="Zolmosh the Fist" />
+    </deck>
+    <speech>
+      <line>
+        <commander>Earthquake_Hammer</commander>
+        <enemy>1</enemy>
+        <text>Find her! Find the frog who dares defy Lady Scylla, the one with the healing touch; the one who contests The Void's magic!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5446</id>
+    <name>Hasty Retreat</name>
+    <energy>9</energy>
+    <desc>The seafolk are repelled by your band's fierce attacks. More and more fall. The remaining force retreats back to the bay, stragglers struggling to escape.</desc>
+    <commander id="328" />
+    <deck>
+      <card id="1616" name="Werewarg" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="6006" name="Chaos Golem" />
+      <card id="1319" name="Wraith" />
+      <card id="6090" name="Crackshot" />
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="7047" name="Shaman of the Wild" />
+      <card id="7005" name="Tsunamari" />
+      <card id="7005" name="Tsunamari" />
+      <card id="7061" mastery_level="2" name="Thickskin Dragon" />
+      <card id="6050" mastery_level="3" name="Wortwog" />
+      <card id="5073" mastery_level="4" name="Shell Invader" />
+      <card id="1630" mastery_level="5" name="Giant Squid" />
+      <card id="7003" mastery_level="6" name="Kraken" />
+      <card id="7054" mastery_level="7" name="The Thing Below" />
+    </deck>
+    <speech>
+      <line>
+        <commander>Earthquake_Hammer</commander>
+        <enemy>1</enemy>
+        <text>Ugh... They are powerful. Men, retreat! Though we lost this battle, the war is far from over!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5447</id>
+    <name>Abandoned Residences</name>
+    <energy>9</energy>
+    <desc>With the seafolk pushed back, you can now resume your search for the legendary frog. Most of the town has been deserted during the attack...</desc>
+    <commander id="327" />
+    <deck>
+      <card id="1018" name="Armored Eagle" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="1610" name="Ranger" />
+      <card id="1314" name="Skeletal Hound" />
+      <card id="7020" name="Trapper Frog" />
+      <card id="5025" name="Steelskin Dragon" />
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="7005" name="Tsunamari" />
+      <card id="7066" name="Aquine" />
+      <card id="7053" mastery_level="2" name="Bee Eater" />
+      <card id="2069" mastery_level="3" name="Webfoot Surfer" />
+      <card id="5073" mastery_level="4" name="Shell Invader" />
+      <card id="2042" mastery_level="5" name="Carrion Hunter" />
+      <card id="1642" mastery_level="6" name="Icestone Beast" />
+      <card id="2071" mastery_level="7" name="Sproutfrog Rainwisher" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5448</id>
+    <name>The Frog Travelers</name>
+    <energy>9</energy>
+    <desc>After considerable searching, you see a small band of frogs. Recognizing their attire as those from Golden Crown, you approach and ask about their fabled healer.</desc>
+    <commander id="290" />
+    <deck>
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="1015" name="Windfrog" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="6077" name="Enigma" />
+      <card id="5020" name="Frost Frog" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="1627" name="Sage of Croaks" />
+      <card id="2014" name="Tadpole Warmage" />
+      <card id="7053" mastery_level="2" name="Bee Eater" />
+      <card id="5053" mastery_level="3" name="Anura Witch" />
+      <card id="1328" mastery_level="4" name="Poison Bullfrog" />
+      <card id="1028" mastery_level="5" name="Heroic Frog" />
+      <card id="1043" mastery_level="6" name="Lilypad Bard" />
+      <card id="1043" mastery_level="7" name="Lilypad Bard" />
+    </deck>
+    <speech>
+      <line>
+        <commander>frogscout</commander>
+        <enemy>1</enemy>
+        <text>Rrribbit! What makes you think we can trust you? You think we'd just tell you where to find the healer?</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5449</id>
+    <name>Hostile Allies</name>
+    <energy>9</energy>
+    <desc>The Golden Crown frogs refuse to trust you. Worse than that, they seem to think you're in league with the seafolk! Despite your attempts to talk with them, the frogs raise their weapons and attack!</desc>
+    <commander id="252" />
+    <deck>
+      <card id="1015" name="Windfrog" />
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="6022" name="Illusion Caster" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="6069" name="Arachnolite" />
+      <card id="5004" name="Lightning Lord" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="6051" name="Treeblade Thief" />
+      <card id="6020" name="Croak Piercer" />
+      <card id="6031" mastery_level="2" name="Iceblood Assassin" />
+      <card id="5053" mastery_level="3" name="Anura Witch" />
+      <card id="1028" mastery_level="4" name="Heroic Frog" />
+      <card id="5053" mastery_level="5" name="Anura Witch" />
+      <card id="5054" mastery_level="6" name="Reckless Ballista" />
+      <card id="6048" mastery_level="7" name="Bulwraag" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5450</id>
+    <name>Strength to Prove</name>
+    <energy>9</energy>
+    <desc>The frogs are fierce. However, killing them certainly won't make them trust you. You try your best to defend yourself and prove your strength, while still trying to earn their trust and refrain from hurting them too badly.</desc>
+    <commander id="290" />
+    <deck>
+      <card id="1312" name="Scythe Demon" />
+      <card id="1614" name="Druid" />
+      <card id="6022" name="Illusion Caster" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="6020" name="Croak Piercer" />
+      <card id="2067" name="Symbol of Elaria" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="2011" name="Poliworg" />
+      <card id="1627" name="Sage of Croaks" />
+      <card id="6011" mastery_level="2" name="Bomb Spirit" />
+      <card id="5099" mastery_level="3" name="Croak Dropper" />
+      <card id="6050" mastery_level="4" name="Wortwog" />
+      <card id="2014" mastery_level="5" name="Tadpole Warmage" />
+      <card id="5103" mastery_level="6" name="Mother of Solars" />
+      <card id="5051" mastery_level="7" name="Amphibious Digger" />
+    </deck>
+    <speech>
+      <line>
+        <commander>frogscout</commander>
+        <enemy>1</enemy>
+        <text>Mayor... forgive us. This one... they are very strong!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5451</id>
+    <name>Peacemaker</name>
+    <energy>9</energy>
+    <desc>All the frogs have fought their hardest, but none can defeat you. They lie panting upon the ground, waiting for you to decide their fate...</desc>
+    <commander id="289" />
+    <deck>
+      <card id="8045" name="Summoned Abomination" />
+      <card id="1610" name="Ranger" />
+      <card id="1618" name="Frog Scout" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="7051" name="Stinglash Rider" />
+      <card id="2048" name="Sandmite" />
+      <card id="5050" name="Cloud Spear" />
+      <card id="2011" name="Poliworg" />
+      <card id="6050" name="Wortwog" />
+      <card id="6054" mastery_level="2" name="Shadowcrafter" />
+      <card id="5099" mastery_level="3" name="Croak Dropper" />
+      <card id="5050" mastery_level="4" name="Cloud Spear" />
+      <card id="7020" mastery_level="5" name="Trapper Frog" />
+      <card id="6103" mastery_level="6" name="Ribbitaksu" />
+      <card id="2013" mastery_level="7" name="Stoneclad Toad" />
+    </deck>
+    <speech>
+      <line>
+        <commander>frogscout</commander>
+        <enemy>1</enemy>
+        <text>You are too strong... it is over.</text>
+      </line>
+      <line>
+        <commander>goldencrownmayor</commander>
+        <enemy>1</enemy>
+        <text>What is all this noise out here?</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5452</id>
+    <name>Loyal Companions</name>
+    <energy>9</energy>
+    <desc>The frogs do their best to defend the frog woman who appeared from one of the houses. They seem particularly alarmed that she has shown herself to you.</desc>
+    <commander id="289" />
+    <deck>
+      <card id="8045" name="Summoned Abomination" />
+      <card id="1015" name="Windfrog" />
+      <card id="1618" name="Frog Scout" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="7035" name="Carrion Tiger" />
+      <card id="1325" name="Chaos Storm" />
+      <card id="2034" name="Leap Frog Duo" />
+      <card id="6051" name="Treeblade Thief" />
+      <card id="6050" name="Wortwog" />
+      <card id="6005" mastery_level="2" name="Gloomkin" />
+      <card id="1328" mastery_level="3" name="Poison Bullfrog" />
+      <card id="1328" mastery_level="4" name="Poison Bullfrog" />
+      <card id="1028" mastery_level="5" name="Heroic Frog" />
+      <card id="7050" mastery_level="6" name="Krieg, Northern Sword" />
+      <card id="7049" mastery_level="7" name="Boundtoad" />
+    </deck>
+    <speech>
+      <line>
+        <commander>frogscout</commander>
+        <enemy>1</enemy>
+        <text>Mayor, no! Return inside. These people have come after you.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5453</id>
+    <name>The Golden Crown Hero</name>
+    <energy>9</energy>
+    <desc>The Golden Crown Mayor remembers how you saved her son. She knows that you and your group are heroes that have decided to fight against The Void. Telling the other frogs to stand down, the Golden Crown Mayor promises to listen to your purpose.</desc>
+    <commander id="249" />
+    <deck>
+      <card id="1015" name="Windfrog" />
+      <card id="1015" name="Windfrog" />
+      <card id="1618" name="Frog Scout" />
+      <card id="1618" name="Frog Scout" />
+      <card id="6096" name="Desert Slitherer" />
+      <card id="8045" name="Summoned Abomination" />
+      <card id="2069" name="Webfoot Surfer" />
+      <card id="5020" name="Frost Frog" />
+      <card id="6051" name="Treeblade Thief" />
+      <card id="5065" mastery_level="2" name="Hive Guard" />
+      <card id="1328" mastery_level="3" name="Poison Bullfrog" />
+      <card id="1328" mastery_level="4" name="Poison Bullfrog" />
+      <card id="2012" mastery_level="5" name="Frogling Swarm" />
+      <card id="7052" mastery_level="6" name="Toad the Ravenous" />
+      <card id="6018" mastery_level="7" name="Underwater Lasher" />
+    </deck>
+    <speech>
+      <line>
+        <commander>goldencrownmayor</commander>
+        <enemy>1</enemy>
+        <text>Nonsense. These people are great heroes of Golden Crown. Now what can I do to help?</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5454</id>
+    <name>Recruiting the Healer</name>
+    <energy>9</energy>
+    <desc>You explain to the Golden Crown Mayor that you have heard about her amazing healing powers. It is said that she can cure even those who have been corrupted by The Void.</desc>
+    <commander id="276" />
+    <deck>
+      <card id="5022" name="Webfoot Raider" />
+      <card id="7007" name="Water Serpent" />
+      <card id="1618" name="Frog Scout" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="7024" name="Woolmane Dragon" />
+      <card id="2001" name="Dunetooth Demon" />
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="6051" name="Treeblade Thief" />
+      <card id="6051" name="Treeblade Thief" />
+      <card id="5050" mastery_level="2" name="Cloud Spear" />
+      <card id="1328" mastery_level="3" name="Poison Bullfrog" />
+      <card id="2014" mastery_level="4" name="Tadpole Warmage" />
+      <card id="7005" mastery_level="5" name="Tsunamari" />
+      <card id="8044" mastery_level="6" name="Aegis of the Sea" />
+      <card id="7042" mastery_level="7" name="Scurvy Hopper" />
+    </deck>
+    <speech>
+      <line>
+        <commander>goldencrownmayor</commander>
+        <enemy>1</enemy>
+        <text>We originally came here to help those afflicted by The Void's power. </text>
+      </line>
+      <line>
+        <commander>goldencrownmayor</commander>
+        <enemy>1</enemy>
+        <text>My duties will not allow me to join your adventure permanently. But I will do what I can, at least until we remove The Void's power from this area.</text>
+      </line>
+    </speech>
+  </mission>
+  <!-- Campaign Event weeks 3-4 -->
+  <mission>
+    <id>5455</id>
+    <name>The Boy and His Dragon</name>
+    <energy>9</energy>
+    <desc>With the Golden Crown Mayor now helping you, you follow the bay's shoreline. In the distance, you spot two figures that have washed up on the beach...</desc>
+    <commander id="299" />
+    <deck>
+      <card id="7017" name="Coral Elemental" />
+      <card id="7017" name="Coral Elemental" />
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="7007" name="Water Serpent" />
+      <card id="8045" name="Summoned Abomination" />
+      <card id="5073" name="Shell Invader" />
+      <card id="2014" name="Tadpole Warmage" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="2020" name="Tidetaken Fighter" />
+      <card id="2069" mastery_level="2" name="Webfoot Surfer" />
+      <card id="2060" mastery_level="3" name="Patchwork Experiment" />
+      <card id="5053" mastery_level="4" name="Anura Witch" />
+      <card id="7066" mastery_level="5" name="Aquine" />
+      <card id="7054" mastery_level="6" name="The Thing Below" />
+      <card id="7052" mastery_level="7" name="Toad the Ravenous" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Ugh... h-hey buddy, you okay?</text>
+      </line>
+      <line>
+        <commander>Sailing_Drake</commander>
+        <enemy>0</enemy>
+        <text>Awoo...</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5456</id>
+    <name>Incoming Storm</name>
+    <energy>9</energy>
+    <desc>You recognize the human figure from your time in Karthos. It seems he's finally managed to tame a dragon. A strange figure rises from the water's waves, stalking towards the two. You hurry to get closer...</desc>
+    <commander id="301" />
+    <deck>
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="8045" name="Summoned Abomination" />
+      <card id="7007" name="Water Serpent" />
+      <card id="7007" name="Water Serpent" />
+      <card id="2049" name="Contrapede" />
+      <card id="5073" name="Shell Invader" />
+      <card id="2031" name="Dryad" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="5011" mastery_level="2" name="Sky Whale" />
+      <card id="5035" mastery_level="3" name="Vapor Guard" />
+      <card id="5053" mastery_level="4" name="Anura Witch" />
+      <card id="7005" mastery_level="5" name="Tsunamari" />
+      <card id="7014" mastery_level="6" name="Genbu" />
+      <card id="7097" mastery_level="7" name="Caustic Toadbog" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5457</id>
+    <name>Seafolk Raider</name>
+    <energy>9</energy>
+    <desc>It's one of the Seafolk raiders! You run with all your might towards the two on the beach. Decim shivers and hugs the drake, protecting it with his body, as the waves begin to swell.</desc>
+    <commander id="352" />
+    <deck>
+      <card id="6022" name="Illusion Caster" />
+      <card id="7007" name="Water Serpent" />
+      <card id="7007" name="Water Serpent" />
+      <card id="2077" name="Drowner Beetle" />
+      <card id="2076" name="Adorabilis" />
+      <card id="7029" name="Owl Griffin" />
+      <card id="2067" name="Symbol of Elaria" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="6069" name="Arachnolite" />
+      <card id="6031" mastery_level="2" name="Iceblood Assassin" />
+      <card id="2070" mastery_level="3" name="Redclaw Tamer" />
+      <card id="5089" mastery_level="4" name="Gomblit" />
+      <card id="5081" mastery_level="5" name="Brahze" />
+      <card id="7054" mastery_level="6" name="The Thing Below" />
+      <card id="8045" mastery_level="7" name="Summoned Abomination" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5458</id>
+    <name>The Guardian</name>
+    <energy>9</energy>
+    <desc>Despite your best efforts, it's impossible to reach Decim and his friend before the enemy. As the raider launches an attack, a new armored figure appears to protect the two!</desc>
+    <commander id="352" />
+    <deck>
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="8045" name="Summoned Abomination" />
+      <card id="6022" name="Illusion Caster" />
+      <card id="7017" name="Coral Elemental" />
+      <card id="2048" name="Sandmite" />
+      <card id="5025" name="Steelskin Dragon" />
+      <card id="2067" name="Symbol of Elaria" />
+      <card id="7038" name="Sol King" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="5011" mastery_level="2" name="Sky Whale" />
+      <card id="5028" mastery_level="3" name="Winter Blacksmith" />
+      <card id="2077" mastery_level="4" name="Drowner Beetle" />
+      <card id="7066" mastery_level="5" name="Aquine" />
+      <card id="7014" mastery_level="6" name="Genbu" />
+      <card id="2013" mastery_level="7" name="Stoneclad Toad" />
+    </deck>
+    <speech>
+      <line>
+        <commander>kraken_portrait</commander>
+        <enemy>1</enemy>
+        <text>Wooosh!</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Aaaaah!</text>
+      </line>
+      <line>
+        <commander>lanternguardian</commander>
+        <enemy>0</enemy>
+        <text> -raises lantern, deflecting the attack directed at Decim-</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5459</id>
+    <name>Tension</name>
+    <energy>9</energy>
+    <desc>You arrive, a little late, but still in time to check Decim and his friend. They look like they've taken quite the beating, but at least they're still alive.</desc>
+    <commander id="238" />
+    <deck>
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="8045" name="Summoned Abomination" />
+      <card id="7007" name="Water Serpent" />
+      <card id="2031" name="Dryad" />
+      <card id="7004" name="Ice Golem" />
+      <card id="7047" name="Shaman of the Wild" />
+      <card id="7073" name="Heralded Slugger" />
+      <card id="1028" name="Heroic Frog" />
+      <card id="5044" mastery_level="2" name="Telepathic Magi" />
+      <card id="5020" mastery_level="3" name="Frost Frog" />
+      <card id="7066" mastery_level="4" name="Aquine" />
+      <card id="7066" mastery_level="5" name="Aquine" />
+      <card id="7014" mastery_level="6" name="Genbu" />
+      <card id="7049" mastery_level="7" name="Boundtoad" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Whoa, thanks. That was close.</text>
+      </line>
+      <line>
+        <commander>lanternguardian</commander>
+        <enemy>1</enemy>
+        <text>...</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>W... What? Why you staring, huh? What - keep that sword down!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5460</id>
+    <name>Former Ally</name>
+    <energy>9</energy>
+    <desc>The lantern guardian attacks! You intervene to protect Decim and the drake. The former ally has changed to foe quite quickly...</desc>
+    <commander id="238" />
+    <deck>
+      <card id="1018" name="Armored Eagle" />
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="7007" name="Water Serpent" />
+      <card id="7007" name="Water Serpent" />
+      <card id="2031" name="Dryad" />
+      <card id="5073" name="Shell Invader" />
+      <card id="7047" name="Shaman of the Wild" />
+      <card id="7061" name="Thickskin Dragon" />
+      <card id="8045" name="Summoned Abomination" />
+      <card id="7066" mastery_level="2" name="Aquine" />
+      <card id="5011" mastery_level="3" name="Sky Whale" />
+      <card id="7066" mastery_level="4" name="Aquine" />
+      <card id="7005" mastery_level="5" name="Tsunamari" />
+      <card id="5066" mastery_level="6" name="Scarab Beast" />
+      <card id="7018" mastery_level="7" name="Frog Emperor" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5461</id>
+    <name>Dubious Intentions</name>
+    <energy>9</energy>
+    <desc>Decim is in no shape to fight. You must face this mysterious foe in his place, and keep everyone safe from the silent attacker. But what could he want?</desc>
+    <commander id="238" />
+    <deck>
+      <card id="8045" name="Summoned Abomination" />
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="7017" name="Coral Elemental" />
+      <card id="7007" name="Water Serpent" />
+      <card id="2002" name="Lantern Guardian" />
+      <card id="2045" name="Chillbeard Giant" />
+      <card id="5058" name="Crescent Moon Owl" />
+      <card id="7061" name="Thickskin Dragon" />
+      <card id="7024" name="Woolmane Dragon" />
+      <card id="7066" mastery_level="2" name="Aquine" />
+      <card id="5030" mastery_level="3" name="Loxphas Mage" />
+      <card id="7005" mastery_level="4" name="Tsunamari" />
+      <card id="1030" mastery_level="5" name="Paladin" />
+      <card id="2022" mastery_level="6" name="Avalanche Equine" />
+      <card id="5064" mastery_level="7" name="Anshar" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Ohh man. If you weren't here to help me, this guy woulda got me for sure.</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Hey guy, what's the deal? You helped me out earlier just to laugh at me now?!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5462</id>
+    <name>The End of an Alliance</name>
+    <energy>9</energy>
+    <desc>You attempt to talk with the savior-turned-destroyer. Yet all he does is utter a single word...</desc>
+    <commander id="351" />
+    <deck>
+      <card id="8045" name="Summoned Abomination" />
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="1015" name="Windfrog" />
+      <card id="7007" name="Water Serpent" />
+      <card id="5025" name="Steelskin Dragon" />
+      <card id="2045" name="Chillbeard Giant" />
+      <card id="2005" name="Sailing Drake" />
+      <card id="7061" name="Thickskin Dragon" />
+      <card id="7070" name="Laughing Menace" />
+      <card id="7066" mastery_level="2" name="Aquine" />
+      <card id="5024" mastery_level="3" name="Cloudtop Dragon" />
+      <card id="7005" mastery_level="4" name="Tsunamari" />
+      <card id="5025" mastery_level="5" name="Steelskin Dragon" />
+      <card id="7008" mastery_level="6" name="Rock Dragon" />
+      <card id="5061" mastery_level="7" name="Thunderfist Rex" />
+    </deck>
+    <speech>
+      <line>
+        <commander>lanternguardian</commander>
+        <enemy>1</enemy>
+        <text>Behind...</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Behind... What?</text>
+      </line>
+      <line>
+        <commander>Sailing_Drake</commander>
+        <enemy>1</enemy>
+        <text>Grrr....</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5463</id>
+    <name>Heartbreak</name>
+    <energy>9</energy>
+    <desc>The drake that was with Decim has become completely feral. Foam runs from its mouth, claws scratching against Decim and anyone else it can reach.</desc>
+    <commander id="351" />
+    <deck>
+      <card id="8045" name="Summoned Abomination" />
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="7007" name="Water Serpent" />
+      <card id="2046" name="Leaping Dragon" />
+      <card id="7004" name="Ice Golem" />
+      <card id="2005" name="Sailing Drake" />
+      <card id="5025" name="Steelskin Dragon" />
+      <card id="7062" name="Brine Bellower" />
+      <card id="5020" mastery_level="2" name="Frost Frog" />
+      <card id="5044" mastery_level="3" name="Telepathic Magi" />
+      <card id="7005" mastery_level="4" name="Tsunamari" />
+      <card id="7095" mastery_level="5" name="Talonsaur" />
+      <card id="7002" mastery_level="6" name="Cerberus" />
+      <card id="5018" mastery_level="7" name="Grand Knight Frog" />
+    </deck>
+    <speech>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>0</enemy>
+        <text>Buddy... please stop!</text>
+      </line>
+      <line>
+        <commander>Sailing_Drake</commander>
+        <enemy>1</enemy>
+        <text>Grrr....</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5464</id>
+    <name>Potential Solution</name>
+    <energy>9</energy>
+    <desc>At long last the wind drake has been subdued. It lies panting on the ground, foam still trickling from its mouth. Despite Decim's grievous injuries, he rises to his feet, prepared to help his friend no matter the cost...</desc>
+    <commander id="16" />
+    <deck>
+      <card id="8045" name="Summoned Abomination" />
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="6006" name="Chaos Golem" />
+      <card id="1326" name="Titan of Fire" />
+      <card id="2032" name="Brimstone" />
+      <card id="2044" name="Quillhide Dragon" />
+      <card id="6063" name="Firetail Dragon" />
+      <card id="6102" name="Ribbithold Guards" />
+      <card id="6020" mastery_level="2" name="Croak Piercer" />
+      <card id="2044" mastery_level="3" name="Quillhide Dragon" />
+      <card id="2066" mastery_level="4" name="Basalt Dragon" />
+      <card id="2044" mastery_level="5" name="Quillhide Dragon" />
+      <card id="6095" mastery_level="6" name="Gearplate Dragon" />
+      <card id="6095" mastery_level="7" name="Gearplate Dragon" />
+    </deck>
+    <speech>
+      <line>
+        <commander>lanternguardian</commander>
+        <enemy>1</enemy>
+        <text>There is only one solution to those infected by The Void.</text>
+      </line>
+      <line>
+        <commander>flamebender</commander>
+        <enemy>1</enemy>
+        <text>No! I won't let you!</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5465</id>
+    <name>True Peace</name>
+    <energy>9</energy>
+    <desc>You manage to convince Decim to stand down before he hurts himself further. Behind you, the Golden Crown Mayor pushes her way forward. She lays her healing hands upon the wind drake...</desc>
+    <commander id="340" />
+    <deck>
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="8045" name="Summoned Abomination" />
+      <card id="2005" name="Sailing Drake" />
+      <card id="1328" name="Poison Bullfrog" />
+      <card id="1025" name="Lightbound Archer" />
+      <card id="7066" name="Aquine" />
+      <card id="2057" name="Twister" />
+      <card id="6020" mastery_level="2" name="Croak Piercer" />
+      <card id="2070" mastery_level="3" name="Redclaw Tamer" />
+      <card id="2002" mastery_level="4" name="Lantern Guardian" />
+      <card id="5096" mastery_level="5" name="Enclave Dragon" />
+      <card id="6082" mastery_level="6" name="Rugarth, Fallen Bones" />
+      <card id="7054" mastery_level="7" name="The Thing Below" />
+    </deck>
+    <speech>
+      <line>
+        <commander>goldencrownmayor</commander>
+        <enemy>0</enemy>
+        <text>Now now, no need for such violence. Let me heal the dragon, and I'll make it right as rain.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5466</id>
+    <name>Recruiting the Guardian</name>
+    <energy>9</energy>
+    <desc>The drake is healed beneath the Mayor's touch. Decim also calms upon seeing his friend's health return. The Lantern Guardian approaches you...</desc>
+    <commander id="359" />
+    <deck>
+      <card id="7007" name="Water Serpent" />
+      <card id="8045" name="Summoned Abomination" />
+      <card id="7004" name="Ice Golem" />
+      <card id="7005" name="Tsunamari" />
+      <card id="7030" name="Arctic Ambusher" />
+      <card id="7066" name="Aquine" />
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="5010" name="Concealed Dragon" />
+      <card id="1026" name="Glass Colossus" />
+      <card id="7099" mastery_level="2" name="Toadplay" />
+      <card id="5053" mastery_level="3" name="Anura Witch" />
+      <card id="2070" mastery_level="4" name="Redclaw Tamer" />
+      <card id="1028" mastery_level="5" name="Heroic Frog" />
+      <card id="5095" mastery_level="6" name="Silurigon" />
+      <card id="7083" mastery_level="7" name="Sludge Spine" />
+    </deck>
+    <speech>
+      <line>
+        <commander>lanternguardian</commander>
+        <enemy>0</enemy>
+        <text>Truly amazing... never seen arcane arts that heal even Void-infected. Allow me to join your cause, and fight against these raiders.</text>
+      </line>
+    </speech>
+  </mission>
+  <mission>
+    <id>5467</id>
+    <name>Boss Mission</name>
+    <energy>9</energy>
+    <desc>Test mission.</desc>
+    <commander id="238" />
+    <deck>
+      <card id="8044" name="Aegis of the Sea" />
+      <card id="8045" name="Summoned Abomination" />
+      <card id="5022" name="Webfoot Raider" />
+      <card id="7007" name="Water Serpent" />
+      <card id="1026" name="Glass Colossus" />
+      <card id="2031" name="Dryad" />
+      <card id="7038" name="Sol King" />
+      <card id="7066" name="Aquine" />
+      <card id="2067" name="Symbol of Elaria" />
+      <card id="5028" mastery_level="2" name="Winter Blacksmith" />
+      <card id="2040" mastery_level="3" name="Owlmancer" />
+      <card id="2002" mastery_level="4" name="Lantern Guardian" />
+      <card id="8044" mastery_level="5" name="Aegis of the Sea" />
+      <card id="5070" mastery_level="6" name="Hornslicer" />
+      <card id="7083" mastery_level="7" name="Sludge Spine" />
+    </deck>
   </mission>
 </root>

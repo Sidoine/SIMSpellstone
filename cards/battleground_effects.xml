@@ -1,8 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
-		[DO NOT USE ID=1 through 100!]
-		Use IDs 101+
+		1-100		DO NOT USE, OFF LIMITS!!
+		101-500		World Event BGE
+		501-1000	Specialty BGE
+		1001-2000	Personal BGE
+		2001-3000	Enemy Scaling BGE
+		3001+		Map Expansion BGE
+		
 	-->
   <!--
 		displayEffect example setup 
@@ -32,11 +37,11 @@
   <battleground>
     <id>101</id>
     <name>Age of Dragons</name>
-    <desc>All Dragons are bestowed with extraordinary vitality, causing them to be Healed each turn by 20%.</desc>
+    <desc>All Dragons are bestowed with extraordinary vitality, causing them to be Healed each turn by 25%.</desc>
     <web_picture>filter_dragon_64.png</web_picture>
     <icon>filter_dragon_64</icon>
     <effect>
-      <skill id="heal" mult=".2" all="1" y="9" />
+      <skill id="heal" mult=".25" all="1" y="9" />
     </effect>
   </battleground>
   <battleground>
@@ -73,11 +78,11 @@
   <battleground>
     <id>105</id>
     <name>Devouring Hunger</name>
-    <desc>The Undead are invigorated with an unquenchable hunger, giving them Berserk which increases their base attack by 20% after dealing damage.</desc>
+    <desc>The Undead are invigorated with an unquenchable hunger, giving them Berserk which increases their base attack by 30% after dealing damage.</desc>
     <web_picture>filter_undead_64.png</web_picture>
     <icon>filter_undead_64</icon>
     <effect>
-      <add_skill id="berserk" mult=".2" base="attack" y="7" />
+      <add_skill id="berserk" mult=".3" base="attack" y="7" />
     </effect>
   </battleground>
   <battleground>
@@ -181,6 +186,85 @@
       </skill>
     </effect>
   </battleground>
+  <battleground>
+    <id>112</id>
+    <name>Goblin Barrage</name>
+    <desc>Each active Goblin throws a number of bombs equal to their base Attack at the start of each turn before other skills. Each bomb deals 1 damage.</desc>
+    <icon>filter_goblin_64</icon>
+    <effect>
+      <add_skill id="barrage" mult="1" base="attack" y="11" />
+      <skill id="displayEffect" trigger="onSkill" y="11" s="barrage">
+        <projectile_effect>
+          <prefab>goblinBombProjectile</prefab>
+          <bundle_id>75</bundle_id>
+          <delay>0</delay>
+          <duration>.75</duration>
+          <translation>.75</translation>
+          <offset>0</offset>
+        </projectile_effect>
+        <target_effect>
+          <prefab>goblinBombTarget</prefab>
+          <bundle_id>75</bundle_id>
+          <delay>.75</delay>
+          <duration>1.25</duration>
+          <shake>true</shake>
+        </target_effect>
+      </skill>
+    </effect>
+  </battleground>
+  <battleground>
+    <id>113</id>
+    <name>Underwater Shelter</name>
+    <desc>All Seafolk dive beneath the waves, gaining a Barrier equal to 20% of their base Health. This bonus is doubled if the Seafolk is on delay.</desc>
+    <icon>filter_seafolk_64</icon>
+    <effect>
+      <skill id="protect_seafolk" mult=".2" on_delay_mult=".2" base="health" all="1" y="12" />
+      <skill id="displayEffect" trigger="onSkillDelay" s="protect_seafolk">
+        <target_effect>
+          <prefab>submerge_fadecloth_delay</prefab>
+          <bundle_id>82</bundle_id>
+          <duration>1</duration>
+          <loop>true</loop>
+          <sound>shield</sound>
+        </target_effect>
+        <projectile_effect>
+          <prefab>ProtectProjectile</prefab>
+          <delay>.5</delay>
+          <duration>.5</duration>
+        </projectile_effect>
+      </skill>
+      <skill id="displayEffect" trigger="onSkill" s="protect_seafolk">
+        <target_effect>
+          <prefab>submerge_fadecloth</prefab>
+          <bundle_id>82</bundle_id>
+          <duration>1</duration>
+          <loop>true</loop>
+          <sound>shield</sound>
+        </target_effect>
+        <projectile_effect>
+          <prefab>ProtectProjectile</prefab>
+          <delay>.5</delay>
+          <duration>.5</duration>
+        </projectile_effect>
+      </skill>
+      <skill id="displayEffect" trigger="onSkillHit" s="protect_seafolk">
+        <actor_effect>
+          <prefab>submerge_barrier</prefab>
+          <bundle_id>82</bundle_id>
+          <duration>1</duration>
+          <delay>0</delay>
+        </actor_effect>
+      </skill>
+      <skill id="displayEffect" trigger="onSkillBreak" s="protect_seafolk">
+        <actor_effect>
+          <prefab>submerge_break</prefab>
+          <bundle_id>82</bundle_id>
+          <duration>1</duration>
+          <delay>0</delay>
+        </actor_effect>
+      </skill>
+    </effect>
+  </battleground>
   <!-- 501-1000: Specialty BGE -->
   <battleground>
     <id>501</id>
@@ -275,8 +359,8 @@
     <starting_level>26</starting_level>
     <!-- Starting Raid Level -->
     <effect>
-      <skill id="heal" x=".8" all="1" />
-      <skill id="rally" x=".4" all="1" />
+      <skill id="heal" x="1.2" all="1" />
+      <skill id="rally" x=".7" all="1" />
     </effect>
   </battleground>
   <battleground>
@@ -324,8 +408,8 @@
   </battleground>
   <battleground>
     <id>507</id>
-    <name>Elemental Flash Storms</name>
-    <desc>When an Elemental card is played, a Storm card is shuffled into the opponet's deck. When a Storm card is drawn, all their creatures are weakened for that turn!</desc>
+    <name>Flash Storms</name>
+    <desc>When an Elemental card is played, a Storm card is shuffled into the opponent's deck. When a Storm card is drawn, all their creatures are weakened for that turn!</desc>
     <icon>filter_elementals_64</icon>
     <effect>
       <!--
@@ -389,23 +473,111 @@
   </battleground>
   <battleground>
     <id>510</id>
-    <name>Dungeon Boost</name>
-    <desc>Dungeon Boost Heals and Empowers all of his allies, increasing in strength as he levels up.</desc>
-    <icon>filter_frostbite_64</icon>
-    <icon_bundle>26</icon_bundle>
+    <name>Dungeon's Despair</name>
+    <desc>Dungeon's Despair Heals and Empowers all the enemy creatures, increasing in strength as the dungeon level increases.</desc>
+    <icon>dungeon_bge_128</icon>
+    <icon_bundle>71</icon_bundle>
     <enemy_only>1</enemy_only>
     <scale_with_level>1</scale_with_level>
     <!-- Boolean -->
-    <starting_level>50</starting_level>
+    <starting_level>130</starting_level>
     <!-- Starting Raid Level -->
     <effect>
-      <skill id="heal" x="1.1" all="1" />
-      <skill id="rally" x=".6" all="1" />
+      <skill id="heal" x=".2" all="1" />
+      <skill id="rally" x=".2" all="1" />
+    </effect>
+  </battleground>
+  <battleground>
+    <id>511</id>
+    <name>Runic Sanctuary</name>
+    <desc>Barrier and Barrier All skills are 50% more effective.</desc>
+    <icon>Barrier_BGE_64</icon>
+    <icon_bundle>69</icon_bundle>
+    <effect>
+      <skill id="enhance" s="protect" mult="0.5" all="1" />
+    </effect>
+  </battleground>
+  <battleground>
+    <id>512</id>
+    <name>Defender's Castle</name>
+    <desc>Players who go second start with a Castle Tower card.</desc>
+    <web_picture>filter_tower_64.png</web_picture>
+    <icon>filter_tower_64</icon>
+    <effect>
+      <starting_card id="601" level="1" pvp_rank="2" />
+      <starting_card id="601" level="2" pvp_rank="3" />
+      <starting_card id="601" level="3" pvp_rank="4" />
+      <starting_card id="601" level="4" pvp_rank="5" />
+      <starting_card id="601" level="5" pvp_rank="6" />
+      <starting_card id="601" level="6" pvp_rank="7" />
+      <starting_card id="601" level="7" pvp_rank="8" />
+      <starting_card id="601" level="8" pvp_rank="9" />
+      <starting_card id="601" level="9" pvp_rank="10" />
+      <starting_card id="601" level="10" pvp_rank="11" />
+      <starting_card id="601" level="11" pvp_rank="12" />
+      <starting_card id="601" level="12" pvp_rank="13" />
+      <starting_card id="601" level="13" pvp_rank="14" />
+      <starting_card id="601" level="14" pvp_rank="15" />
+      <starting_card id="601" level="15" pvp_rank="16" />
+      <starting_card id="601" level="16" pvp_rank="17" />
+      <starting_card id="601" level="17" pvp_rank="18" />
+    </effect>
+  </battleground>
+  <battleground>
+    <id>513</id>
+    <name>Firestarter</name>
+    <desc>Scorch skills deal 50% more damage.</desc>
+    <icon>firestarter_64</icon>
+    <icon_bundle>75</icon_bundle>
+    <effect>
+      <skill id="enhance" s="burn" mult="0.5" all="1" />
+    </effect>
+  </battleground>
+  <battleground>
+    <id>514</id>
+    <name>The Arena</name>
+    <desc>In Arena Battles, the player who goes first has one additional Delay added to the first card they play in a battle.</desc>
+    <icon>filter_insect_64.png</icon>
+    <effect>
+      <on_play first_play="1" attacker="1">
+        <add_skill id="slow" x="1" />
+      </on_play>
+    </effect>
+  </battleground>
+  <battleground>
+    <id>515</id>
+    <name>Golden Leaf Shelter</name>
+    <desc>All Frogs gain Barrier each turn equal to 20% of their base Health.</desc>
+    <web_picture>filter_frog_64.png</web_picture>
+    <icon>Barrier_BGE_64</icon>
+    <icon_bundle>69</icon_bundle>
+    <effect>
+      <skill id="protect" mult=".20" all="1" y="4" />
+    </effect>
+  </battleground>
+  <battleground>
+    <id>516</id>
+    <name>Cursed Land</name>
+    <desc>Hex skills are 50% more effective.</desc>
+    <icon>Hex_BGE_64</icon>
+    <icon_bundle>82</icon_bundle>
+    <effect>
+      <skill id="enhance" s="enfeeble" mult="0.5" all="1" />
     </effect>
   </battleground>
   <!-- 1001+: Personal BGE -->
   <battleground>
-    <id>10001</id>
+    <id>1001</id>
+    <name>Primal Mending</name>
+    <desc>Your creatures get healed for 2 every turn in battle.</desc>
+    <icon>healTotem_BGE_64</icon>
+    <icon_bundle>73</icon_bundle>
+    <effect>
+      <skill id="heal" x="2" all="1" />
+    </effect>
+  </battleground>
+  <battleground>
+    <id>1002</id>
     <name>Personal Frog Buff</name>
     <desc>All ally Frogs gain the Protection of the Watcher, reducing damage taken by 2.</desc>
     <web_picture>filter_frog_64.png</web_picture>
@@ -413,13 +585,50 @@
       <skill id="protect" x="2" all="1" y="4" />
     </effect>
   </battleground>
+  <!-- 2001+: Enemy Scaling BGE -->
   <battleground>
-    <id>10002</id>
-    <name>Personal Enhance Armor</name>
-    <desc>All ally creatures have their armor enhanced by 1.</desc>
-    <web_picture>filter_elementals_64.png</web_picture>
+    <id>2001</id>
+    <name>Enemy Scaling BGE</name>
+    <desc>In Arena Battles, the player who goes first has one additional Delay added to the first card they play in a battle.</desc>
+    <icon>healTotem_BGE_64</icon>
+    <icon_bundle>73</icon_bundle>
+    <enemy_only>1</enemy_only>
+    <scale_with_level>1</scale_with_level>
+    <!-- Boolean -->
+    <starting_level>0</starting_level>
+    <!-- Starting Mastery Level -->
     <effect>
-      <skill id="enhance" s="armored" x="1" all="1" />
+      <scale_attributes base_mult=".2" mult=".1" />
+    </effect>
+  </battleground>
+  <battleground>
+    <id>2002</id>
+    <name>Riptide Nightsong</name>
+    <desc>Enemies become stronger with each passing Mastery level.</desc>
+    <icon>healTotem_BGE_64</icon>
+    <icon_bundle>73</icon_bundle>
+    <enemy_only>1</enemy_only>
+    <scale_with_level>1</scale_with_level>
+    <!-- Boolean -->
+    <starting_level>5</starting_level>
+    <!-- Starting Mastery Level -->
+    <effect>
+      <scale_attributes base_mult=".1" mult=".0025" />
+    </effect>
+  </battleground>
+  <battleground>
+    <id>2003</id>
+    <name>Enemy Scaling BGE</name>
+    <desc>In Arena Battles, the player who goes first has one additional Delay added to the first card they play in a battle.</desc>
+    <icon>healTotem_BGE_64</icon>
+    <icon_bundle>73</icon_bundle>
+    <enemy_only>1</enemy_only>
+    <scale_with_level>1</scale_with_level>
+    <!-- Boolean -->
+    <starting_level>0</starting_level>
+    <!-- Starting Mastery Level -->
+    <effect>
+      <scale_attributes base_mult=".6" mult=".1" />
     </effect>
   </battleground>
 </root>
