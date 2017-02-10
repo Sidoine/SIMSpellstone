@@ -19,13 +19,17 @@ var CARD_GUI = {};
         return $deck;
     }
 
-    function makeDeckHTML(deck, noblanks) {
+    function makeDeckHTML(deck, noblanks, battlegrounds) {
         var cards = [];
         var commander = get_card_by_id(deck.commander);
         cards.push(create_card_html(commander, false, false));
         for (var i = 0, len = deck.deck.length; i < len; i++) {
             var deckEntry = deck.deck[i];
-            var unit = get_card_by_id(deckEntry);
+            if (battlegrounds) {
+                var unit = get_card_apply_battlegrounds(deckEntry, battlegrounds);
+            } else {
+                var unit = get_card_by_id(deckEntry);
+            }
             cards.push(create_card_html(unit, false, false));
         }
         if (!noblanks) for (; i < 15; i++) {
@@ -111,7 +115,7 @@ var CARD_GUI = {};
         var fieldHTML = [];
         if (turn) {
             var htmlTurnCounter = document.createElement("h1");
-            htmlTurnCounter.innerHTML = "Turn: " + turn
+            htmlTurnCounter.innerHTML = "Turn: " + turn + " (Currently at " + SIMULATOR.calculatePoints(true) + " points)";
             fieldHTML.push(htmlTurnCounter);
         }
 
@@ -483,20 +487,20 @@ var CARD_GUI = {};
             case 'armored':
                 iconName = 'Armor.png';
                 break;
-            case 'strike':
-                iconName = 'Bolt.png';
-                break;
-            case 'poisonstrike':
-                iconName = 'Poisonbolt.png';
-                break;
             case 'burn':
                 iconName = 'Scorch.png';
                 break;
-            case 'flurry':
-                iconName = 'Dualstrike.png';
+            case 'counter':
+                iconName = 'Vengeance.png';
                 break;
             case 'enfeeble':
                 iconName = 'Hex.png';
+                break;
+            case 'evade':
+                iconName = 'Invisibility.png';
+                break;
+            case 'flurry':
+                iconName = 'Dualstrike.png';
                 break;
             case 'jam':
                 iconName = 'Freeze.png';
@@ -504,11 +508,11 @@ var CARD_GUI = {};
             case 'leech':
                 iconName = 'Siphon.png';
                 break;
-            case 'evade':
-                iconName = 'Invisibility.png';
+            case 'mark':
+                iconName = 'EagleEye.png';
                 break;
-            case 'counter':
-                iconName = 'Vengeance.png';
+            case 'poisonstrike':
+                iconName = 'Poisonbolt.png';
                 break;
             case 'protect':
                 iconName = 'Barrier.png';
@@ -518,6 +522,9 @@ var CARD_GUI = {};
                 break;
             case 'rally':
                 iconName = 'Empower.png';
+                break;
+            case 'strike':
+                iconName = 'Bolt.png';
                 break;
             case 'weakenself':
                 iconName = 'Weaken.png';
@@ -540,6 +547,10 @@ var CARD_GUI = {};
         */
         if (card.enfeebled) {
             var status = createStatus("enfeeble", card.enfeebled);
+            debuffs.push(status);
+        }
+        if (card.marked) {
+            var status = createStatus("enfeeble", card.marked);
             debuffs.push(status);
         }
         /*

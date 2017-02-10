@@ -73,7 +73,6 @@
 
     function tryNewCard(){
         var progression = document.getElementById('progression');
-        card_cache = {};    // clear card cache to avoid memory bloat when simulating different decks
         total_turns = 0;
         time_start = new Date();
         time_stop = 0;
@@ -154,13 +153,14 @@
         }   
 
         // Set up battleground effects, if any
-        SIMULATOR.battlegrounds = getBattlegrounds(getbattleground, getraid);
-        
+        SIMULATOR.battlegrounds = getBattlegrounds(getbattleground, selfbges, enemybges, mapbges, getcampaign, getraid);
+
         SIMULATOR.setupDecks();
 
         wins = 0;
         losses = 0;
         draws = 0;
+        points = 0;
 
         outp(""); // Clear display
         if (!SIMULATOR.user_controlled) {
@@ -312,6 +312,7 @@
         } else {
             losses++;
         }
+        points += SIMULATOR.calculatePoints();
         games++;
 
         // Increment total turn count

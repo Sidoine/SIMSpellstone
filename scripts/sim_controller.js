@@ -8,6 +8,7 @@ var SIM_CONTROLLER = (function () {
         getexactorder = $('#exactorder').is(':checked');
 
         getdeck2 = $('#deck2').val();
+        getcampaign = $('#campaign').val();
         getmission = $('#mission').val();
         missionlevel = $('#mission_level').val();
         getraid = $('#raid').val();
@@ -24,6 +25,7 @@ var SIM_CONTROLLER = (function () {
             getbattleground = getSelectedBattlegrounds();
             selfbges = getSelectedBattlegrounds("self-");
             enemybges = getSelectedBattlegrounds("enemy-");
+            mapbges = (getmission ? getSelectedMapBattlegrounds() : "");
         }
 
         sims_left = $('#sims').val() || 1;
@@ -54,14 +56,20 @@ var SIM_CONTROLLER = (function () {
         sims_left = 0;
         time_stop = new Date();
 
+
         var msg;
-        if (result == 'draw') {
-            msg = '<br><h1>DRAW</h1><br>';
-        } else if (result) {
-            msg = '<br><h1>WIN</h1><br>';
-        } else {
-            msg = '<br><h1>LOSS</h1><br>';
+        var points = "";
+        if (getdeck2) {
+            points = " (" + SIMULATOR.calculatePoints() + " points)";
         }
+        if (result == 'draw') {
+            msg = '<br><h1>DRAW' + points + '</h1><br>';
+        } else if (result) {
+            msg = '<br><h1>WIN' + points + '</h1><br>';
+        } else {
+            msg = '<br><h1>LOSS' + points + '</h1><br>';
+        }
+
         if (echo) {
             outputTurns(echo);
         }

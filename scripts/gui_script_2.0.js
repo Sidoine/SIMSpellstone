@@ -1,25 +1,43 @@
 ﻿'use strict';
 
 var loadDeckDialog;
+var mapBGEDialog;
 
 $(function () {
     $("#deck1").change(function ()
     {
         this.value = this.value.trim();
-        deckChanged("attack_deck", hash_decode(this.value));
+        deckChanged("attack_deck", hash_decode(this.value), 'player');
     });
 
     $("#deck2").change(function ()
     {
         this.value = this.value.trim();
-        deckChanged("defend_deck", hash_decode(this.value));
+        deckChanged("defend_deck", hash_decode(this.value), 'cpu');
     });
 
-    function deckChanged(deckID, newDeck) {
+    $("#battleground").change(function () {
+        $("#deck1").change();
+        if ($("#deck2").val()) {
+            $("#deck2").change();
+        } else if ($("#mission").val()) {
+            $("#mission").change();
+        } else if ($("#raid").val()) {
+            $("#raid").change();
+        }
+    });
+
+    function deckChanged(deckID, newDeck, owner) {
         var $deck = $("#" + deckID);
         $deck.children().remove();
         if (!_DEFINED("seedtest")) {
-            $deck.append(CARD_GUI.makeDeckHTML(newDeck));
+            SIM_CONTROLLER.getConfiguration();
+            var battlegrounds = getBattlegrounds(getbattleground, selfbges, enemybges, mapbges, getcampaign, getraid);
+            battlegrounds = battlegrounds.onCreate.filter(function (bge) {
+                return !((owner === 'player' && bge.enemy_only) || (owner === 'cpu' && bge.ally_only));
+            });
+
+            $deck.append(CARD_GUI.makeDeckHTML(newDeck, false, battlegrounds));
         }
     }
     var accordions = $(".accordion").accordion({
@@ -43,10 +61,11 @@ $(function () {
             newDeck = hash_decode('');
             raidlevel.attr("max", 40);
         }
-        deckChanged("defend_deck", newDeck);
+
+        deckChanged("defend_deck", newDeck, 'cpu');
     });
 
-    $("#campaign").change(function () {
+    $("#location, #campaign").change(function () {
         $("#mission").change();
     });
 
@@ -59,7 +78,7 @@ $(function () {
         } else {
             newDeck = hash_decode('');
         }
-        deckChanged("defend_deck", newDeck);
+        deckChanged("defend_deck", newDeck, 'cpu');
     });
 
     loadDeckDialog = $("#loadDeckDialog").dialog({
@@ -84,7 +103,21 @@ $(function () {
             Cancel: function () {
                 loadDeckDialog.dialog("close");
             }
-        },
+        }
+    });
+    mapBGEDialog = $("#bgeDialog").dialog({
+        autoOpen: false,
+        minWidth: 320,
+        modal: true,
+        resizable: false,
+        buttons: {
+            OK: function () {
+                mapBGEDialog.dialog("close");
+            },
+            Cancel: function () {
+                mapBGEDialog.dialog("close");
+            }
+        }
     });
 
     deckChanged("attack_deck", hash_decode(''));
@@ -132,6 +165,11 @@ function setDeckSortable(deckField, associatedHashField)
             hashField.val(hash);
         }
     });
+}
+
+function showMapBGEs() {
+    mapBGEDialog.dialog("open");
+    mapBGEDialog.dialog("option", "position", { my: "center", at: "center", of: window });
 }
 
 function loadDeck(hashField) {

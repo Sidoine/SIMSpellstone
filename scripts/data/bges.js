@@ -173,6 +173,19 @@ var BATTLEGROUNDS = {
       },
     ]
   },
+  "114": {
+    "name": "Eagle Eye",
+    "id": "114",
+    "effect": [
+      {
+        "effect_type": "add_skill",
+        "id": "mark",
+        "mult": 0.3,
+        "base": "attack",
+        "y": "10",
+      },
+    ]
+  },
   "501": {
     "name": "Castle Siege",
     "id": "501",
@@ -692,7 +705,18 @@ var BATTLEGROUNDS = {
   "514": {
     "name": "The Arena",
     "id": "514",
-    "hidden": true,
+    "effect": [
+      {
+        "effect_type": "on_play",
+        "attacker": 1,
+        "first_play": 1,
+        "effect": {
+        	"effect_type": "add_skill",
+        	"id": "slow",
+        	"x": 1,
+        }
+      },
+    ]
   },
   "515": {
     "name": "Golden Leaf Shelter",
@@ -748,12 +772,19 @@ var BATTLEGROUNDS = {
     ]
   },
   "2001": {
-    "name": "Enemy Scaling BGE",
+    "name": "Scylla's Presence",
     "id": "2001",
     "enemy_only": true,
     "scale_with_level": "1",
     "starting_level": "0",
     "hidden": true,
+    "effect": [
+      {
+        "effect_type": "scale_attributes",
+        "base_mult": .1,
+        "mult": .05,
+      },
+    ]
   },
   "2002": {
     "name": "Riptide Nightsong",
@@ -762,13 +793,42 @@ var BATTLEGROUNDS = {
     "scale_with_level": "1",
     "starting_level": "5",
     "hidden": true,
+    "effect": [
+      {
+        "effect_type": "scale_attributes",
+        "base_mult": .1,
+        "mult": .0025,
+      },
+    ]
   },
   "2003": {
-    "name": "Enemy Scaling BGE",
+    "name": "Riptide Nightsong",
     "id": "2003",
     "enemy_only": true,
     "scale_with_level": "1",
     "starting_level": "0",
     "hidden": true,
+    "effect": [
+      {
+        "effect_type": "scale_attributes",
+        "base_mult": .15,
+        "mult": .0025,
+      },
+    ]
+  },
+  "2004": {
+    "name": "Riptide Nightsong",
+    "id": "2004",
+    "enemy_only": true,
+    "scale_with_level": "1",
+    "starting_level": "0",
+    "hidden": true,
+    "effect": [
+      {
+        "effect_type": "scale_attributes",
+        "base_mult": .2,
+        "mult": .005,
+      },
+    ]
   },
 };

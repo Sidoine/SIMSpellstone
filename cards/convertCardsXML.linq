@@ -18,10 +18,20 @@ static System.Xml.Serialization.XmlSerializer bgeDeserializer = new System.Xml.S
 
 void Main()
 {
-	var xmlFile = Path.Combine(path, "cards.xml");
-	var doc = XDocument.Load(xmlFile);
+	string xmlFile;
 
-	HashSet<string> existingUnits = LoadUnits(doc);
+	HashSet<string> existingUnits = new HashSet<string>(
+		LoadUnits("cards_config.xml")
+		.Union(LoadUnits("cards_heroes.xml"))
+		.Union(LoadUnits("cards_premium_aether.xml"))
+		.Union(LoadUnits("cards_premium_chaos.xml"))
+		.Union(LoadUnits("cards_premium_wyld.xml"))
+		.Union(LoadUnits("cards_reward.xml"))
+		.Union(LoadUnits("cards_special.xml"))
+		.Union(LoadUnits("cards_standard.xml"))
+		.Union(LoadUnits("cards_story.xml")));
+
+
 	HashSet<string> newUnits = new HashSet<string>();
 
 	Normalize("arena.xml", downloadFiles);
@@ -135,7 +145,7 @@ void Main()
 
 	// Get Fusions
 	xmlFile = Path.Combine(path, "fusion_recipes_cj2.xml");
-	doc = XDocument.Load(xmlFile);
+	var doc = XDocument.Load(xmlFile);
 	var fusions = doc.Descendants("fusion_recipe").Select(node => new fusionRecipe()
 	{
 		fusedCardID = node.Element("card_id").Value,
@@ -199,10 +209,12 @@ void Main()
 		};
 		units.Add(unit);
 		// Only add these to spoilers if there are other new units - don't want to overwrite spoilers with just new art
+		/*
 		if (newUnits.Count > 0)
 		{
 			newUnits.Add(unit.id);
 		}
+		*/
 	}
 	if (newFusions.Count > 0)
 	{
@@ -238,6 +250,7 @@ void Main()
 		name = node.Element("name").Value,
 		location_id = node.Element("location_id").Value,
 		side_mission = (string)node.Element("side_mission"),
+		battleground_id = (string)node.Element("battleground_id"),
 		missions = node.Element("missions").Elements("mission_id").Select(mission_id => Int32.Parse(mission_id.Value)).ToArray()
 	}).OrderBy(campaign => campaign.location_id).ThenBy(campaign => campaign.id);
 
@@ -291,7 +304,14 @@ void Main()
 			writer.WriteLine("    \"id\": \"" + campaign.id + "\",");
 			writer.WriteLine("    \"name\": \"" + campaign.name + "\",");
 			writer.WriteLine("    \"location_id\": \"" + campaign.location_id + "\",");
-			writer.WriteLine("    \"side_mission\": \"" + campaign.side_mission + "\",");
+			if (!String.IsNullOrWhiteSpace(campaign.side_mission))
+			{
+				writer.WriteLine("    \"side_mission\": \"" + campaign.side_mission + "\",");
+			}
+			if (!String.IsNullOrWhiteSpace(campaign.battleground_id))
+			{
+				writer.WriteLine("    \"battleground_id\": \"" + campaign.battleground_id + "\",");
+			}
 			writer.WriteLine("    \"missions\": [\"" + String.Join("\",\"", campaign.missions) + "\"]");
 			writer.WriteLine("  },");
 		}
@@ -374,8 +394,9 @@ void Main()
 	}
 }
 
-private HashSet<string> LoadUnits(XDocument doc)
+private HashSet<string> LoadUnits(string file)
 {
+	var doc = XDocument.Load(Path.Combine(path, file));
 	var existingUnits = new HashSet<string>();
 	var unitNodes = doc.Descendants("unit");
 	foreach (var unitXML in unitNodes)
@@ -416,6 +437,8 @@ public class battleground
 	[XmlArrayItem(Type = typeof(add_skill), ElementName = "add_skill")]
 	[XmlArrayItem(Type = typeof(evolve_skill), ElementName = "evolve_skill")]
 	[XmlArrayItem(Type = typeof(skill), ElementName = "skill")]
+	[XmlArrayItem(Type = typeof(scale_attributes), ElementName = "scale_attributes")]
+	[XmlArrayItem(Type = typeof(on_play), ElementName = "on_play")]
 	[XmlArrayItem(Type = typeof(starting_card), ElementName = "starting_card")]
 	[XmlArrayItem(Type = typeof(trap_card), ElementName = "trap_card")]
 	public battlegroundEffect[] effect { get; set; }
@@ -507,6 +530,14 @@ public class battleground
 				else if (effect_i is add_skill)
 				{
 					AppendAddSkill(sb, (add_skill)effect_i, tabs3);
+				}
+				else if (effect_i is scale_attributes)
+				{
+					AppendScaling(sb, (scale_attributes)effect_i, tabs3);
+				}
+				else if (effect_i is on_play)
+				{
+					AppendOnPlay(sb, (on_play)effect_i, tabs3);
 				}
 				else if (effect_i is trap_card)
 				{
@@ -1048,6 +1079,77 @@ public partial class add_skill : battlegroundEffect
 
 /// <remarks/>
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class scale_attributes : battlegroundEffect
+{
+	private string yField;
+	private string base_multField;
+	private string multField;
+
+	/// <remarks/>
+	[System.Xml.Serialization.XmlAttributeAttribute()]
+	public string base_mult
+	{
+		get { return this.base_multField; }
+		set { this.base_multField = value; }
+	}
+
+	/// <remarks/>
+	[System.Xml.Serialization.XmlAttributeAttribute()]
+	public string mult
+	{
+		get { return this.multField; }
+		set { this.multField = value; }
+	}
+
+	/// <remarks/>
+	[System.Xml.Serialization.XmlAttributeAttribute()]
+	public string y
+	{
+		get { return this.yField; }
+		set { this.yField = value; }
+	}
+}
+
+/// <remarks/>
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class on_play : battlegroundEffect
+{
+	private string attackerField;
+	private string defenderField;
+	private string first_playField;
+
+	/// <remarks/>
+	[System.Xml.Serialization.XmlAttributeAttribute()]
+	public string attacker
+	{
+		get { return this.attackerField; }
+		set { this.attackerField = value; }
+	}
+
+	/// <remarks/>
+	[System.Xml.Serialization.XmlAttributeAttribute()]
+	public string defender
+	{
+		get { return this.defenderField; }
+		set { this.defenderField = value; }
+	}
+
+	/// <remarks/>
+	[System.Xml.Serialization.XmlAttributeAttribute()]
+	public string first_play
+	{
+		get { return this.first_playField; }
+		set { this.first_playField = value; }
+	}
+	
+	[XmlElement("add_skill", typeof(add_skill))]
+	[XmlElement("evolve_skill", typeof(evolve_skill))]
+	[XmlElement("skill", typeof(skill))]
+	public battlegroundEffect effect { get; set; }
+}
+
+/// <remarks/>
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
 public partial class starting_card : battlegroundEffect
 {
 	private string levelField;
@@ -1118,6 +1220,7 @@ public partial class campaign
 	public string name { get; set; }
 	public string location_id { get; set; }
 	public string side_mission { get; set; }
+	public string battleground_id { get; set;}
 	public int[] missions { get; set; }
 }
 
@@ -1252,13 +1355,59 @@ private static void AppendAddSkill(StringBuilder sb, add_skill skill, string tab
 	AppendEntryString(sb, "id", skill.id, tabs);
 	AppendEntry(sb, "x", skill.x, tabs);
 	AppendEntry(sb, "mult", skill.mult, tabs);
-	AppendEntry(sb, "mult", skill.on_delay_mult, tabs);
+	AppendEntry(sb, "on_delay_mult", skill.on_delay_mult, tabs);
 	AppendEntryString(sb, "base", skill.Base, tabs);
 	AppendEntryString(sb, "y", skill.y, tabs);
 	//AppendEntry(sb, "z", skill.z, tabs);
 	AppendEntry(sb, "c", skill.c, tabs);
 	AppendEntryString(sb, "s", skill.s, tabs);
 	AppendEntryString(sb, "all", skill.all, tabs);
+}
+
+private static void AppendScaling(StringBuilder sb, scale_attributes skill, string tabs)
+{
+	AppendEntryString(sb, "id", skill.id, tabs);
+	AppendEntry(sb, "base_mult", skill.base_mult, tabs);
+	AppendEntry(sb, "mult", skill.mult, tabs);
+	AppendEntryString(sb, "y", skill.y, tabs);
+}
+
+private static void AppendOnPlay(StringBuilder sb, on_play skill, string tabs)
+{
+	AppendEntryString(sb, "id", skill.id, tabs);
+	AppendEntry(sb, "attacker", skill.attacker, tabs);
+	AppendEntry(sb, "defender", skill.defender, tabs);
+	AppendEntry(sb, "first_play", skill.first_play, tabs);
+
+	sb.Append(tabs).Append("\"effect\": {\r\n");
+	var effect = skill.effect;
+	var tabs2 = tabs + "\t";
+	AppendEntryString(sb, "effect_type", effect.GetType().Name, tabs2);
+	if (effect is skill)
+	{
+		AppendSkill(sb, (skill)effect, tabs2, false);
+	}
+	else if (effect is evolve_skill)
+	{
+		AppendEvolve(sb, (evolve_skill)effect, tabs2);
+	}
+	else if (effect is add_skill)
+	{
+		AppendAddSkill(sb, (add_skill)effect, tabs2);
+	}
+	else if (effect is scale_attributes)
+	{
+		AppendScaling(sb, (scale_attributes)effect, tabs2);
+	}
+	else if (effect is on_play)
+	{
+		AppendOnPlay(sb, (on_play)effect, tabs2);
+	}
+	else if (effect is trap_card)
+	{
+		AppendTrap(sb, (trap_card)effect, tabs2);
+	}
+	sb.Append(tabs).Append("}\r\n");
 }
 
 private static void AppendTowerLevel(StringBuilder sb, starting_card info, string tabs)

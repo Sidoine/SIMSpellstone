@@ -25,6 +25,7 @@ var skillFiltersAdv = [];
 var skillHiddenAdv = {};
 var factionHidden = {};
 var subfactionHidden = {};
+var dualFactionHidden = {};
 var rarityFilters = [];
 var rarityHidden = {};
 var typeFilters = [];
@@ -138,8 +139,10 @@ var initDeckBuilder = function () {
     $("[name=set]").click(function (event) {
         onClickFilter(event, filterSet, event.altKey);
     });
+    $("#dualfaction").click(function (event) {
+        onClickFilter(event, filterDualFaction, event.altKey);
+    });
 
-    $("#loadingSplash").html("Checking for New Cards...");
     setTimeout(DATA_UPDATER.updateCards, 1, loadCards);
 
     if (_DEFINED("unlimited")) {
@@ -954,6 +957,101 @@ var updateGraphs = function () {
     }
     var data2 = { labels: labels, series: data2 };
     new Chartist.Pie('#subfactionChart', data2, options);
+
+    
+    var attackStats = [];
+    var healthStats = [];
+    var delayStats = [];
+    var types = {};
+    var sub_types = {};
+    for (var i = 0; i < deck.deck.length; i++) {
+        var unit = deck.deck[i];
+        var card = get_card_by_id(unit);
+        delays[card.cost]++;
+        types[card.type] = (types[card.type] || 0) + 1;
+        attackStats.push(Number(card.attack));
+        healthStats.push(Number(card.health));
+        delayStats.push(Number(card.cost));
+
+        var subFactions = card.sub_type;
+        if (!subFactions.length) subFactions.push(0);
+        for (var s = 0; s < subFactions.length; s++) {
+            var subFaction = subFactions[s];
+            sub_types[subFaction] = (sub_types[subFaction] || 0) + 1;
+        }
+    }
+    var numericSort = function (a, b) { return a - b };
+    attackStats.sort(numericSort);
+    healthStats.sort(numericSort);
+    delayStats.sort(numericSort);
+
+    function sum(total, num) {
+        return total + num;
+    }
+    function average(ary) {
+        return (ary.length ? (ary.reduce(sum) / ary.length).toFixed(0) : 0);
+    }
+    var avgAttack = average(attackStats);
+    var avgHealth = average(healthStats);
+    var avgDelay = average(delayStats);
+
+    var options = {
+        width: 300,
+        height: 200,
+        axisY: {
+            onlyInteger: true
+        },
+        plugins: [
+            Chartist.plugins.legend(),
+            Chartist.plugins.tooltip()
+        ],
+        series: {
+            'Attack': {
+                lineSmooth: Chartist.Interpolation.simple()
+            },
+            'Health': {
+                lineSmooth: Chartist.Interpolation.simple()
+            },
+            'Delay': {
+                lineSmooth: Chartist.Interpolation.simple()
+            }
+        }
+    };
+
+    new Chartist.Line('#statChart', {
+        series: [
+            { name: 'Attack', className: 'ct-series-attack', data: attackStats },
+            { name: 'Health', className: 'ct-series-health', data: healthStats },
+            { name: 'Delay', className: 'ct-series-delay', data: delayStats }
+        ]
+    }, options);
+
+    var totalHealth = get_card_by_id(deck.commander).health + healthStats.reduce(function (prev, curr) { return prev + curr }, 0);
+    var HPPL = totalHealth / 15;
+    var labels = [];
+    var healthNeeded = [];
+    for (var i = 0; i <= 15; i++) {
+        labels.push(130-i);
+        healthNeeded.push(Math.ceil(HPPL * i));
+    }
+
+    var options = {
+        width: 500,
+        height: 200,
+        axisY: {
+            onlyInteger: true
+        },
+        plugins: [
+            Chartist.plugins.legend(),
+            Chartist.plugins.tooltip()
+        ]
+    };
+    new Chartist.Line('#hpplChart', {
+        labels: labels,
+        series: [
+            { name: 'Health Lost', className: 'ct-series-attack', data: healthNeeded },
+        ]
+    }, options);
 }
 
 var changeTracking = [];
@@ -1219,25 +1317,63 @@ var filterName = (function (field) {
     applyFilters();
 }).throttle(250);
 
-var filterSubfaction = function (button, faction) {
-    subfactionHidden = {};
-    if (button.classList.contains("selected")) {
+var filterSubfaction = function (button, faction, exclude) {
+
+    if (button.classList.contains("selected") || button.classList.contains("excluded")) {
         button.classList.remove("selected");
+        button.classList.remove("excluded");
         button.checked = false;
+    } else if (exclude) {
+        button.classList.add("excluded");
+        button.classList.remove("selected");
     } else {
+        button.classList.remove("excluded");
         button.classList.add("selected");
-        for (var i = 0, len = units.length; i < len; i++) {
-            var unit = units[i];
-            if (!isInSubfaction(unit, faction)) {
+    }
+
+    subfactionHidden = {};
+    var subfactions = $("[name=subfaction].selected").toArray().map(function (a) { return a.attributes["data-filter"].value; });
+    var exclusions = $("[name=subfaction].excluded").toArray().map(function (a) { return a.attributes["data-filter"].value; });
+    for (var i = 0, len = units.length; i < len; i++) {
+        var unit = units[i];
+        for (var s = 0; s < subfactions.length; s++) {
+            if (!isInSubfaction(unit, subfactions[s])) {
+                subfactionHidden[makeUnitKey(unit)] = true;
+            }
+        }
+        for (var e = 0; e < exclusions.length; e++) {
+            if (isInSubfaction(unit, exclusions[e])) {
                 subfactionHidden[makeUnitKey(unit)] = true;
             }
         }
     }
-    var filters = document.getElementsByName("subfaction");
-    for (var i = 0; i < filters.length; i++) {
-        var filter = filters[i];
-        if (filter != button) {
-            filter.classList.remove("selected");
+    applyFilters();
+}
+
+var filterDualFaction = function (button, faction, exclude) {
+
+    var show;
+    if (button.classList.contains("selected") || button.classList.contains("excluded")) {
+        button.classList.remove("selected");
+        button.classList.remove("excluded");
+        button.checked = false;
+    } else if (exclude) {
+        button.classList.add("excluded");
+        button.classList.remove("selected");
+        show = false;
+    } else {
+        button.classList.remove("excluded");
+        button.classList.add("selected");
+        show = true;
+    }
+
+    dualFactionHidden = {};
+    if (typeof show !== "undefined") {
+        for (var i = 0, len = units.length; i < len; i++) {
+            var unit = units[i];
+            if (isDualFaction(unit) !== show) {
+                dualFactionHidden[makeUnitKey(unit)] = true;
+            }
         }
     }
     applyFilters();
@@ -1473,9 +1609,11 @@ var showAdvancedFilters = function (skill) {
         case 'armored':
         case 'berserk':
         case 'burn':
+        case 'corrosive':
         case 'counter':
         case 'evade':
         case 'frost':
+        case 'fury':
         case 'leech':
         case 'nullify':
         case 'pierce':
@@ -1483,15 +1621,24 @@ var showAdvancedFilters = function (skill) {
         case 'valor':
             $("div#amount").show();
             break;
-            // x="1" y="1" all="0" c="0" s="0"
+
+         // x="1" y="1" all="0" c="0" s="0"
+        case 'silence':
+            $("div#amount").show();
+            $("div#faction").show();
+            break;
+
+        // x="1" y="1" all="0" c="0" s="0"
         case 'fervor':
         case 'legion':
         case 'reanimate':
         case 'resurrect':
             $("div#amount").show();
             $("div#faction").show();
+            $("div#timer").show();
             break;
-            // x="1" y="1" all="1" c="0" s="0"
+
+        // x="1" y="1" all="0" c="1" s="0"
         case 'heal':
         case 'protect':
         case 'protect_ice':
@@ -1500,7 +1647,8 @@ var showAdvancedFilters = function (skill) {
             $("label[for=all]").show();
             $("div#faction").show();
             break;
-            // x="1" y="0" all="1" c="0" s="0"
+
+        // x="1" y="0" all="1" c="0" s="0"
         case 'enfeeble':
         case 'strike':
         case 'weaken':
@@ -1516,17 +1664,21 @@ var showAdvancedFilters = function (skill) {
             $("div#skill").show();
             $("div#timer").show();
             break;
-            // x="0" y="0" all="1" c="1" s="0"
+
+        // x="0" y="0" all="1" c="1" s="0"
         case 'jam':
             $("label[for=all]").show();
             $("div#timer").show();
             break;
-            // x="0" y="0" all="0" c="1" s="0"
+
+        // x="0" y="0" all="0" c="1" s="0"
         case 'flurry':
             $("div#timer").show();
             break;
+        default:
+            return null;
     }
-    advancedFilters.dialog("option", "position", { mw: "center", at: "center", of: $("#" + skill)[0] });;
+    advancedFilters.dialog("option", "position", { mw: "center", at: "center", of: $("[data-filter=" + skill + "]")[0] });;
     advancedFilters.dialog("open");
     advancedFilters.skill = skill;
 
@@ -1792,7 +1944,8 @@ var applyFilters = function (keepPage, skipDraw) {
         if (skillHidden[key] || factionHidden[key] || subfactionHidden[key]
              || attackHidden[key] || healthHidden[key] || delayHidden[key]
              || typeHidden[key] || fusionHidden[key] || setHidden[key]
-             || nameHidden[key] || rarityHidden[key] || skillHiddenAdv[key]) {
+             || nameHidden[key] || rarityHidden[key] || skillHiddenAdv[key]
+             || dualFactionHidden[key]) {
         } else {
             unitsFiltered.push(unit);
             var card = get_card_by_id(unit);
@@ -1855,6 +2008,7 @@ var clearFilters = function () {
 
     factionHidden = {};
     subfactionHidden = {};
+    dualFactionHidden = {};
 
     rarityFilters = [];
     rarityHidden = {};
@@ -1893,6 +2047,11 @@ var isInSubfaction = function (unit, faction) {
     } else {
         return (card.sub_type.indexOf(factionID.toString()) >= 0);
     }
+}
+
+var isDualFaction = function (unit) {
+    var card = get_slim_card_by_id(unit, true);
+    return (card.sub_type.length > 1);
 }
 
 var isInRange = function (unit, field, min, max) {

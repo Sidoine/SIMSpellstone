@@ -12,6 +12,7 @@ var SIMULATOR = {};
 
         var newKey = field_p_assaults.length;
         initializeCard(card, p, newKey);
+        card.played = true;
 
         if (card.isAssault()) {
             field_p_assaults[newKey] = card;
@@ -26,10 +27,17 @@ var SIMULATOR = {};
             // Activate trap/onPlay battlegrounds
             for (var i = 0; i < battlegrounds.onCardPlayed.length; i++) {
                 var battleground = battlegrounds.onCardPlayed[i];
-                if (battleground.enemy_only && p != 'cpu') continue;
-                if (battleground.self_only && p != 'player') continue;
-                battleground.owner = p;
                 var o = (p === 'player' ? 'cpu' : 'player');
+                if (battleground.defender) {
+                    if (battleground.enemy_only && p != 'player') continue;
+                    if (battleground.ally_only && p != 'cpu') continue;
+                    battleground.owner = o;
+
+                } else {
+                    if (battleground.enemy_only && p != 'cpu') continue;
+                    if (battleground.ally_only && p != 'player') continue;
+                    battleground.owner = p;
+                }
                 battleground.onCardPlayed(card, deck[p].deck, deck[o].deck);
             }
         }
@@ -53,16 +61,12 @@ var SIMULATOR = {};
             // Starting at the first dead unit, start shifting.
             if (!current_assault.isAlive()) {
                 if (debug) echo += debug_name(current_assault) + ' <strong>is removed from field</strong><br>';
-                if (current_assault.owner == 'player') damage_taken += current_assault.health;
-                else damage_dealt += current_assault.health;
                 var newkey = key;	// Store the new key value for the next alive unit
                 for (key++; key < len; key++) {
                     current_assault = units[key];
                     // If this unit is dead, don't update newkey, we still need to fill that slot
                     if (!current_assault.isAlive()) {
                         if (debug) echo += debug_name(current_assault) + ' <strong>is removed from field</strong><br>';
-                        if (current_assault.owner == 'player') damage_taken += current_assault.health;
-                        else damage_dealt += current_assault.health;
                     }
                         // If this unit is alive, set its key to newkey, and then update newkey to be the next slot
                     else {
@@ -78,7 +82,7 @@ var SIMULATOR = {};
             }
         }
     };
-
+    
     // Picks one target by random
     function choose_random_target(targets) {
         var targetIndex = ~~(Math.random() * targets.length)
@@ -390,8 +394,7 @@ var SIMULATOR = {};
                 var strike_damage = strike;
 
                 // Check Protect/Enfeeble
-                var enfeeble = 0;
-                if (target['enfeebled']) enfeeble = target['enfeebled'];
+                var enfeeble = target.enfeebled;
                 var protect = 0;
                 if (target['protected']) protect = target['protected'];
 
@@ -550,8 +553,7 @@ var SIMULATOR = {};
                 var frost_damage = frost;
 
                 // Check Protect/Enfeeble
-                var enfeeble = 0;
-                if (target['enfeebled']) enfeeble = target['enfeebled'];
+                var enfeeble = target.enfeebled;
                 var protect = 0;
                 if (target['protected']) protect = target['protected'];
 
@@ -957,8 +959,7 @@ var SIMULATOR = {};
                     var strike_damage = strike;
 
                     // Check Protect/Enfeeble
-                    var enfeeble = 0;
-                    if (target['enfeebled']) enfeeble = target['enfeebled'];
+                    var enfeeble = target.enfeebled;
                     var protect = 0;
                     if (target['protected']) protect = target['protected'];
 
@@ -1138,6 +1139,65 @@ var SIMULATOR = {};
 
             return affected;
         },
+
+        mark: function (src_card, skill) {
+
+            var faction = skill['y'];
+
+            var p = get_p(src_card);
+            var o = get_o(src_card);
+
+            var mark = skill['x'];
+
+            var all = skill['all'];
+
+            var field_x_assaults = field[o]['assaults'];
+
+            var markTarget = src_card.mark_target;
+            var targets = [];
+            for (var key = 0, len = field_x_assaults.length; key < len; key++) {
+                var target = field_x_assaults[key];
+                if (target.isAlive()
+                && target.isInFaction(faction)) {
+                    // Can only mark one target
+                    if (target.uid === markTarget) {
+                        targets = [key];
+                        break;
+                    }
+                    targets.push(key);
+                }
+            }
+
+            // No Targets
+            if (!targets.length) return 0;
+
+            // Check All
+            if (!all) {
+                targets = choose_random_target(targets);
+            }
+            var enhanced = getEnhancement(src_card, skill.id);
+            if (enhanced) {
+                if (enhanced < 0) {
+                    enhanced = Math.ceil(mark * -enhanced);
+                }
+                mark += enhanced;
+            }
+
+            var affected = 0;
+
+            for (var key = 0, len = targets.length; key < len; key++) {
+                var target = field_x_assaults[targets[key]];
+
+                affected++;
+
+                target.enfeebled += mark;
+                src_card.mark_target = target.uid;
+
+                if (debug) echo += debug_name(src_card) + ' marks ' + debug_name(target) + ' by ' + mark + '<br>';
+            }
+
+            return affected;
+        },
     };
 
     var onPlaySkills = {
@@ -1228,10 +1288,10 @@ var SIMULATOR = {};
         // Load enemy deck
         if (getmission && missionlevel > 1 && missionlevel < 7) {
             cache_cpu_deck = load_deck_mission(getmission, missionlevel);
-            cache_cpu_deck_cards = getDeckCards(cache_cpu_deck);
+            cache_cpu_deck_cards = getDeckCards(cache_cpu_deck, 'cpu');
         } else if (getraid) {
             cache_cpu_deck = load_deck_raid(getraid, raidlevel);
-            cache_cpu_deck_cards = getDeckCards(cache_cpu_deck);
+            cache_cpu_deck_cards = getDeckCards(cache_cpu_deck, 'cpu');
         }
         if (cache_cpu_deck_cards) {
             deck['cpu'] = copy_deck(cache_cpu_deck_cards);
@@ -1255,9 +1315,6 @@ var SIMULATOR = {};
     // Simulate one game
     function simulate() {
         simulating = true;
-        damage_taken = 0;
-        damage_dealt = 0;
-        plays = [];
 
         initializeBattle();
 
@@ -1285,6 +1342,9 @@ var SIMULATOR = {};
             if (tower) {
                 tower = makeUnitInfo(tower.id, tower.level);
                 var towerCard = get_card_apply_battlegrounds(tower);
+                var uid = 150;
+                towerCard.uid = uid;
+                field.uids[uid] = towerCard;
                 play_card(towerCard, 'cpu', true);
             }
         }
@@ -1302,7 +1362,7 @@ var SIMULATOR = {};
         } else {
             cache_player_deck = load_deck_from_cardlist();
         }
-        cache_player_deck_cards = getDeckCards(cache_player_deck);
+        cache_player_deck_cards = getDeckCards(cache_player_deck, 'player');
 
         // Load enemy deck
         pvpAI = true;
@@ -1320,25 +1380,35 @@ var SIMULATOR = {};
         } else {
             cache_cpu_deck = load_deck_from_cardlist();
         }
-        cache_cpu_deck_cards = getDeckCards(cache_cpu_deck);
+        cache_cpu_deck_cards = getDeckCards(cache_cpu_deck, 'cpu');
     }
 
     function setupField(field) {
-        // Initialize player Commander on the field
-        var field_player = field.player;
-        var field_player_commander = deck.player.commander;
-        field_player.commander = field_player_commander;
-        field_player_commander.owner = 'player';
-        field_player_commander.health_left = field_player_commander.health;
-        if (!field_player_commander.reusableSkills) field_player_commander.resetTimers();
+        // Initialize Commander on the fields and set uids
+        var uids = field.uids = {};
+        ['player', 'cpu'].forEach(function (player) {
+            var pDeck = deck[player];
+            var cards = pDeck.deck;
+            var uidBase = (player === 'player' ? 1 : 101);
+            for (var i = 0; i < cards.length; i++) {
+                var uid = uidBase + i;
+                var card = cards[i];
+                card.owner = player;
+                card.played = false;
+                card.uid = uid;
+                uids[uid] = card;
+            }
 
-        // Initialize cpu Commander on the field
-        var field_cpu = field.cpu;
-        var field_cpu_commander = deck.cpu.commander;
-        field_cpu.commander = field_cpu_commander;
-        field_cpu_commander.owner = 'cpu';
-        field_cpu_commander.health_left = field_cpu_commander.health;
-        if (!field_cpu_commander.reusableSkills) field_cpu_commander.resetTimers();
+            var commander = pDeck.commander;
+            commander.owner = player;
+            commander.health_left = commander.health;
+            if (!commander.reusableSkills) commander.resetTimers();
+
+            var uid = (player === 'player' ? -1 : -2);
+            commander.uid = uid;
+            uids[uid] = commander;
+            field[player].commander = commander;
+        });
     }
 
     SIMULATOR.pause = false;
@@ -1699,7 +1769,7 @@ var SIMULATOR = {};
         for (var i = 0; i < battlegrounds.onTurn.length; i++) {
             var battleground = battlegrounds.onTurn[i];
             if (battleground.enemy_only && p !== 'cpu') continue;
-            if (battleground.self_only && p !== 'player') continue;
+            if (battleground.ally_only && p !== 'player') continue;
             battleground.owner = p;
             doEarlyActivationSkills(battleground);
             activation_skills(battleground);
@@ -1921,7 +1991,7 @@ var SIMULATOR = {};
         var damage = current_assault.adjustedAttack(); // Get base damage + rally/weaken
 
         // Enfeeble
-        var enfeeble = target['enfeebled'];
+        var enfeeble = target.enfeebled;
         damage += enfeeble;
 
         if (debug) {
@@ -2054,23 +2124,23 @@ var SIMULATOR = {};
                     target['poisoned'] = poison;
                     if (debug) echo += debug_name(current_assault) + ' inflicts poison(' + poison + ') on ' + debug_name(target) + '<br>';
                 }
+            }
 
-                // Nullify
-                // - Attacker must not have died to Vengeance
-                // - Attacker must have taken damage
-                // - Target must be an assault
-                if (current_assault.nullify) {
-                    var nullify = current_assault.nullify;
-                    var enhanced = getEnhancement(current_assault, 'nullify');
-                    if (enhanced) {
-                        if (enhanced < 0) {
-                            enhanced = Math.ceil(nullify * -enhanced);
-                        }
-                        nullify += enhanced;
+            // Nullify
+            // - Attacker must not have died to Vengeance
+            // - Attacker must have taken damage
+            // - Target must be an assault
+            if (current_assault.nullify) {
+                var nullify = current_assault.nullify;
+                var enhanced = getEnhancement(current_assault, 'nullify');
+                if (enhanced) {
+                    if (enhanced < 0) {
+                        enhanced = Math.ceil(nullify * -enhanced);
                     }
-                    target.nullified += nullify;
-                    if (debug) echo += debug_name(current_assault) + ' inflicts nullify(' + nullify + ') on ' + debug_name(target) + '<br>';
+                    nullify += enhanced;
                 }
+                target.nullified += nullify;
+                if (debug) echo += debug_name(current_assault) + ' inflicts nullify(' + nullify + ') on ' + debug_name(target) + '<br>';
             }
         }
 
@@ -2262,6 +2332,52 @@ var SIMULATOR = {};
         }
     }
 
+    function calculatePoints(forceWin) {
+        var uids = field.uids;
+        var healthStats = {
+            player: {
+                total: 0,
+                taken: 0
+            },
+            cpu: {
+                total: 0,
+                taken: 0
+            },
+        };
+
+        for (var i in uids) {
+            var unit = uids[i];
+            var stats = healthStats[unit.owner];
+            if (stats) {
+                stats.total += unit.health;
+                if (unit.played || unit.isCommander()) {
+                    stats.taken += (unit.health - unit.health_left);
+                }
+            }
+        }
+        healthStats.player.percent = stats.taken / stats.total;
+        healthStats.cpu.percent = stats.taken / stats.total;
+
+        var commander_o = field.cpu.commander;
+        if (getdeck2) {
+            if (commander_o.isAlive() && !forceWin) {
+                // 0-25 points, based on percentage of damage dealt to enemy
+                var points = Math.floor(healthStats.cpu.percent * 25);
+            } else {
+                // 115-130 points, based on percentage of damage taken
+                var points = 130 - Math.floor(healthStats.player.percent * 15);
+            }
+        } else {
+            if (commander_o.isAlive() && !forceWin) {
+                var points = Math.floor(healthStats.cpu.percent / 0.02);
+                points = Math.max(5, points);
+            } else {
+                var points = 200 - Math.floor(healthStats.player.percent / 0.02);
+            }
+        }
+        return points;
+    }
+
     var deck = {};
     var field = {};
     var battlegrounds;
@@ -2270,15 +2386,13 @@ var SIMULATOR = {};
     var user_controlled = false;
     var livePvP = false;
     var turn = 0;
-    var damage_taken = 0;
-    var damage_dealt = 0;
-    var plays = [];
     var totalDeckHealth = 0;
     var totalCpuDeckHealth = 0;
 
     // public functions
     SIMULATOR.simulate = simulate;
     SIMULATOR.onPlaySkills = onPlaySkills;
+    SIMULATOR.calculatePoints = calculatePoints;
     // public variables
     Object.defineProperties(SIMULATOR, {
         setupDecks: {

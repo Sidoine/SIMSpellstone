@@ -285,6 +285,7 @@
         getordered2 = document.getElementById('ordered2').checked;
         getexactorder = true;
         getexactorder2 = true;
+        getcampaign = document.getElementById('campaign').value;
         getmission = document.getElementById('mission').value;
         missionlevel = document.getElementById('mission_level').value;
         getraid = document.getElementById('raid').value;
@@ -323,8 +324,6 @@
             cache_cpu_deck = load_deck_from_cardlist();
         }
 
-        card_cache = {};
-
         var params = {};
         params['cache_player_deck'] = cache_player_deck;
         params['cache_cpu_deck'] = cache_cpu_deck;
@@ -333,6 +332,7 @@
         params['getordered2'] = getordered2;
         params['getexactorder'] = getexactorder;
         params['getexactorder2'] = getexactorder2;
+        params['getcampaign'] = getcampaign;
         params['getmission'] = getmission;
         params['missionlevel'] = missionlevel;
         params['getraid'] = getraid;
@@ -454,8 +454,6 @@
             cache_cpu_deck = load_deck_from_cardlist();
         }
 
-        card_cache = {};
-
         outp(""); // Clear display
         hideTable();
         setSimStatus("Initializing simulations...");
@@ -468,6 +466,7 @@
         params['getordered2'] = getordered2;
         params['getexactorder'] = getexactorder;
         params['getexactorder2'] = getexactorder2;
+        params['getcampaign'] = getcampaign;
         params['getmission'] = getmission;
         params['missionlevel'] = missionlevel;
         params['getraid'] = getraid;
@@ -520,6 +519,7 @@
         params['getordered2'] = getordered2;
         params['getexactorder'] = getexactorder;
         params['getexactorder2'] = getexactorder2;
+        params['getcampaign'] = getcampaign;
         params['getmission'] = getmission;
         params['getraid'] = getraid;
         params['raidlevel'] = raidlevel;
