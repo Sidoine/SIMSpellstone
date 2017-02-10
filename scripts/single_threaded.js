@@ -53,7 +53,7 @@
                     var fusion = FUSIONS[cardId];
                     var fusionCard = fusion && CARDS[fusion];
                     if (!fusionCard || fusionCard.rarity != card.rarity || originalDeck.some(x => x == Number(cardId))) {
-                        deck.push(makeUnitInfo(cardId, GetMaxLevel(card), []));
+                        deck.push(makeUnitInfo(cardId, card.maxLevel, []));
                     }
                 }
             }
