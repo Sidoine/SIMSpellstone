@@ -38,6 +38,7 @@
 
         if (rankingMode) {
             var originalDeck = hash_decode(original_hash).deck.map(x => x.id);
+            var inventaireDeck = inventaire.deck.map(x => x.id);
             
             var deck = [];
             var cardIds = [];
@@ -52,7 +53,7 @@
                 if (parseInt(card.rarity) >= 3 && card.set != "7000" && card.set != "9999") {
                     var fusion = FUSIONS[cardId];
                     var fusionCard = fusion && CARDS[fusion];
-                    if (!fusionCard || fusionCard.rarity != card.rarity || originalDeck.some(x => x == Number(cardId))) {
+                    if (!fusionCard || fusionCard.rarity != card.rarity || originalDeck.some(x => x == Number(cardId)) || inventaireDeck.some(x => x == Number(cardId))) {
                         deck.push(makeUnitInfo(cardId, card.maxLevel, []));
                     }
                 }
