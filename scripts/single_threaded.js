@@ -35,8 +35,9 @@
             getordered = orderDeckMode;
         }
         rankingMode = document.getElementById("sim_ranking").checked;
+        var onlyInventory = document.getElementById("only_inv").checked;
 
-        if (rankingMode) {
+        if (rankingMode && !onlyInventory) {
             var originalDeck = hash_decode(original_hash).deck.map(x => x.id);
             var inventaireDeck = inventaire.deck.map(x => x.id);
             

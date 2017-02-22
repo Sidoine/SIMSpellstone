@@ -92,7 +92,9 @@
                             <div>
             <br>
             <div><b>Inventory Hash:</b></div><input id="inventory" type="text" value="" size="100"><br>
-            <div><label class="button" onclick="load_deck_builder('inventory');"><b>Deck Builder</b></label></div><font color="#666"><strong>Hash example:</strong> w98CAI5kfnIkDbHwI5YHwI5YHcBkHJcBkHJcBkHJ</font><br>
+            <input id="edit-inventory" type="button" onclick="load_deck_builder('inventory');" value="Edit"/>
+            <input id="load-inventory" type="button" onclick="loadDeck('#inventory');" value="Load" />
+            <font color="#666"><strong>Hash example:</strong> w98CAI5kfnIkDbHwI5YHwI5YHcBkHJcBkHJcBkHJ</font><br>
             <br>
                                 <div id="attacker-hash-container">
                                     <div><label for="deck1">Deck Hash:</label></div>
@@ -226,7 +228,8 @@
             <div>Mode de simulation :</div>
             <div>Remplacement d'une carte du deck :</div><input type="radio" id="sim_trycard" name="simMode" checked="true"><br>
             <div>Ordonancement du deck :</div><input type="radio" id="sim_order" name="simMode"><br>
-            <div>Classement des cartes : </div><input type="radio" id="sim_ranking" name="simMode"><br>
+            <div>Classement des cartes : </div><input type="radio" id="sim_ranking" name="simMode"> <input type="checkbox" id="only_inv"> Inventaire seulement<br>
+
             
             <div id="progression"></div>
                             <div class="table-row">
