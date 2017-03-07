@@ -27,6 +27,45 @@ $(function () {
         }
     });
 
+    var bges = $('label[bge-desc]');
+    for (var i = 0; i < bges.length; i++) {
+        var lblBge = $(bges[i]);
+        lblBge.hover(showTooltip, hideTooltip);
+        /*
+        var tooltip = $('<div class="tooltip">' + lblBge.attr("bge-desc") + '</div>');
+        var parent = lblBge.parent();
+        parent.append($('<div></div>').append([lblBge.prev(), lblBge, tooltip]));
+        */
+    }
+
+    function showTooltip(event) {
+        var $container = $("#tooltip");
+        var $text = $("#tooltip-text");
+
+        $text.html($(event.target).attr('bge-desc'));
+        $text.width(200);
+        $container.show();
+
+        $("#tooltip .arrow")
+            .css("borderTopWidth", 0)
+            .css("borderBottomWidth", 0);
+
+        var offset = $(event.target).offset();
+        offset.left -= 230;
+        offset.top -= ($container.outerHeight() / 2) - 10;
+        $container.offset(offset);
+
+        var arrowHeight = $text.innerHeight() / 2 - 4;
+
+        $("#tooltip .arrow")
+            .css("borderTopWidth", arrowHeight)
+            .css("borderBottomWidth", arrowHeight);
+    }
+
+    function hideTooltip(event) {
+        $("#tooltip").hide();
+    }
+
     function deckChanged(deckID, newDeck, owner) {
         var $deck = $("#" + deckID);
         $deck.children().remove();
@@ -173,7 +212,6 @@ function showMapBGEs() {
 }
 
 function loadDeck(hashField) {
-    var decks = storageAPI.getSavedDecks;
     $('label[for="loadDeckName"]').html('<strong>Deck:</strong>');
     loadDeckDialog.dialog("open");
     loadDeckDialog.dialog("option", "position", { my: "center", at: "center", of: window });

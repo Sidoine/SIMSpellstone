@@ -486,6 +486,7 @@ public class battleground
 		sb.Append("  \"" + id + "\": {\r\n");
 		sb.Append(tabs).Append("\"name\": \"").Append(name).Append("\",\r\n");
 		sb.Append(tabs).Append("\"id\": \"").Append(id).Append("\",\r\n");
+		sb.Append(tabs).Append("\"desc\": \"").Append(desc).Append("\",\r\n");
 		if (enemy_only) sb.Append(tabs).Append("\"enemy_only\": ").Append(enemy_only.ToString().ToLower()).Append(",\r\n");
 		if (scale_with_level != null) sb.Append(tabs).Append("\"scale_with_level\": \"").Append(scale_with_level).Append("\",\r\n");
 		if (starting_level != null) sb.Append(tabs).Append("\"starting_level\": \"").Append(starting_level).Append("\",\r\n");
@@ -597,8 +598,8 @@ public partial class unit
 		if (card_type != "1")
 		{
 			AppendEntry(sb, "attack", attack, unitTabs);
+			AppendEntry(sb, "cost", cost, unitTabs);
 		}
-		AppendEntry(sb, "cost", cost, unitTabs);
 		
 		var maxLevel = 1 + (upgrades != null ? upgrades.Length : 0);
 		AppendEntry(sb, "maxLevel", maxLevel.ToString(), unitTabs);

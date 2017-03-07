@@ -189,9 +189,10 @@
                                 <h6>Battleground Effects</h6>
                                 <div style="position: relative; width: 200px; height: 103px; overflow-y: scroll;">
                                     <div id="battleground" style="position: absolute; width: 100%;">
-                                        <input ng-repeat-start="BGE in selectableBattlegrounds()" type="checkbox" name="battleground" id="battleground_{{BGE.id}}" value="{{BGE.id}}">
-                                        <label for="battleground_{{BGE.id}}">{{BGE.name}}</label>
-                                        <br ng-repeat-end />
+                                        <div ng-repeat="BGE in selectableBattlegrounds()" class="tooltip-container">
+                                            <input type="checkbox" name="battleground" id="battleground_{{BGE.id}}" value="{{BGE.id}}">
+                                            <label for="battleground_{{BGE.id}}" bge-desc="{{BGE.desc}}" ng-bind="BGE.name"></label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -199,9 +200,10 @@
                                 <h6>Personal Battlegrounds</h6>
                                 <div style="position: relative; width: 200px; height: 40px; overflow-y: scroll;">
                                     <div id="self-battleground" style="position: absolute; width: 100%;">
-                                        <input ng-repeat-start="BGE in personalBattlegrounds()" type="checkbox" name="self-battleground" id="self-battleground_{{BGE.id}}" value="{{BGE.id}}">
-                                        <label for="self-battleground_{{BGE.id}}">{{BGE.name}}</label>
-                                        <br ng-repeat-end />
+                                        <div ng-repeat="BGE in personalBattlegrounds()" class="tooltip-container">
+                                            <input type="checkbox" name="self-battleground" id="self-battleground_{{BGE.id}}" value="{{BGE.id}}">
+                                            <label for="self-battleground_{{BGE.id}}" bge-desc="{{BGE.desc}}" ng-bind="BGE.name"></label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -209,9 +211,10 @@
                                 <h6>Enemy Battlegrounds</h6>
                                 <div style="position: relative; width: 200px; height: 40px; overflow-y: scroll;">
                                     <div id="enemy-battleground" style="position: absolute; width: 100%;">
-                                        <input ng-repeat-start="BGE in personalBattlegrounds()" type="checkbox" name="enemy-battleground" id="enemy-battleground_{{BGE.id}}" value="{{BGE.id}}">
-                                        <label for="enemy-battleground_{{BGE.id}}">{{BGE.name}}</label>
-                                        <br ng-repeat-end />
+                                        <div ng-repeat="BGE in personalBattlegrounds()" class="tooltip-container">
+                                            <input type="checkbox" name="enemy-battleground" id="enemy-battleground_{{BGE.id}}" value="{{BGE.id}}">
+                                            <label for="enemy-battleground_{{BGE.id}}" bge-desc="{{BGE.desc}}" ng-bind="BGE.name"></label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -333,7 +336,7 @@
         <div id="loadDeckDialog" title="Load Deck" ng-controller="DeckStorageCtrl">
             <label for="loadDeckName"><strong>Deck:</strong></label><br />
             <select name="loadDeckName" id="loadDeckName" class="ui-widget-content ui-corner-all" style="width:100%;">
-                <option ng-repeat="key in keys(savedDecks) | orderBy:'toString()'" value="{{key}}">{{key}}</option>
+                <option ng-repeat="key in keys(getSavedDecks()) | orderBy:'toString()'" value="{{key}}">{{key}}</option>
             </select>
         </div>
         <div id="bgeDialog" title="Map BGEs">
@@ -350,6 +353,11 @@
     </div>
 
     <div class="modal"><span id="loadingSplash">Loading...</span></div>
+
+    <div id="tooltip">
+        <div id="tooltip-text"></div>
+        <div class="arrow"></div>
+    </div>
 
     <footer id="footer"></footer>
 </body>
