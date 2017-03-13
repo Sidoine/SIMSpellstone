@@ -15261,7 +15261,7 @@
       <line>
         <commander>lichking</commander>
         <enemy>0</enemy>
-        <text>Malchior, Malchior! Are you harmed?</text>
+        <text>Malchior, is that frail body of yours harmed?</text>
       </line>
       <line>
         <commander>grandexcavator</commander>
@@ -15302,7 +15302,7 @@
       <line>
         <commander>grandexcavator</commander>
         <enemy>0</enemy>
-        <text>The fool caused a massive explosion that will likely attract more of The Void's forces.</text>
+        <text>The fool collapsed the Trivolutum leyline, resulting in an explosion that is likely to attract more of The Void. Harumph!</text>
       </line>
     </speech>
   </mission>
@@ -15398,7 +15398,7 @@
       <line>
         <commander>lichking</commander>
         <enemy>0</enemy>
-        <text>Adventurer.... could we trouble you to help our friend? If he's still alive, we must help him.</text>
+        <text>Adventurer.... could we trouble you to help our ally? If he's still alive, he may still be of use to us.</text>
       </line>
     </speech>
   </mission>
@@ -15936,7 +15936,7 @@
     <id>5520</id>
     <name>With Sword in Hand</name>
     <energy>9</energy>
-    <desc>You tell your companions the vision that the sword imparted to you. They find it interesting, but aren't sure what to make of it. Tarian especially desires to press on and find his subordinate.</desc>
+    <desc>You tell your companions the vision that the sword imparted to you. They find it interesting, but aren't sure what to make of it. You notice some houses on the horizon, and a cavern near its bridge.</desc>
     <commander id="262" />
     <deck>
       <card id="1018" name="Armored Eagle" />
@@ -15964,8 +15964,110 @@
       <line>
         <commander>lichking</commander>
         <enemy>0</enemy>
-        <text>Perhaps we fill discover the meaning in time. For now, let's keep searching for General Garrick.</text>
+        <text>A strange story, but let's press on for General Garrick. Look, there's a village ahead, and a cave near that bridge.</text>
+      </line>
+      <line>
+        <commander>lichking</commander>
+        <enemy>0</enemy>
+        <text>Let's split up. Malchior and I will check in town for General Garrick, and you can check the cave, adventurer.</text>
       </line>
     </speech>
+  </mission>
+  <!-- Boss Node Dyrnwyn's Test -->
+  <mission>
+    <id>5521</id>
+    <name>Wisdom</name>
+    <energy>9</energy>
+    <desc>The sword has only shown you a fraction of its power. The spirit inside does not trust you enough with its true abilities. You beseech the blade for a chance to prove your worth...</desc>
+    <commander id="364" />
+    <deck>
+      <card id="5076" name="Sorath, the Valkyrie" />
+      <card id="6040" name="Scorching Cutlass" />
+      <card id="5116" name="Justice" />
+      <card id="7039" name="Winged Giant" />
+      <card id="5074" name="Godfried the Hunter" />
+      <card id="5074" name="Godfried the Hunter" />
+      <card id="5077" name="Everspark Ace" />
+      <card id="6100" name="Tiamat" />
+      <card id="8047" name="Void's Thrall" />
+      <card id="5075" mastery_level="2" name="Arith" />
+      <card id="2028" mastery_level="3" name="Infinity" />
+      <card id="5111" mastery_level="4" name="Bennu" />
+      <card id="5111" mastery_level="5" name="Bennu" />
+      <card id="5088" mastery_level="6" name="Betrayal" />
+      <card id="2083" mastery_level="7" name="Habrok, the Lance" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5522</id>
+    <name>Justice</name>
+    <energy>9</energy>
+    <desc>The spirit takes a familiar form of its former wielder. Hosts of angels appear in the same fashion, illusions fashioned to test your limits. You feel its presence press against your mind, feeling its wordless questions: Are you patient? Are you strong? Are you worthy?</desc>
+    <commander id="364" />
+    <deck>
+      <card id="5076" name="Sorath, the Valkyrie" />
+      <card id="5076" name="Sorath, the Valkyrie" />
+      <card id="5116" name="Justice" />
+      <card id="7039" name="Winged Giant" />
+      <card id="5074" name="Godfried the Hunter" />
+      <card id="5074" name="Godfried the Hunter" />
+      <card id="5077" name="Everspark Ace" />
+      <card id="6100" name="Tiamat" />
+      <card id="8047" name="Void's Thrall" />
+      <card id="5075" mastery_level="2" name="Arith" />
+      <card id="2028" mastery_level="3" name="Infinity" />
+      <card id="5111" mastery_level="4" name="Bennu" />
+      <card id="5111" mastery_level="5" name="Bennu" />
+      <card id="5088" mastery_level="6" name="Betrayal" />
+      <card id="2083" mastery_level="7" name="Habrok, the Lance" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5523</id>
+    <name>Temperance</name>
+    <energy>9</energy>
+    <desc>You feel like every action you take - or don't take - is being watched and weighed carefully. The sword gives you a glimpse of the last one who took this test, of Samael and his hasty zeal... And his ultimate failure.</desc>
+    <commander id="364" />
+    <deck>
+      <card id="5116" name="Justice" />
+      <card id="5076" name="Sorath, the Valkyrie" />
+      <card id="6040" name="Scorching Cutlass" />
+      <card id="7039" name="Winged Giant" />
+      <card id="5074" name="Godfried the Hunter" />
+      <card id="5074" name="Godfried the Hunter" />
+      <card id="5077" name="Everspark Ace" />
+      <card id="6100" name="Tiamat" />
+      <card id="8047" name="Void's Thrall" />
+      <card id="5075" mastery_level="2" name="Arith" />
+      <card id="2028" mastery_level="3" name="Infinity" />
+      <card id="5111" mastery_level="4" name="Bennu" />
+      <card id="5111" mastery_level="5" name="Bennu" />
+      <card id="5088" mastery_level="6" name="Betrayal" />
+      <card id="2083" mastery_level="7" name="Habrok, the Lance" />
+    </deck>
+  </mission>
+  <mission>
+    <id>5524</id>
+    <name>Courage</name>
+    <energy>9</energy>
+    <desc>The sword's spirit seems to trust you; you have made progress. Its only question left is whether you have the will to face The Void, even in the hardest situations. Prove to Dyrnwyn that you are capable.</desc>
+    <commander id="364" />
+    <deck>
+      <card id="5076" name="Sorath, the Valkyrie" />
+      <card id="5076" name="Sorath, the Valkyrie" />
+      <card id="5116" name="Justice" />
+      <card id="6040" name="Scorching Cutlass" />
+      <card id="5074" name="Godfried the Hunter" />
+      <card id="5074" name="Godfried the Hunter" />
+      <card id="5077" name="Everspark Ace" />
+      <card id="6100" name="Tiamat" />
+      <card id="8047" name="Void's Thrall" />
+      <card id="5075" mastery_level="2" name="Arith" />
+      <card id="2028" mastery_level="3" name="Infinity" />
+      <card id="5111" mastery_level="4" name="Bennu" />
+      <card id="5111" mastery_level="5" name="Bennu" />
+      <card id="5088" mastery_level="6" name="Betrayal" />
+      <card id="2083" mastery_level="7" name="Habrok, the Lance" />
+    </deck>
   </mission>
 </root>
