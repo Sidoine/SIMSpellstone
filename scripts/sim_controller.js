@@ -54,7 +54,7 @@ var SIM_CONTROLLER = (function () {
         var result = SIM_CONTROLLER.processSimResult();
 
         sims_left = 0;
-        time_stop = new Date();
+        matchTimer.stop();
 
 
         var msg;
@@ -71,13 +71,13 @@ var SIM_CONTROLLER = (function () {
         }
 
         if (echo) {
-            outputTurns(echo);
+            outputTurns(echo, true);
         }
         setSimStatus(msg);
 
         showUI();
 
-        if(SIMULATOR.sendBattleUpdate) SIMULATOR.sendBattleUpdate(SIMULATOR.simulation_turns);
+        if (SIMULATOR.sendBattleUpdate) SIMULATOR.sendBattleUpdate(SIMULATOR.simulation_turns);
 
         if (SIM_CONTROLLER.end_sims_callback) SIM_CONTROLLER.end_sims_callback();
     }

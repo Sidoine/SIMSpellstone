@@ -4,14 +4,12 @@ var loadDeckDialog;
 var mapBGEDialog;
 
 $(function () {
-    $("#deck1").change(function ()
-    {
+    $("#deck1").change(function () {
         this.value = this.value.trim();
         deckChanged("attack_deck", hash_decode(this.value), 'player');
     });
 
-    $("#deck2").change(function ()
-    {
+    $("#deck2").change(function () {
         this.value = this.value.trim();
         deckChanged("defend_deck", hash_decode(this.value), 'cpu');
     });
@@ -71,7 +69,7 @@ $(function () {
         $deck.children().remove();
         if (!_DEFINED("seedtest")) {
             SIM_CONTROLLER.getConfiguration();
-            var battlegrounds = getBattlegrounds(getbattleground, selfbges, enemybges, mapbges, getcampaign, getraid);
+            var battlegrounds = getBattlegrounds(getbattleground, selfbges, enemybges, mapbges, getcampaign, missionlevel, getraid, raidlevel);
             battlegrounds = battlegrounds.onCreate.filter(function (bge) {
                 return !((owner === 'player' && bge.enemy_only) || (owner === 'cpu' && bge.ally_only));
             });
@@ -82,8 +80,8 @@ $(function () {
     var accordions = $(".accordion").accordion({
         collapsible: true,
         active: false,
-        heightStyle: "content",
-    }).filter(".start-open").accordion('option', 'active' , 0);
+        heightStyle: "content"
+    }).filter(".start-open").accordion('option', 'active', 0);
 
     $("#raid, #raid_level").change(function () {
         var newDeck;
@@ -168,7 +166,19 @@ $(function () {
     setDeckSortable("#attack_deck", '#deck1');
     setDeckSortable("#defend_deck", '#deck2');
 
-    setTimeout(DATA_UPDATER.updateCards, 1, doneLoading);
+    if (_DEFINED("latestCards")) {
+        var callback = null;
+        if (_DEFINED("autostart")) {
+            callback = function () {
+                SIM_CONTROLLER.startsim(1);
+            };
+        }
+        updateGameData(callback);
+    } else {
+        loadCardCache();
+    }
+
+    processQueryString();
 });
 
 function doneLoading() {
@@ -176,26 +186,33 @@ function doneLoading() {
     checkTutorial();
 }
 
-function setDeckSortable(deckField, associatedHashField)
-{
+function updateGameData(callback) {
+    var done = doneLoading;
+    if (callback) {
+        done = function () {
+            doneLoading();
+            callback();
+        };
+    }
+    DATA_UPDATER.updateData(done, true);
+}
+
+function setDeckSortable(deckField, associatedHashField) {
     $(deckField).sortable({
         items: '.card:not(.commander):not(.blank)',
         tolerance: "intersect",
-        helper: function (event, ui)
-        {
+        helper: function (event, ui) {
             return ui.clone();
         },
-        start: function (event, ui)
-        {
+        start: function (event, ui) {
             var origPos = ui.placeholder.index() - 1;
             ui.item.data('origPos', origPos);
             $(ui.item).hide();
         },
-        stop: function (event, ui)
-        {
+        stop: function (event, ui) {
             var origPos = ui.item.data('origPos') - 1;
             var newPos = ui.item.index() - 1;
-            
+
             var hashField = $(associatedHashField);
             var deck = hash_decode(hashField.val());
             var array = deck.deck;
@@ -219,18 +236,17 @@ function loadDeck(hashField) {
     loadDeckDialog.hashField = hashField;
 }
 
-function onDeckLoaded(newHash, hashField)
-{
+function onDeckLoaded(newHash, hashField) {
     $(hashField).val(newHash).change();
 }
 
 var dark = false;
 function toggleTheme() {
     if (dark) {
-        $("#theme").attr("href", "styles/sass/themes/light.css")
+        $("#theme").attr("href", "dist/light.min.css");
         $("#toggleTheme").val("Dark Theme");
     } else {
-        $("#theme").attr("href", "styles/sass/themes/dark.css")
+        $("#theme").attr("href", "dist/dark.min.css");
         $("#toggleTheme").val("Light Theme");
     }
     dark = !dark;

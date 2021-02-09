@@ -6,7 +6,7 @@
     display: block;
     width: 475px;
     border: 1px solid black;
-    overflow: auto;
+    overflow: hidden;
 
     .b {
         font-weight: bold;
@@ -57,6 +57,10 @@
                 background-image: url('../res/cardAssets/Commander_BG_Void.png');
             }
         }
+    }
+
+    .skill-icon {
+        width: 21px;
     }
 
     .card-art {
@@ -150,6 +154,9 @@
             font-size: 15px;
             font-style: italic;
             text-shadow: none;
+            // Put this on top of set image in case text is long
+            position: relative;
+            z-index: 1;
         }
 
         .mythic {

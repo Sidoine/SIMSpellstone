@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="simulatorApp">
+<head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="UTF-8">
+    <title id="title_tag">SimSpellstone - The Spellstone Simulator that runs from your browser!</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="dist/light.min.css">
+    <link rel="stylesheet" type="text/css" href="dist/main.min.css">
+    <link rel="stylesheet" type="text/css" href="dist/spritesheet.min.css">
+    <link rel="icon" type="image/png" href="res/favicon-16x16.png">
+    <!--<link rel="stylesheet" href="Content/themes/base/smoothness.css?77adc541adae20cf">-->
+
+    <script src="dist/vendor.js"></script>
+    <script src="dist/data.min.js"></script>
+    <script src="dist/simulator.min.js"></script>
+</head>
+<body ng-controller="SimulatorCtrl" ng-init="campaignSections()">
+    <header id="header"></header>
+    <input id="toggleTheme" type="button" onclick="toggleTheme()" value="Dark Theme" />
+    <input id="updateData" type="button" onclick="updateGameData()" value="Update Data" />
+    <!--
+    <div class="circle primary-black">Primary-Black</div>
+    <div class="circle primary-neutral">Primary-Neutral</div>
+    <div class="circle primary-color">Primary</div>
+    <div class="circle primary-tint">Primary-Tint</div>
+    <div class="circle primary-white">Primary-White</div>
+    <br/>
+    <div class="circle secondary-black">Secondary-Black</div>
+    <div class="circle secondary-neutral">Secondary-Neutral</div>
+    <div class="circle secondary-color">Secondary</div>
+    <div class="circle secondary-tint">Secondary-Tint</div>
+    <div class="circle secondary-white">Secondary-White</div>
+    -->
+    <div id="ui">
+        <form>
+            <hr />
+            <div id="setup-container" class="section accordion start-open">
+                <h2>Setup</h2>
+                <div>
+                    <div class="grid-row">
+                        <div id="attacker-container" class="grid-pane">
+                            <h3>Attacker</h3>
+                            <div>
+                                <div id="attacker-hash-container">
+                                    <div><label for="deck1">Deck Hash:</label></div>
+                                    <input id="deck1" type="text" value="" onfocus="$(this).select();">
+                                </div>
+                                <input id="edit-player" type="button" onclick="load_deck_builder('player');" value="Edit" />
+                                <input id="load-player" type="button" onclick="loadDeck('#deck1');" value="Load" />
+                                <div id="attacker-advanced">
+                                    <h6>Advanced Settings</h6>
+                                    <div id="deckContainer" class="collapsible">
+                                        <div id="ordered-container"><input type="checkbox" id="ordered"><label for="ordered">Ordered</label></div>
+                                        <div id="exactorder-container"><input type="checkbox" id="exactorder"><label for="exactorder">Don't Shuffle</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="defender-container" class="grid-pane">
+                            <h3>Defender</h3>
+                            <div>
+                                <div id="defender-hash-container">
+                                    <div>
+                                        <div><label for="deck2">Enemy Deck Hash:</label></div>
+                                        <input type="text" id="deck2" value="" onfocus="$(this).select();">
+                                    </div>
+                                    <input id="edit-cpu" type="button" onclick="load_deck_builder('cpu');" value="Edit" />
+                                    <input id="load-cpu" type="button" onclick="loadDeck('#deck2');" value="Load" />
+                                </div>
+                                <div id="pve-container">
+                                    <h6>PvE Decks</h6>
+                                    <div>
+                                        <div><span class="label">Campaign:</span></div>
+                                        <div id="location-container">
+                                            <select id="location" class="fill" ng-model="selections.location" ng-class="getLocationClass()" ng-disabled="selections.raid !== ''">
+                                                <option default value="" class="grey" width="160">
+                                                    Select a Location...
+                                                </option>
+                                                <option ng-repeat="location in locations" value="{{location.id}}" ng-class="getLocationClass(location)" ng-disabled="selections.raid !== ''">{{location.name}}</option>
+                                            </select>
+                                        </div>
+                                        <div id="campaign-container">
+                                            <select id="campaign" class="fill" ng-model="selections.campaign" ng-class="getCampaignClass()" ng-disabled="selections.location === ''">
+                                                <option default value="" class="grey">
+                                                    Select a Campaign...
+                                                </option>
+                                                <option ng-repeat="campaign in campaigns | filterByParent:selections.location:'location_id'" value="{{campaign.id}}" ng-class="getCampaignClass(campaign)">{{campaign.name}}</option>
+                                            </select>
+                                        </div>
+                                        <div id="mission-container">
+                                            <select id="mission" class="fill" ng-model="selections.mission" ng-class="{grey:selections.mission === ''}" ng-disabled="selections.campaign === ''">
+                                                <option default value="" class="grey">Select a Mission...</option>
+                                                <option ng-repeat="mission in missions | filterChildren:selections.campaign:campaigns:'missions':'id'" value="{{mission.id}}" class="black">{{mission.name}}</option>
+                                            </select>
+                                            <label for="mission_level" class="small-font">Level: </label>
+                                            <input type="NUMBER" id="mission_level" min="1" max="8" step="1" value="7" size="6">
+                                        </div>
+                                        <input id="config-map-bge" type="button" onclick="showMapBGEs();" value="Map BGEs" ng-disabled="(mapBattlegrounds | filterByParent:selections.location:'location_id').length === 0" />
+                                        <br />
+                                        <div id="raid-container">
+                                            <div><span class="label">Raid/Dungeon:</span></div>
+                                            <select id="raid" ng-model="selections.raid" ng-class="{grey:selections.raid === ''}" ng-disabled="selections.campaign !== ''">
+                                                <option default value="" class="grey">Select a Raid/Dungeon...</option>
+                                                <option ng-repeat="raid in filteredRaids()" value="{{raid.id}}" class="black">{{raid.name}}</option>
+                                            </select>
+                                            <label for="raid_level" class="small-font">Level: </label>
+                                            <input type="NUMBER" id="raid_level" min="1" max="40" step="1" value="25" size="6">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="defender-advanced">
+                                    <h6>Advanced Settings</h6>
+                                    <div>
+                                        <input type="checkbox" id="ordered2"><label for="ordered2">Ordered</label><br />
+                                        <input type="checkbox" id="exactorder2"><label for="exactorder2">Don't Shuffle</label><br />
+                                        <input type="checkbox" id="surge"><label for="surge">Defender First</label><br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-pane">
+                            <div>
+                                <h3>Battlefield</h3>
+                            </div>
+                            <div id="tower-container">
+                                <h6>Tower</h6>
+                                <div id="siege-container">
+                                    <input type="checkbox" id="siege" ng-model="tower"><label for="siege">Use Tower</label>
+                                </div>
+                                <input type="number" id="tower_level" min="1" max="18" step="1" value="10" size="6" ng-disabled="!tower">
+                                <select id="tower_type" ng-disabled="!tower">
+                                    <option ng-repeat="type in towerTypes()" value="{{type.id}}">{{type.name}}</option>
+                                </select>
+                            </div>
+                            <div id="bge-container">
+                                <h6>Battleground Effects</h6>
+                                <div style="height: 103px;" class="bge-container">
+                                    <div id="battleground" class="bge-list">
+                                        <div ng-repeat="BGE in selectableBattlegrounds()" class="tooltip-container" ng-class="BGE.classes">
+                                            <input type="checkbox" name="battleground" id="battleground_{{BGE.id}}" value="{{BGE.id}}">
+                                            <label for="battleground_{{BGE.id}}" bge-desc="{{BGE.desc}}" ng-bind="BGE.name"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="attacker-bges">
+                                <h6>Personal Battlegrounds</h6>
+                                <div style="height: 40px;" class="bge-container">
+                                    <div id="self-battleground" class="bge-list">
+                                        <div ng-repeat="BGE in personalBattlegrounds()" class="tooltip-container">
+                                            <input type="checkbox" name="self-battleground" id="self-battleground_{{BGE.id}}" value="{{BGE.id}}">
+                                            <label for="self-battleground_{{BGE.id}}" bge-desc="{{BGE.desc}}" ng-bind="BGE.name"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="defender-bges">
+                                <h6>Enemy Battlegrounds</h6>
+                                <div style="height: 40px;" class="bge-container">
+                                    <div id="enemy-battleground" class="bge-list">
+                                        <div ng-repeat="BGE in personalBattlegrounds()" class="tooltip-container">
+                                            <input type="checkbox" name="enemy-battleground" id="enemy-battleground_{{BGE.id}}" value="{{BGE.id}}">
+                                            <label for="enemy-battleground_{{BGE.id}}" bge-desc="{{BGE.desc}}" ng-bind="BGE.name"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div>
+                <div class="section accordion">
+                    <h2>Debug Settings</h2>
+                    <div>
+                        <div id="debugContainer" class="collapsible table">
+                            <div class="table-row">
+                                <div class="table-cell">
+                                    <input type="checkbox" id="debug" ng-model="debugMode"><label for="debug">Debug Mode</label>
+                                </div>
+                                <div class="table-cell">
+                                    <input type="checkbox" id="play_debug" ng-disabled="!debugMode"><label for="play_debug">Log Plays Only</label>
+                                </div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell">
+                                    <input type="radio" name="debugType" checked ng-disabled="!debugMode"><label>First Fight</label>
+                                </div>
+                                <div class="table-cell">
+                                    <input type="radio" name="debugType" id="mass_debug" ng-disabled="!debugMode"><label>Mass Debug Mode (slow)</label>
+                                </div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell">
+                                    <input type="radio" name="debugType" id="win_debug" ng-disabled="!debugMode"><label>First Win</label>
+                                </div>
+                                <div class="table-cell">
+                                    <input type="radio" name="debugType" id="loss_debug" ng-disabled="!debugMode"><label>First Loss</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div id="view-container" class="section accordion">
+                <h2>View Decks</h2>
+                <div class="tableRow">
+                    <div class="deckView">
+                        <h3>Attacker</h3>
+                        <div>
+                            <div id="attack_deck" class="float-left"></div>
+                        </div>
+                    </div>
+                    <div class="deckView">
+                        <h3>Defender</h3>
+                        <div>
+                            <div id="defend_deck" class="float-left"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div id="sims-container" class="inline">
+                <label for="sims">Number of Simulations: </label><input type="text" id="sims">
+            </div><br />
+            <input id="btn_simulate" type="button" value="Simulate" style="text-align: center; font-weight: bold;" />
+            <input type="button" id="generate_link" value="Generate Link" style="text-align: center; font-weight: normal;" />
+            <input type="button" id="display_history" value="Show History" style="text-align: center; font-weight: normal;" />
+        </form>
+    </div>
+    <br />
+    <div id="cardSpace" class="flaot-left"></div>
+    <br />
+    <span id="stop" style="display: none;"><input id="btnStop" type="button" value="Stop Sim(s)" onclick="SIM_CONTROLLER.stopsim()"><br />TIP: Switching browser tabs may cause your simulation to pause!</span>
+    <br />
+    <div id="simulationStatus" style="display:none">
+        <strong id="simStatusMsg"></strong> <span id="progress"></span>
+        <div id="speed">
+            <span id="elapsed"></span> seconds<br />
+            <span id="simsPerSec"></span> simulations per second<br>
+        </div>
+    </div>
+    <div id="winrateTable" style="display:none;">
+        <table cellspacing="0" cellpadding="0" border="0">
+            <tbody>
+                <tr>
+                    <td>
+                        <table cellspacing="0" cellpadding="5" style="border: 1px solid #000000;">
+                            <tbody>
+                                <tr><td>Wins</td><td id="wins"></td><td id="winrate"></td></tr>
+                                <tr><td>Losses</td><td id="losses"></td><td id="lossrate"></td></tr>
+                                <tr><td>Draws</td><td id="draws"></td><td id="drawrate"></td></tr>
+                                <tr><td>+/-</td><td id="marginGames">1105</td><td id="marginPercent">0.00%</td></tr>
+                                <tr style="background-color: #000; color: #fff;"><td>Battles</td><td class="battleCount">843817</td><td id="percentComplete"></td></tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td>
+                        <table cellspacing="0" cellpadding="5" style="border: 1px solid #000000;">
+                            <tbody>
+                                <tr><td>Avg. Battle Length</td><td id="avgLength"></td></tr>
+                                <tr><td>Avg. Points</td><td id="avgPoints"></td></tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <span id="content"></span>
+    <!-- Dialogs -->
+    <div id="dialogHolder" style="display:none;">
+        <div id="loadDeckDialog" title="Load Deck" ng-controller="DeckStorageCtrl">
+            <label for="loadDeckName"><strong>Deck:</strong></label><br />
+            <select name="loadDeckName" id="loadDeckName" class="ui-widget-content ui-corner-all" style="width:100%;">
+                <option ng-repeat="key in keys(getSavedDecks()) | orderBy:'toString()'" value="{{key}}">{{key}}</option>
+            </select>
+        </div>
+        <div id="bgeDialog" title="Map BGEs">
+            <div ng-repeat="BGE in mapBattlegrounds | filterByParent:selections.location:'location_id'">
+                <label>{{BGE.name}}</label>
+                <div ng-repeat="(key, effect) in BGE.effects">
+                    <label>{{effect.name}}</label>
+                    <select name="map-battleground" class="ui-widget-content ui-corner-all" style="width:100%;">
+                        <option ng-repeat="(key, upgrade) in effect.upgrades" value="{{$index}}">{{upgrade.desc}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal"><span id="loadingSplash">Loading...</span></div>
+
+    <div id="tooltip">
+        <div id="tooltip-text"></div>
+        <div class="arrow"></div>
+    </div>
+
+    <footer id="footer"></footer>
+    <script src="register-worker.js"></script>
+</body>
+</html>

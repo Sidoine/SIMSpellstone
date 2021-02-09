@@ -1,6 +1,6 @@
 ﻿"use strict";
 var CARD_GUI = {};
-(function () {
+(function() {
     var assetsRoot = '';
 
     function clearCardSpace() {
@@ -21,20 +21,21 @@ var CARD_GUI = {};
 
     function makeDeckHTML(deck, noblanks, battlegrounds) {
         var cards = [];
-        var commander = get_card_by_id(deck.commander);
+        var commander = getCardByID(deck.commander);
         cards.push(create_card_html(commander, false, false));
         for (var i = 0, len = deck.deck.length; i < len; i++) {
             var deckEntry = deck.deck[i];
             if (battlegrounds) {
                 var unit = get_card_apply_battlegrounds(deckEntry, battlegrounds);
             } else {
-                var unit = get_card_by_id(deckEntry);
+                var unit = getCardByID(deckEntry);
             }
             cards.push(create_card_html(unit, false, false));
         }
-        if (!noblanks) for (; i < 15; i++) {
-            cards.push(createDiv("card blank"));
-        }
+        if (!noblanks)
+            for (; i < 15; i++) {
+                cards.push(createDiv("card blank"));
+            }
         return cards;
     }
 
@@ -42,7 +43,7 @@ var CARD_GUI = {};
         var listHTML = createDiv("float-left");
         for (var i = 0, len = deck.deck.length; i < len; i++) {
             var deckEntry = deck.deck[i];
-            var unit = get_card_by_id(deckEntry);
+            var unit = getCardByID(deckEntry);
             var htmlCard = create_card_html(unit, false, false, onclick, onrightclick, null, i);
             if (deckEntry.index !== undefined) {
                 htmlCard.setAttribute("data-index", deckEntry.index);
@@ -53,14 +54,14 @@ var CARD_GUI = {};
     }
 
     function draw_card_list(list, compactSkills, onclick, onrightclick, skip, end) {
-        var cards = make_card_list(list, compactSkills, onclick, onrightclick, skip, end);
+        var cards = make_card_list(list, compactSkills, null, null, /*onclick, onrightclick,*/ skip, end);
         var $cardSpace = $("#cardSpace");
         $cardSpace.empty();
         $cardSpace.append(cards);
+
         return $cardSpace;
     }
 
-    
     function draw_inventory(list) {
         var cards = make_card_list(list);
         var $cardSpace = $("#deck");
@@ -68,9 +69,8 @@ var CARD_GUI = {};
         $cardSpace.append(cards);
         return $cardSpace;
     }
-    
-    function draw_inventory(deck)
-    {
+
+    function draw_inventory(deck) {
         var cards = make_card_list(deck.deck);
         var $cardSpace = $("#deck");
         $cardSpace.children().remove();
@@ -79,7 +79,7 @@ var CARD_GUI = {};
         $cardSpace.append(cards);
         return $cardSpace;
     }
-    
+
     function make_card_list(list, compactSkills, onclick, onrightclick, skip, end) {
         skip = skip || 0;
         var htmlCard;
@@ -87,9 +87,9 @@ var CARD_GUI = {};
         var multiplier;
         var uniqueCard = 0;
         var cards = [];
-        for (var i = 0, len = list.length; i < len && (!end || uniqueCard < end) ; i++) {
+        for (var i = 0, len = list.length; i < len && (!end || uniqueCard < end); i++) {
             var listEntry = list[i];
-            var unit = get_card_by_id(listEntry);
+            var unit = getCardByID(listEntry);
             if (areEqual(unit, lastUnit)) {
                 multiplier++;
             } else {
@@ -97,6 +97,7 @@ var CARD_GUI = {};
                     addMult(htmlCard, multiplier);
                     multiplier = 1;
                     htmlCard = create_card_html(unit, compactSkills, false, onclick, onrightclick, null, i);
+                    htmlCard.setAttribute("data-i", i);
                     if (listEntry.index !== undefined) {
                         htmlCard.setAttribute("data-index", listEntry.index);
                     }
@@ -151,21 +152,22 @@ var CARD_GUI = {};
     function draw_field(field, activeUnit) {
         var cards = createDiv("float-left");
         var commander = field.commander;
-        var htmlCard = create_card_html(commander, false, true)
+        var htmlCard = create_card_html(commander, false, true);
         if (activeUnit === -1) {
             highlightCard(htmlCard);
         }
         cards.appendChild(htmlCard);
         var units = field.assaults;
-        if (units) for (var i = 0, len = units.length; i < len; i++) {
-            var unit = units[i];
-            var htmlCard = create_card_html(unit, false, true);
-            if (unit.timer) htmlCard.classList.add("inactive");
-            if (activeUnit === i) {
-                highlightCard(htmlCard);
+        if (units)
+            for (var i = 0, len = units.length; i < len; i++) {
+                var unit = units[i];
+                var htmlCard = create_card_html(unit, false, true);
+                if (unit.timer) htmlCard.classList.add("inactive");
+                if (activeUnit === i) {
+                    highlightCard(htmlCard);
+                }
+                cards.appendChild(htmlCard);
             }
-            cards.appendChild(htmlCard);
-        }
         return cards;
     }
 
@@ -180,8 +182,8 @@ var CARD_GUI = {};
             else if (i > 2) htmlCard.classList.add("inactive");
             var cardidx = i;
             if (callback) {
-                htmlCard.addEventListener("click", (function (inner) {
-                    return function () {
+                htmlCard.addEventListener("click", (function(inner) {
+                    return function() {
                         choice = inner;
                         callback(state);
                     };
@@ -197,7 +199,12 @@ var CARD_GUI = {};
     }
 
     function addMult(htmlCard, multiplier) {
-        if (multiplier > 1) {
+        // Handle range values
+        var iMult = parseInt(multiplier);
+        if (iMult == multiplier) {
+            multiplier = (iMult > 1 ? iMult : null);
+        }
+        if (multiplier) {
             var multDiv = createDiv("multiplier", "x" + multiplier);
             multDiv.setAttribute("data-count", multiplier);
             var multIcon = createImg(getAssetPath("cardAssets") + "multiplier.png", "multiplier");
@@ -257,10 +264,11 @@ var CARD_GUI = {};
             }
         }
         var highlighted = card.highlighted;
-        if (highlighted) for (var i = 0; i < highlighted.length; i++) {
-            var key = highlighted[i];
-            boosts[key] = true;
-        }
+        if (highlighted)
+            for (var i = 0; i < highlighted.length; i++) {
+                var key = highlighted[i];
+                boosts[key] = true;
+            }
         htmlCard.setAttribute("data-runeids", runeIDs.join(","));
 
         var picture = loadCard(card.id).picture;
@@ -292,6 +300,7 @@ var CARD_GUI = {};
                     else if (boosts.attack) htmlAttack.classList.add("increased");
                 } else {
                     var htmlAttack = createDiv("card-attack", card.attack.toString());
+                    if (boosts.attack) htmlAttack.classList.add("increased");
                 }
                 htmlCard.appendChild(createImg(getAssetPath("cardAssets") + "Attack.png", "attack"));
                 htmlCard.appendChild(htmlAttack);
@@ -323,10 +332,10 @@ var CARD_GUI = {};
         }
         var divSkills = createDiv("card-skills");
         var skillsShort = createDiv("card-skills-short");
+        if (card.earlyActivationSkills) getSkillsHtml(card, divSkills, skillsShort, card.earlyActivationSkills, onField, boosts);
+        getSkillsHtml(card, divSkills, skillsShort, card.skill, onField, boosts);
+        if (card.onDeathSkills) getSkillsHtml(card, divSkills, skillsShort, card.onDeathSkills, onField, boosts);
         getPassiveSkills(divSkills, skillsShort, card, onField, boosts);
-        if (card.earlyActivationSkills) getSkillsHtml(card, divSkills, skillsShort, card.earlyActivationSkills, onField);
-        getSkillsHtml(card, divSkills, skillsShort, card.skill, onField);
-        getTriggeredSkills(divSkills, skillsShort, card, onField, boosts);
         var skillsDetail = divSkills.cloneNode(true);
         skillsDetail.className = "card-skills-detailed";
         if (skillsShort.hasChildNodes()) {
@@ -368,7 +377,11 @@ var CARD_GUI = {};
             htmlCard.appendChild(subFactionsDiv);
         }
         if (card.rarity > 0) {
-            var htmlLevel = createImg(getAssetPath("cardAssets") + "Level_" + card.rarity + "_" + card.level + ".png");
+            if (card.maxLevel > Number(card.rarity) + 2) {
+                var htmlLevel = createImg(getAssetPath("cardAssets") + "Level_" + card.rarity + "_" + card.maxLevel + "_" + card.level + ".png");
+            } else {
+                var htmlLevel = createImg(getAssetPath("cardAssets") + "Level_" + card.rarity + "_" + card.level + ".png");
+            }
             htmlLevel.className = "level";
             if (card.id > 9999) {
                 var fusion = ((card.id.toString()[0] == "1") ? "Dualfuse" : "Quadfuse");
@@ -383,22 +396,22 @@ var CARD_GUI = {};
             htmlCard.appendChild(htmlLevel);
         }
         if (onclick) {
-            htmlCard.addEventListener("click", (function (inner) {
-                return function () {
+            htmlCard.addEventListener("click", (function(inner) {
+                return function() {
                     return onclick(htmlCard, state);
                 };
             })(htmlCard, state));
         }
         if (onrightclick) {
-            htmlCard.oncontextmenu = (function (inner) {
-                return function () {
+            htmlCard.oncontextmenu = (function(inner) {
+                return function() {
                     return onrightclick(htmlCard, state);
                 };
             })(htmlCard, state);
         }
         if (onmouseover) {
-            htmlCard.onmouseover = (function (inner) {
-                return function () {
+            htmlCard.onmouseover = (function(inner) {
+                return function() {
                     return onmouseover(htmlCard, state);
                 };
             })(htmlCard, state);
@@ -406,9 +419,20 @@ var CARD_GUI = {};
         return htmlCard;
     }
 
-    function getSkillsHtml(card, divSkills, skillsShort, skills, onField) {
+    function getSkillsHtml(card, divSkills, skillsShort, skills, onField, boosts) {
         for (var i = 0; i < skills.length; i++) {
-            var skill = skills[i];
+            var origSkill = skills[i];
+            var skill = {
+                all: origSkill.all,
+                boosted: origSkill.boosted,
+                c: origSkill.c,
+                countdown: origSkill.countdown,
+                id: origSkill.id,
+                s: origSkill.s,
+                x: origSkill.x,
+                y: origSkill.y,
+                boosted: boosts[origSkill.id]
+            };
             divSkills.appendChild(getSkillHtml(card, skill, onField, i));
             divSkills.appendChild(document.createElement('br'));
             skillsShort.appendChild(getSkillIcon(skill.id));
@@ -416,24 +440,11 @@ var CARD_GUI = {};
     }
 
     function getPassiveSkills(divSkills, skillsShort, card, onField, boosts) {
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "evade", boosts);
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "taunt", boosts);
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "armored", boosts);
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "counter", boosts);
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "counterburn", boosts);
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "fury", boosts);
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "corrosive", boosts);
-    }
-
-    function getTriggeredSkills(divSkills, skillsShort, card, onField, boosts) {
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "valor", boosts);
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "pierce", boosts);
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "burn", boosts);
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "silence", boosts);
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "nullify", boosts);
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "poison", boosts);
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "leech", boosts);
-        getNonActivatedSkill(divSkills, skillsShort, onField, card, "berserk", boosts);
+        var passiveSkills = Object.getOwnPropertyNames(SKILL_DATA).filter(function(skillID) {
+            return ["passive", "toggle"].indexOf(SKILL_DATA[skillID].type) >= 0;
+        }).forEach(function(skill) {
+            getNonActivatedSkill(divSkills, skillsShort, onField, card, skill, boosts);
+        });
         var flurry = card.flurry;
         if (flurry) {
             divSkills.appendChild(getSkillHtml(card, flurry, onField));
@@ -461,7 +472,7 @@ var CARD_GUI = {};
         htmlSkill.className = "skill";
         htmlSkill.appendChild(getSkillIcon(skill.id));
         var imbued = isImbued(card, skill.id, i);
-        var enhancement = getEnhancement(card, skill.id);
+        var enhancement = getEnhancement(card, skill.id, skill.x);
         if (imbued) {
             htmlSkill.classList.add("imbued");
         } else if (skill.boosted || enhancement) {
@@ -470,7 +481,6 @@ var CARD_GUI = {};
         if (skill.all) htmlSkill.innerHTML += (" All ");
         if (skill.y) htmlSkill.appendChild(getFactionIcon(skill.y));
         if (skill.s) htmlSkill.appendChild(getSkillIcon(skill.s));
-        if (enhancement < 0) enhancement = Math.ceil(skill.x * -enhancement);
         var x = (skill.x | 0) + enhancement;
         if (x) htmlSkill.innerHTML += (" " + x + " ");
         if (skill.c) {
@@ -480,69 +490,31 @@ var CARD_GUI = {};
         return htmlSkill;
     }
 
-    function getSkillIcon(skillName) {
+    function getSkillIcon(skillID) {
         var src = getAssetPath("skills");
-        var iconName = skillName.charAt(0).toUpperCase() + skillName.slice(1) + '.png';
-        switch (skillName) {
-            case 'armored':
-                iconName = 'Armor.png';
-                break;
-            case 'burn':
-                iconName = 'Scorch.png';
-                break;
-            case 'counter':
-                iconName = 'Vengeance.png';
-                break;
-            case 'enfeeble':
-                iconName = 'Hex.png';
-                break;
-            case 'evade':
-                iconName = 'Invisibility.png';
-                break;
-            case 'flurry':
-                iconName = 'Dualstrike.png';
-                break;
-            case 'jam':
-                iconName = 'Freeze.png';
-                break;
-            case 'leech':
-                iconName = 'Siphon.png';
-                break;
-            case 'mark':
-                iconName = 'EagleEye.png';
-                break;
-            case 'poisonstrike':
-                iconName = 'Poisonbolt.png';
-                break;
-            case 'protect':
-                iconName = 'Barrier.png';
-                break;
-            case 'protect_ice':
-                iconName = "Iceshatter.png";
-                break;
-            case 'rally':
-                iconName = 'Empower.png';
-                break;
-            case 'strike':
-                iconName = 'Bolt.png';
-                break;
+
+        var skillData = SKILL_DATA[skillID];
+        var iconName = (skillData ? skillData.icon : skillID) + ".png";
+        src += iconName;
+        var icon = createImg(src);
+        switch (skillID) {
             case 'weakenself':
-                iconName = 'Weaken.png';
+            case 'enlarge':
+                icon.classList.add("affect-self");
                 break;
             default:
-                iconName = (skillName.charAt(0).toUpperCase() + skillName.slice(1)) + ".png";
                 break;
         }
-        src += iconName;
-        return createImg(src);
+        icon.title = (skillData ? skillData.name : skillID);
+        return icon;
     }
 
     function getStatuses(card) {
         var debuffs = [];
         /*
         if (card.attack_weaken) {
-            var status = createStatus("weaken", card.attack_weaken);
-            debuffs.push(status);
+        	var status = createStatus("weaken", card.attack_weaken);
+        	debuffs.push(status);
         }
         */
         if (card.enfeebled) {
@@ -555,8 +527,8 @@ var CARD_GUI = {};
         }
         /*
         if (card.jammed) {
-            var status = createStatus("jam");
-            debuffs.push(status);
+        	var status = createStatus("jam");
+        	debuffs.push(status);
         }
         */
         if (card.nullified) {
@@ -575,28 +547,26 @@ var CARD_GUI = {};
         var buffs = [];
         /*
         if (card.attack_rally) {
-            var status = createStatus("rally", card.attack_rally);
-            buffs.push(status);
+        	var status = createStatus("rally", card.attack_rally);
+        	buffs.push(status);
         }
         if (card.attack_berserk) {
-            var status = createStatus("berserk", card.attack_berserk);
-            buffs.push(status);
+        	var status = createStatus("berserk", card.attack_berserk);
+        	buffs.push(status);
         }
         */
+        if (card.enraged) {
+            var status = createStatus("enrage", card.enraged);
+            debuffs.push(status);
+        }
         if (card.protected) {
             var status = createStatus("protect", card.protected);
             buffs.push(status);
         }
-        /*
-        if (card.enhanced) {
-            for (var key in card.enhanced) {
-                if (key == 'counter' || key == 'armored' || key == 'evade') {
-                    var status = createStatus(key, "+" + card.enhanced[key]);
-                    buffs.push(status);
-                }
-            }
+        if (card.invisible) {
+            var status = createStatus("evade", card.invisible);
+            buffs.push(status);
         }
-        */
 
         var statuses = [];
         if (debuffs.length > 0) {
@@ -643,11 +613,14 @@ var CARD_GUI = {};
         1100: "Legacy",
         7000: "Basic",
         2000: "Reward",
+        2100: "Reward",
         3000: "Premium",
         4000: "BoxOnly",
-        5000: "Level_5_7",
+        5000: "Champion",
+        5100: "Champion",
+        5200: "Champion",
         9999: "StoryElements"
-    }
+    };
 
     CARD_GUI.clearCardSpace = clearCardSpace;
     CARD_GUI.clearDeckSpace = clearDeckSpace;
@@ -663,13 +636,14 @@ var CARD_GUI = {};
     CARD_GUI.createItemHTML = createItemHTML;
     CARD_GUI.addMult = addMult;
     CARD_GUI.addWeight = addWeight;
+    CARD_GUI.setNames = setNames;
 
     Object.defineProperties(CARD_GUI, {
         assetsRoot: {
-            get: function () {
+            get: function() {
                 return assetsRoot;
             },
-            set: function (value) {
+            set: function(value) {
                 assetsRoot = value;
             }
         }
@@ -677,22 +651,13 @@ var CARD_GUI = {};
 })();
 
 function createImg(src, className) {
-    var html = document.createElement("img");
-    html.setAttribute("src", src);
-    if (className) html.className = className;
-    return html;
+    return $("<img>").addClass(className).attr("src", src)[0];
 }
 
 function createDiv(className, value) {
-    var div = document.createElement("div");
-    if (className) div.className = className;
-    if (value !== undefined) div.innerHTML = value;
-    return div;
+    return $("<div>").addClass(className).html(value)[0];
 }
 
 function createSpan(className, value) {
-    var div = document.createElement("span");
-    if (className) div.className = className;
-    if (value !== undefined) div.innerHTML = value;
-    return div;
+    return $("<span>").addClass(className).html(value)[0];
 }

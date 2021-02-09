@@ -1,61 +1,25 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" ng-app="simulatorApp">
 <head profile="http://www.w3.org/2005/10/profile">
     <meta charset="UTF-8">
     <title id="title_tag">DeckBuilder</title>
-    <link rel="stylesheet" type="text/css" href="styles/card.css">
-    <link rel="stylesheet" type="text/css" href="styles/carddetails.css">
-    <link rel="stylesheet" type="text/css" href="styles/deckbuilder.css">
-    <link rel="stylesheet" type="text/css" href="styles/loading.css">
-    <link rel="stylesheet" type="text/css" href="styles/spritesheet.css">
-    <link rel="stylesheet" type="text/css" href="styles/sass/header.css">
-    <link rel="stylesheet" href="Content/themes/base/smoothness.css">
-    <link rel="stylesheet" href="lib/chartist/chartist.min.css">
-    <link rel="stylesheet" href="lib/chartist/chartist-plugin-tooltip.css">
-    <link rel="stylesheet" type="text/css" href="styles/sass/tutorial.css">
+    <link rel="stylesheet" type="text/css" href="dist/main.min.css?533868e363be0168">
+    <link rel="stylesheet" type="text/css" href="dist/deckbuilder.min.css?e361f8c2f8401190">
+    <link rel="stylesheet" type="text/css" href="dist/spritesheet.min.css?f4005c9ade414807">
+    <link rel="stylesheet" href="Content/themes/base/smoothness.css?77adc541adae20cf">
+    <link rel="stylesheet" href="lib/chartist/chartist.min.css?b9a91a1e35ddaa5c">
+    <link rel="stylesheet" href="lib/chartist/chartist-plugin-tooltip.css?89ec74bedae6a8c0">
     <link rel="icon" type="image/png" href="res/deck_2-16x16.png">
-    <!---->
-    <link rel="preload" as="image" href="res/sprites/PortraitSheet1.jpg" />
-    <link rel="preload" as="image" href="res/sprites/PortraitSheet2.jpg" />
-    <link rel="preload" as="image" href="res/sprites/SpriteSheet1.jpg" />
-    <link rel="preload" as="image" href="res/sprites/SpriteSheet2.jpg" />
-    <link rel="preload" as="image" href="res/sprites/SpriteSheet3.jpg" />
-    <link rel="preload" as="image" href="res/sprites/SpriteSheet4.jpg" />
-    <link rel="preload" as="image" href="res/sprites/SpriteSheet5.jpg" />
-    <link rel="preload" as="image" href="res/sprites/SpriteSheet6.jpg" />
-    <link rel="preload" as="image" href="res/sprites/SpriteSheet7.jpg" />
-    <link rel="preload" as="image" href="res/sprites/SpriteSheet8.jpg" />
-    <link rel="preload" as="image" href="res/sprites/SpriteSheet9.jpg" />
-    <link rel="preload" as="image" href="res/sprites/SpriteSheet10.jpg" />
-    <link rel="preload" as="image" href="res/sprites/SpriteSheet11.jpg" />
 
-    <script src="lib/jquery-2.2.1.min.js"></script>
-    <script src="lib/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
-    <!--<script src="lib/touch-punch/jquery.ui.touch-punch.min.js"></script>-->
-    <script language="javascript" type="text/javascript" src="lib/chartist/chartist.min.js"></script>
-    <script language="javascript" type="text/javascript" src="lib/chartist/chartist-plugin-legend.js"></script>
-    <script language="javascript" type="text/javascript" src="lib/chartist/chartist-plugin-tooltip.min.js"></script>
-
-    <script src="lib/angular.min.js"></script>
-
-    <!-- This script contains the cached data for cards, missions, quests, raids,
-        and battlegrounds -->
-    <script type="text/javascript" src="scripts/data/cards.js"></script>
-    <script type="text/javascript" src="scripts/data/fusions.js"></script>
-    <script type="text/javascript" src="scripts/data/runes.js"></script>
-    <script type="text/javascript" src="scripts/shared.js"></script>
-    <script type="text/javascript" src="scripts/common.js"></script>
-    <script type="text/javascript" src="scripts/cards_gui.js"></script>
-    <script src="scripts/updateCards.js"></script>
-    <script type="text/javascript" src="scripts/deckbuilder.js"></script>
-    <script type="text/javascript" src="scripts/localstorage-controller.js"></script>
-    <script src="scripts/ng-card-details-controller.js"></script>
-    <script type="text/javascript" src="scripts/data/spoilers.js"></script>
-
-    <script src="scripts/tutorial/deckbuilder-tutorial.js"></script>
-    <script src="scripts/sim-tutorial.js"></script>
+    <script src="dist/vendor.js"></script>
+    <script src="lib/chartist/chartist.min.js?3c2c1c096daa9380"></script>
+    <script src="lib/chartist/chartist-plugin-legend.js?06c2c011897b6b52"></script>
+    <script src="lib/chartist/chartist-plugin-tooltip.min.js?24e510baa29a8430"></script>
+    
+    <script src="dist/data.min.js"></script>
+    <script src="dist/deckbuilder.min.js?f9e60c9361124189"></script>
 </head>
-<body onload="initDeckBuilder()">
+<body onload="initDeckBuilder()" ng-controller="DeckBuilderCtrl">
     <header style="display:none" id="header"></header>
     <div style="margin:auto">
         <div id="deckBuilderContainer">
@@ -77,6 +41,7 @@
                     <input id="sortDeck" type="button" value="Sort" onclick="sortDeck()" />
                     <input id="saveDeck" type="button" value="Save" onclick="saveDeck()" />
                     <input id="loadDeck" type="button" value="Load" onclick="loadDeck()" />
+                    <input id="updateGameData" type="button" value="Update Data" onclick="updateGameData()" />
                     <input id="inventoryMode" type="button" value="Switch to Inventory Builder" onclick="toggleInventoryMode()" />
                 </div>
             </div>
@@ -100,7 +65,7 @@
                         <div class="ct-chart" id="factionChart"></div>
                     </div>
                     <div class="chartContainer">
-                        <header><h4>Subfaction</h4></header>
+                        <header><h4>Tribe</h4></header>
                         <div class="ct-chart" id="subfactionChart"></div>
                     </div>
                     <div class="chartContainer">
@@ -126,46 +91,21 @@
                     </fieldset>
                     <fieldset>
                         <span>Set:</span>
-                        <input type="image" name="set" data-filter="1000" title="Basic Set" src="res/cardAssets/Basic.png" />
-                        <input type="image" name="set" data-filter="1100" title="Legacy Set" src="res/cardAssets/Legacy.png" />
-                        <input type="image" name="set" data-filter="2000" title="Reward Set" src="res/cardAssets/Reward.png" />
-                        <input type="image" name="set" data-filter="3000" title="Premium Set" src="res/cardAssets/Premium.png" />
-                        <input type="image" name="set" data-filter="4000" title="Chance Set" src="res/cardAssets/BoxOnly.png" />
-                        <input type="image" name="set" data-filter="5000" title="Mythic Reward Set" src="res/cardAssets/Level_5_7.png" />
+                        <input type="image" name="set" data-filter="1000,7000" title="Basic" src="res/cardAssets/Basic.png" />
+                        <input type="image" name="set" data-filter="1100" title="Legacy" src="res/cardAssets/Legacy.png" />
+                        <input type="image" name="set" data-filter="2000,2100" title="Reward" src="res/cardAssets/Reward.png" />
+                        <input type="image" name="set" data-filter="3000" title="Premium" src="res/cardAssets/Premium.png" />
+                        <input type="image" name="set" data-filter="4000" title="Chance" src="res/cardAssets/BoxOnly.png" />
+                        <input type="image" name="set" data-filter="5000,5100,5200" title="Champion" src="res/cardAssets/Champion.png" />
+                        <input type="image" name="set" data-filter="8000" title="Fortress" src="res/factions/Tower.png" />
                         <input type="image" name="set" data-filter="9999" title="Story Elements" src="res/cardAssets/StoryElements.png" />
                     </fieldset>
                     <fieldset>
                         <span>Skills:</span>
-                        <input type="image" data-filter="armored" name="skill" title="Armor" src="res/skills/Armor.png" oncontextmenu="return showAdvancedFilters('armored')" />
-                        <input type="image" data-filter="protect" name="skill" title="Barrier" src="res/skills/Barrier.png" oncontextmenu="return showAdvancedFilters('protect')" />
-                        <!--<input type="image" data-filter="protect_ice" name="skill" title="Iceshatter Barrier" src="res/skills/Iceshatter.png" oncontextmenu="return showAdvancedFilters('protect_ice')" />-->
-                        <input type="image" data-filter="berserk" name="skill" title="Berserk" src="res/skills/Berserk.png" oncontextmenu="return showAdvancedFilters('berserk')" />
-                        <input type="image" data-filter="strike" name="skill" title="Bolt" src="res/skills/Bolt.png" oncontextmenu="return showAdvancedFilters('strike')" />
-                        <input type="image" data-filter="corrosive" name="skill" title="Corrosive" src="res/skills/Corrosive.png" oncontextmenu=" return showAdvancedFilters('corrosive')" />
-                        <!--<input type="image" data-filter="counterburn" name="skill" title="Counterburn" src="res/skills/Counterburn.png" oncontextmenu="return showAdvancedFilters('counterburn')" />-->
-                        <input type="image" data-filter="flurry" name="skill" title="Dualstrike" src="res/skills/Dualstrike.png" oncontextmenu="return showAdvancedFilters('flurry')" />
-                        <input type="image" data-filter="rally" name="skill" title="Empower" src="res/skills/Empower.png" oncontextmenu="return showAdvancedFilters('rally')" />
-                        <input type="image" data-filter="enhance" name="skill" title="Enhance" src="res/skills/Enhance.png" oncontextmenu="return showAdvancedFilters('enhance')" />
-                        <input type="image" data-filter="fervor" name="skill" title="Fervor" src="res/skills/Fervor.png" oncontextmenu="return showAdvancedFilters('fervor')" />
-                        <input type="image" data-filter="jam" name="skill" title="Freeze" src="res/skills/Freeze.png" oncontextmenu="return showAdvancedFilters('jam')" />
-                        <input type="image" data-filter="frost" name="skill" title="Frostbreath" src="res/skills/Frost.png" oncontextmenu="return showAdvancedFilters('frost')" />
-                        <input type="image" data-filter="heal" name="skill" title="Heal" src="res/skills/Heal.png" oncontextmenu="return showAdvancedFilters('heal')" />
-                        <input type="image" data-filter="enfeeble" name="skill" title="Hex" src="res/skills/Hex.png" oncontextmenu="return showAdvancedFilters('enfeeble')" />
-                        <input type="image" data-filter="imbue" name="skill" title="Imbue" src="res/skills/Imbue.png" oncontextmenu="return showAdvancedFilters('imbue')" />
-                        <input type="image" data-filter="evade" name="skill" title="Invisibile" src="res/skills/Invisibility.png" oncontextmenu="return showAdvancedFilters('evade')" />
-                        <input type="image" data-filter="legion" name="skill" title="Legion" src="res/skills/Legion.png" oncontextmenu="return showAdvancedFilters('legion')" />
-                        <input type="image" data-filter="fury" name="skill" title="Maelstrom's Fury" src="res/skills/Fury.png" oncontextmenu="return showAdvancedFilters('fury')" />
-                        <input type="image" data-filter="nullify" name="skill" title="Nullify" src="res/skills/Nullify.png" oncontextmenu="return showAdvancedFilters('nullify')" />
-                        <input type="image" data-filter="pierce" name="skill" title="Pierce" src="res/skills/Pierce.png" oncontextmenu="return showAdvancedFilters('pierce')" />
-                        <input type="image" data-filter="poison" name="skill" title="Poison" src="res/skills/Poison.png" oncontextmenu="return showAdvancedFilters('poison')" />
-                        <!--<input type="image" data-filter="poisonstrike" name="skill" title="Poisonbolt" src="res/skills/Poisonbolt.png" oncontextmenu="return showAdvancedFilters('poisonstrike')" />-->
-                        <input type="image" data-filter="burn" name="skill" title="Scorch" src="res/skills/Scorch.png" oncontextmenu="return showAdvancedFilters('burn')" />
-                        <input type="image" data-filter="silence" name="skill" title="Silence" src="res/skills/Silence.png" oncontextmenu="return showAdvancedFilters('silence')" />
-                        <input type="image" data-filter="leech" name="skill" title="Siphon" src="res/skills/Siphon.png" oncontextmenu="return showAdvancedFilters('leech')" />
-                        <input type="image" data-filter="taunt" name="skill" title="Taunt" src="res/skills/Taunt.png" oncontextmenu="return showAdvancedFilters('taunt')" />
-                        <input type="image" data-filter="counter" name="skill" title="Vengeance" src="res/skills/Vengeance.png" oncontextmenu="return showAdvancedFilters('counter')" />
-                        <input type="image" data-filter="weaken" name="skill" title="Weaken" src="res/skills/Weaken.png" oncontextmenu="return showAdvancedFilters('weaken')" />
-                        <input type="image" data-filter="valor" name="skill" title="Valor" src="res/skills/Valor.png" oncontextmenu="return showAdvancedFilters('valor')" />
+                        <div ng-repeat="skill in supportedSkills" style="display:inline; position:relative; overflow:visible;">
+                            <input type="image" class="skill-filter" ng-cloak data-filter="{{skill}}" name="skill" ng-src="{{:: getSkillIcon(skill)}}" ng-click="filterSkill($event, skill)" ng-right-click="showAdvancedFilters(skill)" />
+                            <div class="tooltip">{{getSkillName(skill)}}</div>
+                        </div>
                     </fieldset>
                     <fieldset>
                         <span>Faction:</span>
@@ -176,7 +116,7 @@
                         <input type="image" name="faction" data-filter="Factionless" title="Factionless" src="res/factions/Factionless.png" />
                     </fieldset>
                     <fieldset>
-                        <span>Subfaction:</span>
+                        <span>Tribe:</span>
                         <input type="image" name="subfaction" data-filter="Angel" title="Angel" src="res/factions/Angel.png" />
                         <input type="image" name="subfaction" data-filter="Avian" title="Avian" src="res/factions/Avian.png" />
                         <input type="image" name="subfaction" data-filter="Dragon" title="Dragon" src="res/factions/Dragon.png" />
@@ -186,6 +126,7 @@
                         <input type="image" name="subfaction" data-filter="Goblin" title="Goblin" src="res/factions/Goblin.png" />
                         <input type="image" name="subfaction" data-filter="Seafolk" title="Seafolk" src="res/factions/Seafolk.png" />
                         <input type="image" name="subfaction" data-filter="Insect" title="Insect" src="res/factions/Insect.png" />
+                        <input type="image" name="subfaction" data-filter="Mecha" title="Mecha" src="res/factions/Mecha.png" />
                         <input type="image" name="subfaction" data-filter="Towers/Trap" title="Towers/Traps" src="res/factions/Tower.png" />
                         <input type="image" name="subfaction" data-filter="None" title="None" src="res/factions/Factionless.png" />
                         <input type="image" id="dualfaction" title="Dual-Faction" src="res/factions/DualFaction.png" />
@@ -333,12 +274,18 @@
                         <select name="skill" id="skill" class="ui-widget-content ui-corner-all">
                             <option value=""></option>
                             <option value="armored">Armor</option>
+                            <option value="payback">Backlash</option>
                             <option value="protect">Barrier</option>
                             <option value="berserk">Berserk</option>
                             <option value="strike">Bolt</option>
                             <option value="corrosive">Corrosive</option>
+                            <option value="daze">Daze</option>
+                            <option value="dualstrike">Dualstrike</option>
+                            <option value="counterburn">Emberhide</option>
                             <option value="rally">Empower</option>
+                            <option value="enrage">Enrage</option>
                             <option value="fervor">Fervor</option>
+                            <option value="freeze">Freeze</option>
                             <option value="frost">Frostbreath</option>
                             <option value="heal">Heal</option>
                             <option value="enfeeble">Hex</option>
@@ -347,17 +294,21 @@
                             <option value="nullify">Nullify</option>
                             <option value="pierce">Pierce</option>
                             <option value="poison">Poison</option>
+                            <option value="poisonstrike">Poisonbolt</option>
                             <option value="burn">Scorch</option>
+                            <option value="stasis">Shroud</option>
+                            <option value="silence">Silence</option>
                             <option value="leech">Siphon</option>
                             <option value="strike">Taunt</option>
                             <option value="counter">Vengeance</option>
+                            <option value="absorb">Ward</option>
                             <option value="weaken">Weaken</option>
                             <option value="valor">Valor</option>
                         </select>
                     </div>
 
                     <label for="all">
-                        <label for="all">Targetting</label>
+                        <label for="all">Targeting</label>
                         <select name="all" id="all" class="ui-widget-content ui-corner-all">
                             <option value="-1"></option>
                             <option value="0">Single</option>
@@ -373,7 +324,11 @@
                 <fieldset>
                     <div id="fusionDiv" class="split">
                         <label for="fusion" accesskey="F"><u>F</u>usion</label>
-                        <input type="number" name="fusion" id="fusion" min="1" max="3" step="1" class="ui-widget-content ui-corner-all">
+                        <select name="fusion" id="fusion" class="ui-widget-content ui-corner-all">
+                            <option value="1">Single</option>
+                            <option value="2">Dual</option>
+                            <option value="3">Quad</option>
+                        </select>
                     </div>
                     <div id="upgradeDiv" class="split">
                         <label for="upgrade" accesskey="L"><u>L</u>evel</label>
@@ -409,10 +364,11 @@
 
         <div class="modal"><span id="loadingSplash">Loading...</span></div>
 
-        <div id="detailedView" ng-controller="CardDetailsCtrl" style="display:none;">
+        <div id="detailedView" style="display:none;">
             <div card-details unit-id="1000" unit-level="1"></div>
         </div>
     </div>
     <footer style="display:none" id="footer"></footer>
+    <script src="register-worker.js"></script>
 </body>
 </html>

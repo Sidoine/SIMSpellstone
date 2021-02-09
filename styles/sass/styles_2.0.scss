@@ -53,11 +53,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 div.section {
-    border: 2px solid $primary-black;
-    border-radius: 10px 10px 0 0;
-    padding-bottom: 2px;
-    max-width: 555px;
-
     h1, h2, h3, h4, h5, h6 {
         color: $primary-black;
         background-color: $primary-neutral;
@@ -154,7 +149,7 @@ tr.alternating:nth-child(odd) {
 
 button,
 input[type=button] {
-    color: $secondary-neutral;
+    color: $secondary-black;
     border-color: $secondary-tint;
     background-color: $secondary-white;
     border-radius: 5px;
@@ -163,33 +158,23 @@ input[type=button] {
     margin: 5px 0;
 }
 
+label[for]:not(.grey) {
+    color: $secondary-black;
+
+    .obsolete & {
+        color: $secondary-color;
+    }
+}
+
 /* states and images */
 .ui-icon {
     width: 16px;
     height: 16px;
-    background-image: url("../../../Content/themes/base/images/ui-icons_222222_256x240.png");
-}
-
-.ui-state-default .ui-icon {
-    background-image: url("../../../Content/themes/base/images/ui-icons_888888_256x240.png");
-}
-
-.ui-state-hover .ui-icon,
-.ui-state-focus .ui-icon {
-    background-image: url("../../../Content/themes/base/images/ui-icons_454545_256x240.png");
+    background-image: url("images/ui-icons_454545_256x240.png");
 }
 
 .ui-state-active .ui-icon {
-    background-image: url("../../../Content/themes/base/images/ui-icons_454545_256x240.png");
-}
-
-.ui-state-highlight .ui-icon {
-    background-image: url("../../../Content/themes/base/images/ui-icons_2e83ff_256x240.png");
-}
-
-.ui-state-error .ui-icon,
-.ui-state-error-text .ui-icon {
-    background-image: url("../../../Content/themes/base/images/ui-icons_cd0a0a_256x240.png");
+    background-image: url("images/ui-icons_454545_256x240.png");
 }
 
 .ui-accordion {
@@ -277,22 +262,22 @@ h2 .ui-icon {
 
     .ui-dialog-header {
         border: 1px solid $primary-neutral;
-        background: $primary-neutral url("../../../Content/themes/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png") 50% 50% repeat-x;
+        background: $primary-neutral url("images/ui-bg_highlight-soft_75_cccccc_1x100.png") 50% 50% repeat-x;
         color: #222222;
         font-weight: bold;
 
         .ui-icon {
-            background-image: url("../../../Content/themes/base/images/ui-icons_222222_256x240.png");
+            background-image: url("images/ui-icons_222222_256x240.png");
         }
     }
 
     .ui-dialog-content {
-        //background: $secondary-white url("../../../Content/themes/base/images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
+        //background: $secondary-white url("images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
         background-color: $secondary-white;
         color: $secondary-black;
 
         .ui-icon {
-            background-image: url("../../../Content/themes/base/images/ui-icons_222222_256x240.png");
+            background-image: url("images/ui-icons_222222_256x240.png");
         }
     }
 
@@ -325,6 +310,11 @@ h2 .ui-icon {
 
 .tableRow {
     display: table-row;
+}
+
+.grid-row {
+    display: grid;
+    grid-template-columns: 200px 200px auto;
 }
 
 .cell {
@@ -429,4 +419,25 @@ label:hover + .tooltip {
         border-right: none;
         background-color: transparent;
     }
+}
+
+.affect-self {
+    transform: rotateY(180deg);
+}
+
+.small-font {
+    font-size: small;
+}
+
+.bge-container {
+    overflow-y: auto;
+}
+
+.bge-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.current-bge {
+    font-weight: bold;
 }

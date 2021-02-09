@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="simulatorApp">
+<head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="UTF-8">
+    <title id="title_tag">DeckBuilder</title>
+    <link rel="stylesheet" type="text/css" href="dist/main.min.css">
+    <link rel="stylesheet" type="text/css" href="dist/deckbuilder.min.css">
+    <link rel="stylesheet" type="text/css" href="dist/spritesheet.min.css">
+    <link rel="stylesheet" href="Content/themes/base/smoothness.css">
+    <link rel="stylesheet" href="lib/chartist/chartist.min.css">
+    <link rel="stylesheet" href="lib/chartist/chartist-plugin-tooltip.css">
+    <link rel="icon" type="image/png" href="res/deck_2-16x16.png">
+
+    <script src="dist/vendor.js"></script>
+    <script src="lib/chartist/chartist.min.js"></script>
+    <script src="lib/chartist/chartist-plugin-legend.js"></script>
+    <script src="lib/chartist/chartist-plugin-tooltip.min.js"></script>
+    
+    <script src="dist/data.min.js"></script>
+    <script src="dist/deckbuilder.min.js"></script>
+</head>
+<body onload="initDeckBuilder()" ng-controller="DeckBuilderCtrl">
+    <header style="display:none" id="header"></header>
+    <div style="margin:auto">
+        <div id="deckBuilderContainer">
+            <div id="deck-container" class="accordion">
+                <h3 id="version_label">Deck:</h3>
+                <div id="deckContainer" class="collapsible">
+                    <br />
+                    <div id="deck" class="float-left"></div>
+                    <br />
+                    <div id="hash-container">
+                        <div><b>Deck Hash:</b></div>
+                        <div>
+                            <div class="highlighter" id="hash_highlighter"></div>
+                            <input class="highlighted" id="hash" type="text" value="" size="100" onchange="hash_changed();" onpaste="hash_changed.debounce(100)();" />
+                        </div>
+                    </div>
+                    <div style="margin:10px 0 10px 0"><a id="link" href="#"></a>&nbsp;</div>
+                    <input id="resetDeck" type="button" value="Reset" onclick="resetDeck()" />
+                    <input id="sortDeck" type="button" value="Sort" onclick="sortDeck()" />
+                    <input id="saveDeck" type="button" value="Save" onclick="saveDeck()" />
+                    <input id="loadDeck" type="button" value="Load" onclick="loadDeck()" />
+                    <input id="updateGameData" type="button" value="Update Data" onclick="updateGameData()" />
+                    <input id="inventoryMode" type="button" value="Switch to Inventory Builder" onclick="toggleInventoryMode()" />
+                </div>
+            </div>
+            <div id="graph-accordion" class="accordion start-closed" style="display:none;">
+                <h3>Deck Stats:</h3>
+                <div id="deckGraphs">
+                    <div class="chartContainer">
+                        <!--<header><h4>Attack/Health</h4></header>-->
+                        <div class="ct-chart" id="statChart"></div>
+                    </div>
+                    <div class="chartContainer">
+                        <header><h4>Average Stats</h4></header>-
+                        <div class="ct-chart" id="averagesChart"></div>
+                    </div>
+                    <div class="chartContainer">
+                        <header><h4>Delay Curve</h4></header>
+                        <div class="ct-chart" id="delayChart"></div>
+                    </div>
+                    <div class="chartContainer">
+                        <header><h4>Faction</h4></header>
+                        <div class="ct-chart" id="factionChart"></div>
+                    </div>
+                    <div class="chartContainer">
+                        <header><h4>Tribe</h4></header>
+                        <div class="ct-chart" id="subfactionChart"></div>
+                    </div>
+                    <div class="chartContainer">
+                        <header><h4>GW Point Thresholds</h4></header>
+                        <div class="ct-chart" id="hpplChart"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="filter-container" class="accordion">
+                <h3>Filters:</h3>
+                <div id="filters">
+                    <fieldset>
+                        <span>Card Type:</span>
+                        <input type="button" value="Commander" onclick="filterType(this, '1')" />
+                        <input type="button" value="Unit" onclick="filterType(this, '2')" />
+                        <input type="button" value="Trap" onclick="filterType(this, '3')" />
+                    </fieldset>
+                    <fieldset>
+                        <span>Fusion:</span>
+                        <input type="image" title="Single Fused" name="fusion" src="res/cardAssets/Singlefuse.png" onclick="filterFusion(this, '')" />
+                        <input type="image" title="Dual Fused" name="fusion" src="res/cardAssets/Dualfuse.png" onclick="filterFusion(this, '1')" />
+                        <input type="image" title="Quad Fused" name="fusion" src="res/cardAssets/Quadfuse.png" onclick="filterFusion(this, '2')" />
+                    </fieldset>
+                    <fieldset>
+                        <span>Set:</span>
+                        <input type="image" name="set" data-filter="1000,7000" title="Basic" src="res/cardAssets/Basic.png" />
+                        <input type="image" name="set" data-filter="1100" title="Legacy" src="res/cardAssets/Legacy.png" />
+                        <input type="image" name="set" data-filter="2000,2100" title="Reward" src="res/cardAssets/Reward.png" />
+                        <input type="image" name="set" data-filter="3000" title="Premium" src="res/cardAssets/Premium.png" />
+                        <input type="image" name="set" data-filter="4000" title="Chance" src="res/cardAssets/BoxOnly.png" />
+                        <input type="image" name="set" data-filter="5000,5100,5200" title="Champion" src="res/cardAssets/Champion.png" />
+                        <input type="image" name="set" data-filter="8000" title="Fortress" src="res/factions/Tower.png" />
+                        <input type="image" name="set" data-filter="9999" title="Story Elements" src="res/cardAssets/StoryElements.png" />
+                    </fieldset>
+                    <fieldset>
+                        <span>Skills:</span>
+                        <div ng-repeat="skill in supportedSkills" style="display:inline; position:relative; overflow:visible;">
+                            <input type="image" class="skill-filter" ng-cloak data-filter="{{skill}}" name="skill" ng-src="{{:: getSkillIcon(skill)}}" ng-click="filterSkill($event, skill)" ng-right-click="showAdvancedFilters(skill)" />
+                            <div class="tooltip">{{getSkillName(skill)}}</div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <span>Faction:</span>
+                        <input type="image" name="faction" data-filter="Aether" title="Aether" src="res/factions/Aether.png" />
+                        <input type="image" name="faction" data-filter="Chaos" title="Chaos" src="res/factions/Chaos.png" />
+                        <input type="image" name="faction" data-filter="Wyld" title="Wyld" src="res/factions/Wyld.png" />
+                        <input type="image" name="faction" data-filter="Void" title="Void" src="res/factions/Void.png" />
+                        <input type="image" name="faction" data-filter="Factionless" title="Factionless" src="res/factions/Factionless.png" />
+                    </fieldset>
+                    <fieldset>
+                        <span>Tribe:</span>
+                        <input type="image" name="subfaction" data-filter="Angel" title="Angel" src="res/factions/Angel.png" />
+                        <input type="image" name="subfaction" data-filter="Avian" title="Avian" src="res/factions/Avian.png" />
+                        <input type="image" name="subfaction" data-filter="Dragon" title="Dragon" src="res/factions/Dragon.png" />
+                        <input type="image" name="subfaction" data-filter="Elemental" title="Elemental" src="res/factions/Elemental.png" />
+                        <input type="image" name="subfaction" data-filter="Frog" title="Frog" src="res/factions/Frog.png" />
+                        <input type="image" name="subfaction" data-filter="Undead" title="Undead" src="res/factions/Undead.png" />
+                        <input type="image" name="subfaction" data-filter="Goblin" title="Goblin" src="res/factions/Goblin.png" />
+                        <input type="image" name="subfaction" data-filter="Seafolk" title="Seafolk" src="res/factions/Seafolk.png" />
+                        <input type="image" name="subfaction" data-filter="Insect" title="Insect" src="res/factions/Insect.png" />
+                        <input type="image" name="subfaction" data-filter="Mecha" title="Mecha" src="res/factions/Mecha.png" />
+                        <input type="image" name="subfaction" data-filter="Towers/Trap" title="Towers/Traps" src="res/factions/Tower.png" />
+                        <input type="image" name="subfaction" data-filter="None" title="None" src="res/factions/Factionless.png" />
+                        <input type="image" id="dualfaction" title="Dual-Faction" src="res/factions/DualFaction.png" />
+                    </fieldset>
+                    <fieldset>
+                        <span>Rarity:</span>
+                        <input type="image" name="rarity" data-filter="1" title="Common" src="res/cardAssets/Level_1_3.png" />
+                        <input type="image" name="rarity" data-filter="2" title="Rare" src="res/cardAssets/Level_2_4.png" />
+                        <input type="image" name="rarity" data-filter="3" title="Epic" src="res/cardAssets/Level_3_5.png" />
+                        <input type="image" name="rarity" data-filter="4" title="Legendary" src="res/cardAssets/Level_4_6.png" />
+                        <input type="image" name="rarity" data-filter="5" title="Mythic" src="res/cardAssets/Level_5_7.png" />
+                    </fieldset>
+                    <fieldset>
+                        <span>Attack:</span>
+                        <input class="attack-filter" type="button" value="0" onclick="filterAttack(this, 0, 0)" />
+                        <input class="attack-filter" type="button" value="1-2" onclick="filterAttack(this, 1, 2)" />
+                        <input class="attack-filter" type="button" value="3-4" onclick="filterAttack(this, 3, 4)" />
+                        <input class="attack-filter" type="button" value="5-6" onclick="filterAttack(this, 5, 6)" />
+                        <input class="attack-filter" type="button" value="7-8" onclick="filterAttack(this, 7, 8)" />
+                        <input class="attack-filter" type="button" value="9-10" onclick="filterAttack(this, 9, 10)" />
+                        <input class="attack-filter" type="button" value="11+" onclick="filterAttack(this, 11, -1)" />
+                    </fieldset>
+                    <fieldset>
+                        <span>Health:</span>
+                        <input class="health-filter" type="button" value="1-5" onclick="filterHealth(this, 1, 5)" />
+                        <input class="health-filter" type="button" value="6-10" onclick="filterHealth(this, 6, 10)" />
+                        <input class="health-filter" type="button" value="11-15" onclick="filterHealth(this, 11, 15)" />
+                        <input class="health-filter" type="button" value="16-20" onclick="filterHealth(this, 16, 20)" />
+                        <input class="health-filter" type="button" value="21-25" onclick="filterHealth(this, 21, 25)" />
+                        <input class="health-filter" type="button" value="26-30" onclick="filterHealth(this, 26, 30)" />
+                        <input class="health-filter" type="button" value="31+" onclick="filterHealth(this, 31, -1)" />
+                    </fieldset>
+                    <fieldset>
+                        <span>Delay:</span>
+                        <input name="delay" class="delay-filter" data-filter="0" type="button" value="0" />
+                        <input name="delay" class="delay-filter" data-filter="1" type="button" value="1" />
+                        <input name="delay" class="delay-filter" data-filter="2" type="button" value="2" />
+                        <input name="delay" class="delay-filter" data-filter="3" type="button" value="3" />
+                        <input name="delay" class="delay-filter" data-filter="4" type="button" value="4" />
+                    </fieldset>
+                    <div id="name-container" style="white-space:nowrap; margin: 5px 0;">
+                        <div class="ui-widget">
+                            <label for="nameFilter"><strong>Name Filter:</strong></label><br />
+                            <input id="nameFilter" type="text" value="" size="100" onkeyup="filterName(this);">
+                        </div>
+                    </div>
+                    <input type="button" id="clear-filters" value="Clear All" onclick="clearFilters()" />
+                    <br />
+                </div>
+            </div>
+            <div id="collection-container" class="accordion">
+                <h3>Cards:</h3>
+                <div>
+                    <table>
+                        <tr>
+                            <td>
+                                Rows:
+                                <input type="number" name="rows" id="rows" min="1" step="1" max="9" class="ui-widget-content ui-corner-all" style="width:25px;" onchange="applyFilters(true, false);">
+                            </td>
+                            <td style="min-width:5px;"></td>
+                            <td>
+                                <img style="width:12px" src="res/misc/Arrow.png" onclick="pageUp();">
+                            </td>
+                            <td style="min-width:45px; text-align:center;">
+                                <div id="pageNumber"></div>
+                            </td>
+                            <td>
+                                <img class="flip" style="width:12px" src="res/misc/Arrow.png" onclick="pageDown();">
+                            </td>
+                            <td style="width:100%;"></td>
+                            <td>
+                                <div id="advancedMenu" class="dropdown">
+                                    <div><u>Advanced Options</u></div>
+                                    <div id="dropdown" class="dropdown-content">
+                                        <input type="checkbox" onclick="toggleUpgrades(this);" class="ui-widget-content ui-corner-all" />
+                                        <span>All Upgrade Levels</span>
+                                        <br />
+
+                                        <input type="checkbox" id="skillDetails" onclick="toggleSkillDetails(this);" class="ui-widget-content ui-corner-all" />
+                                        <span>Compact Skills</span>
+                                        <br />
+
+                                        <label class="button" onclick="loadInventory();"><b>Set Inventory</b></label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="min-width:10px;"></td>
+                            <td>
+                                Sort By:
+                                <select name="sortField" id="sortField" class="ui-widget-content ui-corner-all" onchange="sortAndDraw(this);">
+                                    <option value="id">ID</option>
+                                    <option value="type">Faction</option>
+                                    <option value="sub_type">Sub-Faction</option>
+                                    <option value="rarity">Rarity</option>
+                                    <option value="set">Set</option>
+                                    <option value="attack">Attack</option>
+                                    <option value="health">Health</option>
+                                    <option value="cost">Delay</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr />
+                    <div id="cardSpace" class="collapsible float-left"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Dialogs -->
+        <div id="advancedFilters" class="dialog-form" style="display:none;">
+            <form>
+                <fieldset>
+                    <div id="amount">
+                        <label for="amount">Amount</label>
+                        <input type="number" name="amount" id="amount-min" min="1" step="1" class="ui-widget-content ui-corner-all">
+                        -
+                        <input type="number" name="amount" id="amount-max" min="1" step="1" class="ui-widget-content ui-corner-all">
+                    </div>
+
+                    <div id="timer">
+                        <label for="timer">Timer</label>
+                        <input type="number" name="timer" id="timer-min" min="1" step="1" class="ui-widget-content ui-corner-all" />
+                        -
+                        <input type="number" name="timer" id="timer-max" min="1" step="1" class="ui-widget-content ui-corner-all" />
+                    </div>
+
+                    <div id="faction">
+                        <label for="faction">Faction</label>
+                        <select name="faction" id="faction" class="ui-widget-content ui-corner-all">
+                            <option value=""></option>
+                            <option value="Generic">Generic</option>
+                            <option value="Aether">Aether</option>
+                            <option value="Chaos">Chaos</option>
+                            <option value="Wyld">Wyld</option>
+                            <option value="Angel">Angel</option>
+                            <option value="Avian">Avian</option>
+                            <option value="Dragon">Dragon</option>
+                            <option value="Elemental">Elemental</option>
+                            <option value="Frog">Frog</option>
+                            <option value="Undead">Undead</option>
+                        </select>
+                    </div>
+
+                    <div id="skill">
+                        <label for="skill">Skill</label>
+                        <select name="skill" id="skill" class="ui-widget-content ui-corner-all">
+                            <option value=""></option>
+                            <option value="armored">Armor</option>
+                            <option value="payback">Backlash</option>
+                            <option value="protect">Barrier</option>
+                            <option value="berserk">Berserk</option>
+                            <option value="strike">Bolt</option>
+                            <option value="corrosive">Corrosive</option>
+                            <option value="daze">Daze</option>
+                            <option value="dualstrike">Dualstrike</option>
+                            <option value="counterburn">Emberhide</option>
+                            <option value="rally">Empower</option>
+                            <option value="enrage">Enrage</option>
+                            <option value="fervor">Fervor</option>
+                            <option value="freeze">Freeze</option>
+                            <option value="frost">Frostbreath</option>
+                            <option value="heal">Heal</option>
+                            <option value="enfeeble">Hex</option>
+                            <option value="evade">Invisibility</option>
+                            <option value="legion">Legion</option>
+                            <option value="nullify">Nullify</option>
+                            <option value="pierce">Pierce</option>
+                            <option value="poison">Poison</option>
+                            <option value="poisonstrike">Poisonbolt</option>
+                            <option value="burn">Scorch</option>
+                            <option value="stasis">Shroud</option>
+                            <option value="silence">Silence</option>
+                            <option value="leech">Siphon</option>
+                            <option value="strike">Taunt</option>
+                            <option value="counter">Vengeance</option>
+                            <option value="absorb">Ward</option>
+                            <option value="weaken">Weaken</option>
+                            <option value="valor">Valor</option>
+                        </select>
+                    </div>
+
+                    <label for="all">
+                        <label for="all">Targeting</label>
+                        <select name="all" id="all" class="ui-widget-content ui-corner-all">
+                            <option value="-1"></option>
+                            <option value="0">Single</option>
+                            <option value="1">All</option>
+                        </select>
+                    </label>
+                </fieldset>
+            </form>
+        </div>
+
+        <div id="unitOptions" class="dialog-form" style="display:none;">
+            <form>
+                <fieldset>
+                    <div id="fusionDiv" class="split">
+                        <label for="fusion" accesskey="F"><u>F</u>usion</label>
+                        <select name="fusion" id="fusion" class="ui-widget-content ui-corner-all">
+                            <option value="1">Single</option>
+                            <option value="2">Dual</option>
+                            <option value="3">Quad</option>
+                        </select>
+                    </div>
+                    <div id="upgradeDiv" class="split">
+                        <label for="upgrade" accesskey="L"><u>L</u>evel</label>
+                        <input type="number" name="upgrade" id="upgrade" min="1" step="1" class="ui-widget-content ui-corner-all">
+                    </div>
+                    <div id="runeChoicesDiv">
+                        <label for="runeChoices" accesskey="R"><u>R</u>une</label>
+                        <select name="runeChoices" id="runeChoices" class="ui-widget-content ui-corner-all">
+                            <option value=""></option>
+                        </select>
+                        <!--
+                    <label style="float:left;">
+                        <input type="checkbox" id="showUnreleased" onclick="toggleUnreleasedRunes(this);" />
+                        Show Unreleased
+                    </label>
+                        -->
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div id="saveDeckDialog" title="Save Deck" style="display:none;">
+            <label for="saveDeckName"><strong>Name:</strong></label><br />
+            <input id="saveDeckName" type="text" value="" style="width:95%;" />
+        </div>
+
+        <div id="loadDeckDialog" title="Load Deck" ng-controller="DeckStorageCtrl" class="primary-white" style="display:none;">
+            <label for="loadDeckName"><strong>Deck:</strong></label><br />
+            <select name="loadDeckName" id="loadDeckName" class="ui-widget-content ui-corner-all" style="width:100%;">
+                <option ng-repeat="key in keys(getSavedDecks()) | orderBy:'toString()'" value="{{key}}">{{key}}</option>
+            </select>
+        </div>
+
+        <div class="modal"><span id="loadingSplash">Loading...</span></div>
+
+        <div id="detailedView" style="display:none;">
+            <div card-details unit-id="1000" unit-level="1"></div>
+        </div>
+    </div>
+    <footer style="display:none" id="footer"></footer>
+    <script src="register-worker.js"></script>
+</body>
+</html>

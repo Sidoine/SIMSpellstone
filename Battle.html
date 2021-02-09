@@ -1,63 +1,22 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" ng-app="simulatorApp">
 <head profile="http://www.w3.org/2005/10/profile">
     <meta charset="UTF-8">
     <title id="title_tag">SimSpellstone - The Spellstone Simulator that runs from your browser!</title>
-    <link rel="stylesheet" type="text/css" href="styles/card.css">
-    <link id="theme" rel="stylesheet" type="text/css" href="styles/sass/themes/light.css">
-    <link rel="stylesheet" type="text/css" href="styles/sass/header.css">
-    <link rel="stylesheet" type="text/css" href="styles/spritesheet.css">
-    <link rel="stylesheet" type="text/css" href="styles/sass/tutorial.css">
-    <link rel="stylesheet" type="text/css" href="styles/loading.css">
+    <link id="theme" rel="stylesheet" type="text/css" href="dist/light.min.css?ae091847c9d2a4ce">
+    <link rel="stylesheet" type="text/css" href="dist/main.min.css?533868e363be0168">
+    <link rel="stylesheet" type="text/css" href="dist/spritesheet.min.css?f4005c9ade414807">
     <link rel="icon" type="image/png" href="res/favicon-16x16.png">
-    <!--<link rel="stylesheet" href="Content/themes/base/smoothness.css">-->
+    <!--<link rel="stylesheet" href="Content/themes/base/smoothness.css?77adc541adae20cf">-->
 
-    <script src="lib/jquery-2.2.1.min.js"></script>
-    <script src="lib/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
-
-    <script src="lib/angular.min.js"></script>
-
-    <!-- This script contains the cached data for cards, missions, quests, raids,
-        and battlegrounds -->
-    <script src="scripts/data/cards.js"></script>
-    <script src="scripts/data/fusions.js"></script>
-    <script src="scripts/data/bges.js"></script>
-    <script src="scripts/data/mapBGEs.js"></script>
-    <script src="scripts/data/campaign.js"></script>
-    <script src="scripts/data/runes.js"></script>
-    <script src="scripts/data/raids.js"></script>
-    <script src="scripts/updateCards.js"></script>
-
-    <!-- This script contains version info that changes each update -->
-    <script id="common_variables" type="text/javascript" src="scripts/common.js"></script>
-
-    <script id="shared_functions" type="text/javascript" src="scripts/shared.js"></script>
-
-    <script id="single_threaded_simulator" type="text/javascript" src="scripts/sim_controller.js"></script>
-    <script id="single_threaded_simulator" type="text/javascript" src="scripts/single_threaded.js"></script>
-
-    <!-- These are the generic functions/variables used to simulate battles.
-    All of the logic for simulating a single battle goes in here.
-    -->
-    <script id="simulator_base" type="text/javascript" src="scripts/simulator_base.js"></script>
-    <script id="simulator_base" type="text/javascript" src="scripts/card_battle.js"></script>
-
-    <!-- This script handles the base GUI functionality (getting user input and displaying simulation). -->
-    <script type="text/javascript" src="scripts/ng-simulator-controller.js"></script>
-    <script id="deckstorage" type="text/javascript" src="scripts/localstorage-controller.js"></script>
-    <script id="gui_script_2.0" type="text/javascript" src="scripts/gui_script_2.0.js"></script>
-    <script id="gui_script" type="text/javascript" src="scripts/gui_script.js"></script>
-
-    <!-- This script handles drawing the UI for user-controlled mode. -->
-    <script id="gui_script" type="text/javascript" src="scripts/cards_gui.js"></script>
-
-    <!-- SIMULATOR CODE ENDS HERE -->
-    <script src="scripts/tutorial/simulator-tutorial.js"></script>
-    <script src="scripts/sim-tutorial.js"></script>
+    <script src="dist/vendor.js"></script>
+    <script src="dist/data.min.js"></script>
+    <script src="dist/practice.min.js?2c71213f147c2631"></script>
 </head>
 <body ng-controller="SimulatorCtrl" ng-init="campaignSections()">
     <header id="header"></header>
     <input id="toggleTheme" type="button" onclick="toggleTheme()" value="Dark Theme" />
+    <input id="updateData" type="button" onclick="updateGameData()" value="Update Data" />
     <!--
     <div class="circle primary-black">Primary-Black</div>
     <div class="circle primary-neutral">Primary-Neutral</div>
@@ -77,8 +36,8 @@
             <div id="setup-container" class="section accordion start-open">
                 <h2>Setup</h2>
                 <div>
-                    <div class="tableRow">
-                        <div id="attacker-container" class="pane">
+                    <div class="grid-row">
+                        <div id="attacker-container" class="grid-pane">
                             <h3>Attacker</h3>
                             <div>
                                 <div id="attacker-hash-container">
@@ -97,7 +56,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="defender-container" class="pane">
+                        <div id="defender-container" class="grid-pane">
                             <h3>Defender</h3>
                             <div>
                                 <div id="defender-hash-container">
@@ -133,7 +92,8 @@
                                                 <option default value="" class="grey">Select a Mission...</option>
                                                 <option ng-repeat="mission in missions | filterChildren:selections.campaign:campaigns:'missions':'id'" value="{{mission.id}}" class="black">{{mission.name}}</option>
                                             </select>
-                                            <input type="NUMBER" id="mission_level" min="1" max="7" step="1" value="7" size="6">
+                                            <label for="mission_level" class="small-font">Level: </label>
+                                            <input type="NUMBER" id="mission_level" min="1" max="8" step="1" value="7" size="6">
                                         </div>
                                         <input id="config-map-bge" type="button" onclick="showMapBGEs();" value="Map BGEs" ng-disabled="(mapBattlegrounds | filterByParent:selections.location:'location_id').length === 0" />
                                         <br />
@@ -143,6 +103,7 @@
                                                 <option default value="" class="grey">Select a Raid/Dungeon...</option>
                                                 <option ng-repeat="raid in filteredRaids()" value="{{raid.id}}" class="black">{{raid.name}}</option>
                                             </select>
+                                            <label for="raid_level" class="small-font">Level: </label>
                                             <input type="NUMBER" id="raid_level" min="1" max="40" step="1" value="25" size="6">
                                         </div>
                                     </div>
@@ -157,7 +118,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="pane">
+                        <div class="grid-pane">
                             <div>
                                 <h3>Battlefield</h3>
                             </div>
@@ -166,16 +127,16 @@
                                 <div id="siege-container">
                                     <input type="checkbox" id="siege" ng-model="tower"><label for="siege">Use Tower</label>
                                 </div>
-                                <input type="NUMBER" id="tower_level" min="1" max="18" step="1" value="10" size="6" ng-disabled="!tower">
+                                <input type="number" id="tower_level" min="1" max="18" step="1" value="10" size="6" ng-disabled="!tower">
                                 <select id="tower_type" ng-disabled="!tower">
                                     <option ng-repeat="type in towerTypes()" value="{{type.id}}">{{type.name}}</option>
                                 </select>
                             </div>
                             <div id="bge-container">
                                 <h6>Battleground Effects</h6>
-                                <div style="position: relative; width: 200px; height: 103px; overflow-y: scroll;">
-                                    <div id="battleground" style="position: absolute; width: 100%;">
-                                        <div ng-repeat="BGE in selectableBattlegrounds()" class="tooltip-container">
+                                <div style="height: 103px;" class="bge-container">
+                                    <div id="battleground" class="bge-list">
+                                        <div ng-repeat="BGE in selectableBattlegrounds()" class="tooltip-container" ng-class="BGE.classes">
                                             <input type="checkbox" name="battleground" id="battleground_{{BGE.id}}" value="{{BGE.id}}">
                                             <label for="battleground_{{BGE.id}}" bge-desc="{{BGE.desc}}" ng-bind="BGE.name"></label>
                                         </div>
@@ -184,8 +145,8 @@
                             </div>
                             <div id="attacker-bges">
                                 <h6>Personal Battlegrounds</h6>
-                                <div style="position: relative; width: 200px; height: 40px; overflow-y: scroll;">
-                                    <div id="self-battleground" style="position: absolute; width: 100%;">
+                                <div style="height: 40px;" class="bge-container">
+                                    <div id="self-battleground" class="bge-list">
                                         <div ng-repeat="BGE in personalBattlegrounds()" class="tooltip-container">
                                             <input type="checkbox" name="self-battleground" id="self-battleground_{{BGE.id}}" value="{{BGE.id}}">
                                             <label for="self-battleground_{{BGE.id}}" bge-desc="{{BGE.desc}}" ng-bind="BGE.name"></label>
@@ -195,8 +156,8 @@
                             </div>
                             <div id="defender-bges">
                                 <h6>Enemy Battlegrounds</h6>
-                                <div style="position: relative; width: 200px; height: 40px; overflow-y: scroll;">
-                                    <div id="enemy-battleground" style="position: absolute; width: 100%;">
+                                <div style="height: 40px;" class="bge-container">
+                                    <div id="enemy-battleground" class="bge-list">
                                         <div ng-repeat="BGE in personalBattlegrounds()" class="tooltip-container">
                                             <input type="checkbox" name="enemy-battleground" id="enemy-battleground_{{BGE.id}}" value="{{BGE.id}}">
                                             <label for="enemy-battleground_{{BGE.id}}" bge-desc="{{BGE.desc}}" ng-bind="BGE.name"></label>
@@ -211,31 +172,31 @@
             <hr />
             <div>
                 <div class="section accordion">
-                    <h3>Debug Settings</h3>
+                    <h2>Debug Settings</h2>
                     <div>
                         <div id="debugContainer" class="collapsible table">
                             <div class="table-row">
                                 <div class="table-cell">
-                                    <input type="checkbox" class="table-cell" id="debug" ng-model="debugMode"><label for="debug">Debug Mode</label>
+                                    <input type="checkbox" id="debug" ng-model="debugMode"><label for="debug">Debug Mode</label>
                                 </div>
                                 <div class="table-cell">
-                                    <input type="checkbox" class="table-cell" id="play_debug" ng-disabled="!debugMode"><label for="play_debug">Log Plays Only</label>
-                                </div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-cell">
-                                    <input type="radio" name="debugMode" checked ng-disabled="!debugMode"><label>First Fight</label>
-                                </div>
-                                <div class="table-cell">
-                                    <input type="radio" class="table-cell" id="mass_debug" name="mass_debug" ng-disabled="!debugMode"><label>Mass Debug Mode (slow)</label>
+                                    <input type="checkbox" id="play_debug" ng-disabled="!debugMode"><label for="play_debug">Log Plays Only</label>
                                 </div>
                             </div>
                             <div class="table-row">
                                 <div class="table-cell">
-                                    <input type="radio" class="table-cell" id="win_debug" name="win_debug" ng-disabled="!debugMode"><label>First Win</label>
+                                    <input type="radio" name="debugType" checked ng-disabled="!debugMode"><label>First Fight</label>
                                 </div>
                                 <div class="table-cell">
-                                    <input type="radio" class="table-cell" id="loss_debug" name="loss_debug" ng-disabled="!debugMode"><label>First Loss</label>
+                                    <input type="radio" name="debugType" id="mass_debug" ng-disabled="!debugMode"><label>Mass Debug Mode (slow)</label>
+                                </div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell">
+                                    <input type="radio" name="debugType" id="win_debug" ng-disabled="!debugMode"><label>First Win</label>
+                                </div>
+                                <div class="table-cell">
+                                    <input type="radio" name="debugType" id="loss_debug" ng-disabled="!debugMode"><label>First Loss</label>
                                 </div>
                             </div>
                             <div class="table-row">
@@ -314,5 +275,6 @@
     </div>
 
     <footer id="footer"></footer>
+    <script src="register-worker.js"></script>
 </body>
 </html>

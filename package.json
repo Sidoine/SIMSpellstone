@@ -1,0 +1,46 @@
+{
+  "name": "simspellstone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "^3.3.2",
+    "grunt": "^1.0.4",
+    "grunt-cache-bust": "^1.7.0",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-imagemin": "^3.1.0",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "http-server": "^0.12.3",
+    "imagemin-mozjpeg": "^8.0.0",
+    "time-grunt": "^2.0.0"
+  },
+  "scripts": {
+    "cy:run": "cypress run",
+    "cy:run:ci": "npm run cy:run || npm run cy:record:failures",
+    "cy:record:failures": "cypress run --record",
+    "cy:open": "cypress open",
+    "test": "npm run cy:run",
+    "start": "http-server -o --cors -p 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheSench/SIMSpellstone.git"
+  },
+  "author": "Jon Senchyna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheSench/SIMSpellstone/issues"
+  },
+  "homepage": "https://github.com/TheSench/SIMSpellstone#readme"
+}
