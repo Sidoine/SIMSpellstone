@@ -111,7 +111,6 @@
             }
             else if (rankingMode){
                 var cardToTry = ~~(step);
-                var deckCardToReplace = 15;
                 var log = '<strong>Etape ' + step + '/' + (inventaire.deck.length) + '</strong> == <strong>Best:</strong>' + best + ' (' + best_value + ')';
                 log += '<table>';
                 for (var cardName in cardBest) {
@@ -125,7 +124,8 @@
                     return;
                 }
                 currentCardName = inventaire.deck[cardToTry].id;
-                originalDeck.deck[deckCardToReplace] = inventaire.deck[cardToTry];
+                for (var deckCardToReplace = 13; deckCardToReplace <= 15; deckCardToReplace++)
+                    originalDeck.deck[deckCardToReplace] = inventaire.deck[cardToTry];
                 getdeck = hash_encode(originalDeck);
                 step++;
             }

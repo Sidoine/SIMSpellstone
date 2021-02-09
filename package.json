@@ -19,7 +19,7 @@
     "grunt-contrib-imagemin": "^3.1.0",
     "grunt-contrib-jshint": "^2.1.0",
     "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-uglify": "^5.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "http-server": "^0.12.3",
     "imagemin-mozjpeg": "^8.0.0",
@@ -31,7 +31,8 @@
     "cy:record:failures": "cypress run --record",
     "cy:open": "cypress open",
     "test": "npm run cy:run",
-    "start": "http-server -o --cors -p 8080"
+    "start": "http-server -o --cors -p 8090",
+    "build": "grunt"
   },
   "repository": {
     "type": "git",

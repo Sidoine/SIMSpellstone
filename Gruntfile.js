@@ -96,37 +96,6 @@ module.exports = function (grunt) {
                 dest: 'dist/lib-charts.js'
             }
         },
-        uglify: {
-            options: {
-                // the banner is inserted at the top of the output
-                mangle: false,
-                sourceMap: true
-            },
-            data: {
-                mangle: false,
-                files: {
-                    'dist/data.min.js': ['<%= concat.data.dest %>']
-                }
-            },
-            deckbuilder: {
-                mangle: true,
-                files: {
-                    'dist/deckbuilder.min.js': ['<%= concat.deckbuilder.dest %>']
-                }
-            },
-            simulator: {
-                mangle: true,
-                files: {
-                    'dist/simulator.min.js': ['<%= concat.simulator.dest %>']
-                }
-            },
-            practice: {
-                mangle: true,
-                files: {
-                    'dist/practice.min.js': ['<%= concat.practice.dest %>']
-                }
-            }
-        },
         watch: {
             scripts: {
                 files: ['scripts/**/*.js'],
@@ -286,26 +255,23 @@ module.exports = function (grunt) {
                 options: {
                     assets: [
                         '**/*.css',
-                        'dist/main.min.js',
-                        'dist/vendor.min.js',
-                        'dist/deckbuilder.min.js',
-                        'dist/practice.min.js',
-                        'dist/simulator.min.js',
+                        'dist/main.js',
+                        'dist/vendor.js',
+                        'dist/deckbuilder.js',
+                        'dist/practice.js',
+                        'dist/simulator.js',
                         'lib/**'
                     ],
                     queryString: true
                 },
                 src: [
-                    'DeckBuilder.html',
-                    'Battle.html',
-                    'Titans.html'
+                    
                 ]
             },
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-sass');
@@ -316,12 +282,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('html', ['copy:html', 'cacheBust']);
-    grunt.registerTask('data', ['concat:data', 'uglify:data']);
+    grunt.registerTask('data', ['concat:data']);
     grunt.registerTask('scripts',  function() {
         delete grunt.config.data.concat.data;
-        delete grunt.config.data.uglify.data;
         grunt.task.run('concat');
-        grunt.task.run('uglify');
         grunt.task.run('html');
     });
     grunt.registerTask('css',  function() {
